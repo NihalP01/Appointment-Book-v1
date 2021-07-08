@@ -24,7 +24,7 @@ class AcceptedFragment : Fragment() {
 
     private val adminPanelAcceptedAdapter by lazy {
         AdminPanelAcceptedAdapter().apply {
-            //
+            //reserved for future work
         }
     }
 

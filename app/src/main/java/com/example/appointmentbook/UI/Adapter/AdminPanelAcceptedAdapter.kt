@@ -45,4 +45,5 @@ class AdminPanelAcceptedAdapter :
             // TODO: 08/07/21 Branch and semester will be added
         }
     }
+
 }

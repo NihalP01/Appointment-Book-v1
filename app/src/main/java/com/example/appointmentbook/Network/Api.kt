@@ -60,6 +60,9 @@ interface ApiClient {
     @GET("slot/requests/accepted")
     suspend fun slotReqAccepted(@Header("Authorization") BearerToken: String): Response<List<SlotPendingDataItem>>
 
+    @GET("slot/requests/rejected")
+    suspend fun slotReqRejected(@Header("Authorization") BearerToken: String): Response<List<SlotPendingDataItem>>
+
     @FormUrlEncoded
     @PUT("slot/action")
     suspend fun slotAction(

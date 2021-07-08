@@ -14,7 +14,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -26,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/acceptName"
+                android:id="@+id/rejectName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -37,11 +38,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/acceptSlotDetails"
+                app:layout_constraintTop_toBottomOf="@+id/rejectSlotDetails"
                 app:layout_constraintVertical_bias="0.0" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/acceptSlotDetails"
+                android:id="@+id/rejectSlotDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Slot 1: From 10:30 AM"
@@ -55,7 +56,7 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/acceptBranch"
+                android:id="@+id/rejectBranch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -66,11 +67,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/acceptName"
+                app:layout_constraintTop_toBottomOf="@+id/rejectName"
                 app:layout_constraintVertical_bias="0.0" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/acceptSemester"
+                android:id="@+id/rejectSemester"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -81,11 +82,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/acceptEmail"
+                app:layout_constraintTop_toBottomOf="@+id/rejectEmail"
                 app:layout_constraintVertical_bias="0.0" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/acceptEmail"
+                android:id="@+id/rejectEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -96,7 +97,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/acceptBranch"
+                app:layout_constraintTop_toBottomOf="@+id/rejectBranch"
                 app:layout_constraintVertical_bias="0.0" />
 
             <com.google.android.material.button.MaterialButton
@@ -105,17 +106,20 @@
                 android:layout_height="32dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
-                android:backgroundTint="@color/material_green_400"
+                android:backgroundTint="@color/material_red_400"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="Accepted"
+                android:text="Rejected"
                 android:textAllCaps="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/acceptSemester"
-                app:layout_constraintTop_toBottomOf="@+id/acceptSemester" />
+                app:layout_constraintStart_toEndOf="@+id/rejectSemester"
+                app:layout_constraintTop_toBottomOf="@+id/rejectSemester" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </com.google.android.material.card.MaterialCardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
