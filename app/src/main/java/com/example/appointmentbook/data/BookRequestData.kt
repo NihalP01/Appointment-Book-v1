@@ -1,5 +1,7 @@
 package com.example.appointmentbook.data.BookRequestData
 
+
+
 class BookRequestData : ArrayList<BookRequestDataItem>()
 
 data class BookRequestDataItem(
@@ -21,7 +23,8 @@ data class Slot(
     val name: String,
     val timing_id: Int,
     val updated_at: String,
-    val user_id: Int
+    val user_id: Int,
+    val timing: Timing
 )
 
 data class SlotData(
@@ -37,4 +40,11 @@ data class SlotData(
 data class Teacher(
     val id: Int,
     val name: String
+)
+
+data class Timing(
+    val created_at: String,
+    val id: Int,
+    val timing: String,
+    val updated_at: String
 )

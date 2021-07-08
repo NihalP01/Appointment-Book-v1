@@ -5,11 +5,12 @@
     android:layout_height="150dp">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/slotCard"
         android:layout_width="match_parent"
         android:layout_height="140dp"
         app:cardElevation="4dp"
         android:layout_margin="10dp"
-        android:backgroundTint="@color/material_blue_200"
+        app:cardBackgroundColor="@android:color/white"
         app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

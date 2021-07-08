@@ -18,6 +18,7 @@ import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
 import com.example.appointmentbook.utils.Utils.Companion.getAuthType
 import com.example.appointmentbook.utils.Utils.Companion.getToken
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.android.synthetic.main.fragment_pending.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -61,8 +62,12 @@ class PendingReqFragment : Fragment() {
                 val response = ApiAdapter.apiClient.slotReqPending("$type $token")
                 if (response.isSuccessful && response.body() != null) {
                     Log.d("myTag", response.body().toString())
-                    adminPanelAdapter.list = response.body() as ArrayList<SlotPendingDataItem>
-                    adminPanelAdapter.notifyDataSetChanged()
+                    if (response.body()!!.isEmpty()){
+                    pendingReqMessage.visibility = View.VISIBLE
+                    }else{
+                        adminPanelAdapter.list = response.body() as ArrayList<SlotPendingDataItem>
+                        adminPanelAdapter.notifyDataSetChanged()
+                    }
                 } else {
                     Toast.makeText(context, response.message().toString(), Toast.LENGTH_SHORT)
                         .show()

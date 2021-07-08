@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.activity_book_req.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 class BookReqActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,12 +35,16 @@ class BookReqActivity : AppCompatActivity() {
                         setHasFixedSize(true)
                     }
                 } else {
-
+                    Toast.makeText(
+                        this@BookReqActivity,
+                        response.message().toString(),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             } catch (e: Exception) {
-
+                Toast.makeText(this@BookReqActivity, e.message.toString(), Toast.LENGTH_SHORT)
+                    .show()
             }
-
         }
     }
 }

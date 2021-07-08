@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +37,8 @@ class RejectedFragment : Fragment() {
         val type = requireContext().getAuthType(Utils.AUTH_TYPE)
         val token = requireContext().getToken(Utils.TOKEN_KEY)
         val recyclerRejected: RecyclerView = view.findViewById(R.id.recycler_rejected)
+        val progressBar: ProgressBar = view.findViewById(R.id.progressbarRejected)
+        progressBar.visibility = View.VISIBLE
         recyclerRejected.apply {
             adapter = adminPanelRejectedAdapter
             setHasFixedSize(true)
@@ -46,6 +49,7 @@ class RejectedFragment : Fragment() {
             try {
                 val response = ApiAdapter.apiClient.slotReqRejected("$type $token")
                 if (response.isSuccessful && response.body() != null) {
+                    progressBar.visibility = View.INVISIBLE
                     adminPanelRejectedAdapter.list =
                         response.body() as ArrayList<SlotPendingDataItem>
                     adminPanelRejectedAdapter.notifyDataSetChanged()

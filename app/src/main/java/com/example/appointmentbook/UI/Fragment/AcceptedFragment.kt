@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,6 +36,8 @@ class AcceptedFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_accepted, container, false)
         val recyclerPending: RecyclerView = view.findViewById(R.id.recycler_pending)
+        val progressBar: ProgressBar = view.findViewById(R.id.progressbarAccepted)
+        progressBar.visibility = View.VISIBLE
         val type = requireContext().getAuthType(AUTH_TYPE)
         val token = requireContext().getToken(TOKEN_KEY)
 
@@ -48,6 +51,7 @@ class AcceptedFragment : Fragment() {
             try {
                 val response = ApiAdapter.apiClient.slotReqAccepted("$type $token")
                 if (response.isSuccessful && response.body() != null) {
+                    progressBar.visibility = View.INVISIBLE
                     adminPanelAcceptedAdapter.list =
                         response.body() as ArrayList<SlotPendingDataItem>
                     adminPanelAcceptedAdapter.notifyDataSetChanged()
