@@ -52,8 +52,10 @@ class AcceptedFragment : Fragment() {
                 val response = ApiAdapter.apiClient.slotReqAccepted("$type $token")
                 if (response.isSuccessful && response.body() != null) {
                     progressBar.visibility = View.INVISIBLE
+                    adminPanelAcceptedAdapter.list.sortBy { it.slot_data.slot.name }
                     adminPanelAcceptedAdapter.list =
                         response.body() as ArrayList<SlotPendingDataItem>
+
                     adminPanelAcceptedAdapter.notifyDataSetChanged()
                 } else {
                     Toast.makeText(context, response.message().toString(), Toast.LENGTH_SHORT)

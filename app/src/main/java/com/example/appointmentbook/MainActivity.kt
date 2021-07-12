@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appointmentbook.UI.AdminPanelFragment
 import com.example.appointmentbook.UI.Login.Admin.AdminLoginActivity
+import com.example.appointmentbook.UI.Login.Teacher.TeacherLoginActivity
 import com.example.appointmentbook.UI.Login.User.UserLoginActivity
 import com.example.appointmentbook.UI.SlotsActivity
 import com.example.appointmentbook.utils.Utils.Companion.ROLE_KEY
@@ -46,8 +47,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnTeacher.setOnClickListener {
-//            startActivity(Intent(this, TeacherLoginActivity::class.java))
-            startActivity(Intent(this, AdminPanelFragment::class.java))
+            startActivity(Intent(this, TeacherLoginActivity::class.java))
+
         }
         btnUser.setOnClickListener {
             startActivity(Intent(this, UserLoginActivity::class.java))

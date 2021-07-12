@@ -44,7 +44,6 @@ class BookReqAdapter(
 
     override fun onBindViewHolder(holder: BookReqViewHolder, position: Int) {
         val list: BookRequestDataItem = BookReqData[position]
-
         return holder.bind(BookReqData[position])
     }
 

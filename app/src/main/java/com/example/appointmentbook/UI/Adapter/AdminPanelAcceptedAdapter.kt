@@ -17,6 +17,7 @@ class AdminPanelAcceptedAdapter :
             field = value
         }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AcceptedViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.req_accepted_items, parent, false)
