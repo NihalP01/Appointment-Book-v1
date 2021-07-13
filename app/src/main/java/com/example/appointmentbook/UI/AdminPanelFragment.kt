@@ -8,7 +8,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.Fragment.FragmentResource
 import com.example.appointmentbook.UI.Login.Admin.AdminLoginActivity
-import com.example.appointmentbook.UI.Login.User.UserLoginActivity
 import com.example.appointmentbook.utils.Utils.Companion.USER_NAME
 import com.example.appointmentbook.utils.Utils.Companion.getUserName
 import com.example.appointmentbook.utils.Utils.Companion.logout
@@ -22,7 +21,6 @@ class AdminPanelFragment : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         supportActionBar?.hide()
-
         loggedInAdminName.text = adminName
 
         btnAdminLogout.setOnClickListener {
@@ -30,7 +28,6 @@ class AdminPanelFragment : AppCompatActivity() {
             startActivity(Intent(this, AdminLoginActivity::class.java))
             finish()
         }
-
         renderViewPager()
         renderTabLayout()
     }

@@ -26,6 +26,10 @@ class UserSignUpActivity : AppCompatActivity() {
         btnUserSignUp.setOnClickListener {
             validateInput()
         }
+
+        btnHaveAccount.setOnClickListener {
+            startActivity(Intent(this, UserLoginActivity::class.java))
+        }
     }
 
     private fun validateInput() {
@@ -34,26 +38,18 @@ class UserSignUpActivity : AppCompatActivity() {
             userName.requestFocus()
             return
         }
-        if (userBranch.text.toString().isEmpty()) {
-            userBranch.error = "Please enter your Branch name"
-            userBranch.requestFocus()
+        if (userPhoneNumber.text.toString().isEmpty() || !Patterns.PHONE.matcher(userPhoneNumber.text.toString()).matches()) {
+            userPhoneNumber.error = "Please enter a valid phone number"
+            userPhoneNumber.requestFocus()
             return
         }
-        if (userSemester.text.toString().isEmpty()) {
-            userSemester.error = "Please enter your Semester"
-            userSemester.requestFocus()
-            return
-        }
-        if (userSignupEmail.text.toString().isEmpty()) {
-            userSignupEmail.error = "Please enter your email ID"
-            userSignupEmail.requestFocus()
-            return
-        }
-        if (!Patterns.EMAIL_ADDRESS.matcher(userSignupEmail.text.toString()).matches()) {
+
+        if (userSignupEmail.text.toString().isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(userSignupEmail.text.toString()).matches()) {
             userSignupEmail.error = "Please enter a valid email ID"
             userSignupEmail.requestFocus()
             return
         }
+
         if (userSignupPass.text.toString().isEmpty()) {
             userSignupPass.error = "Please enter your password"
             userSignupPass.requestFocus()
@@ -70,24 +66,23 @@ class UserSignUpActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val userBranch = userBranch.text.toString()
-                val userSemester = userSemester.text.toString()
+                val userPhoneNumber = userPhoneNumber.text.toString()
                 val userName = userName.text.toString()
 
                 val response = ApiAdapter.apiClient.signUpStudent(
                     userName,
                     userSignupEmail.text.toString(),
                     userSignupPass.text.toString(),
-                    userBranch,
-                    userSemester
+                    userPhoneNumber,
+                    userPhoneNumber
                 )
+
                 if (response.isSuccessful && response.body() != null) {
                     val sharedPreferences: SharedPreferences =
                         getSharedPreferences("tokenSharedPref", MODE_PRIVATE)
                     val edit: SharedPreferences.Editor = sharedPreferences.edit()
                     edit.putString("role", "student")
-                    edit.putString("userBranch", userBranch)
-                    edit.putString("userSemester", userSemester)
+//                    edit.putString("userBranch", userPhoneNumber)
                     edit.putString("userName", userName)
                     edit.apply()
                     startActivity(Intent(this@UserSignUpActivity, UserLoginActivity::class.java))

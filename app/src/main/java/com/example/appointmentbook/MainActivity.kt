@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appointmentbook.UI.AdminPanelFragment
+import com.example.appointmentbook.UI.DoctorListActivity
 import com.example.appointmentbook.UI.Login.Admin.AdminLoginActivity
 import com.example.appointmentbook.UI.Login.Teacher.TeacherLoginActivity
 import com.example.appointmentbook.UI.Login.User.UserLoginActivity
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 else -> {
                     //if not teacher and admin its definitely student
-                    startActivity(SlotsActivity::class.java)
+                    startActivity(DoctorListActivity::class.java)
                     finish()
                 }
             }
@@ -46,10 +47,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, AdminLoginActivity::class.java))
         }
 
-        btnTeacher.setOnClickListener {
-            startActivity(Intent(this, TeacherLoginActivity::class.java))
-
-        }
+//        btnTeacher.setOnClickListener {
+//            startActivity(Intent(this, TeacherLoginActivity::class.java))
+//
+//        }
         btnUser.setOnClickListener {
             startActivity(Intent(this, UserLoginActivity::class.java))
         }

@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Appointment Book"
+            android:text="Slot List"
             android:layout_marginTop="16dp"
             android:textColor="#3F3F3F"
             android:textSize="26sp"

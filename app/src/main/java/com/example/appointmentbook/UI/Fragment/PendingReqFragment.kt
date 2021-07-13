@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.AdminPanelAdapter
@@ -21,6 +22,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.fragment_pending.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.launch
 
 class PendingReqFragment : Fragment() {
@@ -49,6 +51,7 @@ class PendingReqFragment : Fragment() {
         val recyclerAllReq: RecyclerView = view!!.findViewById(R.id.recyclerAllReq)
         val type = requireContext().getAuthType(AUTH_TYPE)
         val token = requireContext().getToken(TOKEN_KEY)
+        val swipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
 
         recyclerAllReq.apply {
             adapter = adminPanelAdapter
@@ -56,15 +59,43 @@ class PendingReqFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
         }
 
-        Log.d("myTag", token.toString())
+        swipeRefresh.post(Runnable {
+            kotlin.run {
+                swipeRefresh.isRefreshing = true
+                loadRecyclerData(type, token)
+            }
+        })
+
+
+        swipeRefresh.setOnRefreshListener {
+            // Fetching data from server
+            loadRecyclerData(type, token)
+        }
+
+        container?.addView(view)
+        return view
+    }
+
+
+    companion object {
+        fun create(): PendingReqFragment {
+            return PendingReqFragment()
+        }
+    }
+
+
+    private fun loadRecyclerData(type: String, token: String) {
         GlobalScope.launch(Dispatchers.Main) {
             try {
+                swipeRefresh.isRefreshing = true
                 val response = ApiAdapter.apiClient.slotReqPending("$type $token")
                 if (response.isSuccessful && response.body() != null) {
-                    Log.d("myTag", response.body().toString())
-                    if (response.body()!!.isEmpty()){
-                    pendingReqMessage.visibility = View.VISIBLE
-                    }else{
+                    swipeRefresh.isRefreshing = false
+                    if (response.body()!!.isEmpty()) {
+                        pendingReqMessage.visibility = View.VISIBLE
+                        recyclerAllReq.visibility = View.INVISIBLE
+                    } else {
+                        pendingReqMessage.visibility = View.INVISIBLE
                         adminPanelAdapter.list = response.body() as ArrayList<SlotPendingDataItem>
                         adminPanelAdapter.notifyDataSetChanged()
                     }
@@ -75,14 +106,6 @@ class PendingReqFragment : Fragment() {
             } catch (e: Exception) {
                 Toast.makeText(context, e.message.toString(), Toast.LENGTH_SHORT).show()
             }
-        }
-        container?.addView(view)
-        return view
-    }
-
-    companion object {
-        fun create(): PendingReqFragment {
-            return PendingReqFragment()
         }
     }
 

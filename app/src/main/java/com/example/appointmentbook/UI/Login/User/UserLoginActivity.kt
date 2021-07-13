@@ -1,6 +1,5 @@
 package com.example.appointmentbook.UI.Login.User
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -13,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
+import com.example.appointmentbook.UI.DoctorListActivity
 import com.example.appointmentbook.UI.Signup.User.UserSignUpActivity
 import com.example.appointmentbook.UI.SlotsActivity
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
@@ -50,16 +50,20 @@ class UserLoginActivity : AppCompatActivity() {
     }
 
     private fun userLogin() {
-        if (userEmail.text.toString().isEmpty()) {
-            userEmail.error = "Please enter your email"
-            userEmail.requestFocus()
-            return
+        if (userEmail.text.toString().contains("@")) {
+            if (userEmail.text.toString().isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(userEmail.text.toString()).matches()) {
+                userEmail.error = "Please enter a valid email or phone number"
+                userEmail.requestFocus()
+                return
+            }
+        } else {
+            if (userEmail.text.toString().isEmpty() || !Patterns.PHONE.matcher(userEmail.text.toString()).matches()) {
+                userEmail.error = "Please enter a valid email or phone number"
+                userEmail.requestFocus()
+                return
+            }
         }
-        if (!Patterns.EMAIL_ADDRESS.matcher(userEmail.text.toString()).matches()) {
-            userEmail.error = "Please enter a valid email ID"
-            userEmail.requestFocus()
-            return
-        }
+
         if (userPassword.text.toString().isEmpty()) {
             userPassword.error = "Please enter your password"
             userPassword.requestFocus()
@@ -94,7 +98,7 @@ class UserLoginActivity : AppCompatActivity() {
                         subscribeToTopic(role.body()!!.data.user.role)
                         subscribeToTopic(id.toString())
                         setLogged(true)
-                        val intent = Intent(this@UserLoginActivity, SlotsActivity::class.java)
+                        val intent = Intent(this@UserLoginActivity, DoctorListActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else {
