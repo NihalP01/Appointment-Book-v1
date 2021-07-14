@@ -27,10 +27,10 @@ class MainActivity : AppCompatActivity() {
             //user logged in
             //read role and perform accordingly
             when (getFromPref(ROLE_KEY)) {
-                "teacher" -> {
+                "admin" -> {
                     //
                 }
-                "admin" -> {
+                "doctor" -> {
 //                    startActivity(AdminPanelActivity::class.java)
                     startActivity(AdminPanelFragment::class.java)
                     finish()

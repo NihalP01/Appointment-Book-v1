@@ -13,13 +13,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.Adapter.AdminPanelAcceptedAdapter
-import com.example.appointmentbook.data.sample.SlotPendingDataItem
+import com.example.appointmentbook.data.SlotBookRequests.SlotBookRequestsItem
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
 import com.example.appointmentbook.utils.Utils.Companion.getAuthType
 import com.example.appointmentbook.utils.Utils.Companion.getToken
 import kotlinx.android.synthetic.main.fragment_accepted.*
-import kotlinx.android.synthetic.main.fragment_pending.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -73,9 +72,9 @@ class AcceptedFragment : Fragment() {
                 if (response.isSuccessful && response.body() != null) {
 //                    progressBar.visibility = View.INVISIBLE
                     acceptedRefresh.isRefreshing = false
-                    adminPanelAcceptedAdapter.list.sortBy { it.slot_data.slot.name }
+                    adminPanelAcceptedAdapter.list.sortBy { it.slot.id }
                     adminPanelAcceptedAdapter.list =
-                        response.body() as ArrayList<SlotPendingDataItem>
+                        response.body() as ArrayList<SlotBookRequestsItem>
 
                     adminPanelAcceptedAdapter.notifyDataSetChanged()
                 } else {

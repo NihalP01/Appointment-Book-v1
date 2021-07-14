@@ -12,7 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.Adapter.AdminPanelRejectedAdapter
-import com.example.appointmentbook.data.sample.SlotPendingDataItem
+import com.example.appointmentbook.data.SlotBookRequests.SlotBookRequestsItem
 import com.example.appointmentbook.utils.Utils
 import com.example.appointmentbook.utils.Utils.Companion.getAuthType
 import com.example.appointmentbook.utils.Utils.Companion.getToken
@@ -71,7 +71,7 @@ class RejectedFragment : Fragment() {
 //                    progressBar.visibility = View.INVISIBLE
                     rejectedRefresh.isRefreshing = false
                     adminPanelRejectedAdapter.list =
-                        response.body() as ArrayList<SlotPendingDataItem>
+                        response.body() as ArrayList<SlotBookRequestsItem>
                     adminPanelRejectedAdapter.notifyDataSetChanged()
                 } else {
                     Toast.makeText(context, response.message().toString(), Toast.LENGTH_SHORT)

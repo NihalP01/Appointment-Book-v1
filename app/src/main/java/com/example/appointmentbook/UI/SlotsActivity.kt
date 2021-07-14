@@ -16,6 +16,7 @@ import com.example.appointmentbook.utils.Utils.Companion.USER_NAME
 import com.example.appointmentbook.utils.Utils.Companion.getPreference
 import com.example.appointmentbook.utils.Utils.Companion.getUserName
 import com.example.appointmentbook.utils.Utils.Companion.logout
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_slots.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -70,18 +71,11 @@ class SlotsActivity : AppCompatActivity() {
         }
 
         loggedInUserName.setOnClickListener {
-            bookRequests()
+            startActivity(Intent(this, AdminPanelFragment::class.java))
         }
 
         btnLogout.setOnClickListener {
-            logout()
-            /**
-             * instead we can clear shared preferences
-             * clearPreferences()
-             */
-            //clearPreferences()
-            startActivity(Intent(this, UserLoginActivity::class.java))
-            finish()
+            showAlert()
         }
     }
 
@@ -153,5 +147,26 @@ class SlotsActivity : AppCompatActivity() {
     private fun getData() {
         val userName = getUserName(USER_NAME)
         loggedInUserName.text = userName
+    }
+
+    private fun doUserLogout() {
+        logout()
+        //clearPreferences() this can be used instead of logout
+        startActivity(Intent(this, UserLoginActivity::class.java))
+        finish()
+    }
+
+    private fun showAlert() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Warning !")
+            .setIcon(R.drawable.ic_warning)
+            .setMessage("Do you want to logout ?")
+            .setPositiveButton("Confirm") { dialog, which ->
+                doUserLogout()
+            }
+            .setNegativeButton("Cancel") { dialog, which ->
+                //
+            }
+            .show()
     }
 }

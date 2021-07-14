@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
-import com.example.appointmentbook.UI.Adapter.BookReqAdapter2
+import com.example.appointmentbook.UI.Adapter.BookReqAdapter
 import com.example.appointmentbook.data.BookRequestData.BookRequestDataItem
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 
 class BookReqActivity : AppCompatActivity() {
     private val bookReqAdapter by lazy {
-        BookReqAdapter2().apply {
+        BookReqAdapter().apply {
             btnContact = btnContactDoc
         }
     }

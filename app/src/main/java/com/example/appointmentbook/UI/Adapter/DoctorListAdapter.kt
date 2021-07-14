@@ -7,7 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appointmentbook.R
-import com.example.appointmentbook.data.DoctorsListData
+import com.example.appointmentbook.data.DoctorListData.DoctorsListData
 
 class DoctorListAdapter : RecyclerView.Adapter<DoctorListAdapter.DoctorViewHolder>() {
 
@@ -42,8 +42,8 @@ class DoctorListAdapter : RecyclerView.Adapter<DoctorListAdapter.DoctorViewHolde
 
         fun bind(data: DoctorsListData, position: Int) {
 
-            doctorName.text = " "
-            doctorDegree.text = " "
+            doctorName.text = "${data.name}"
+            doctorDegree.text = "${data.details.details}"
             doctorConsultant.text = " "
             viewSlot.setOnClickListener {
                 this@DoctorListAdapter.btnViewSlot?.invoke(position, data)

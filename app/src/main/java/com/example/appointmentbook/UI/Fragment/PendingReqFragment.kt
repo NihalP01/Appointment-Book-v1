@@ -13,7 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.AdminPanelAdapter
-import com.example.appointmentbook.data.sample.SlotPendingDataItem
+import com.example.appointmentbook.data.SlotBookRequests.SlotBookRequestsItem
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
 import com.example.appointmentbook.utils.Utils.Companion.getAuthType
@@ -34,11 +34,11 @@ class PendingReqFragment : Fragment() {
         }
     }
 
-    private val btnAcceptClick = { position: Int, data: SlotPendingDataItem ->
+    private val btnAcceptClick = { position: Int, data: SlotBookRequestsItem ->
         actionAccept(data)
     }
 
-    private val btnRejectClick = { position: Int, data: SlotPendingDataItem ->
+    private val btnRejectClick = { position: Int, data: SlotBookRequestsItem ->
         actionReject(data)
     }
 
@@ -96,7 +96,7 @@ class PendingReqFragment : Fragment() {
                         recyclerAllReq.visibility = View.INVISIBLE
                     } else {
                         pendingReqMessage.visibility = View.INVISIBLE
-                        adminPanelAdapter.list = response.body() as ArrayList<SlotPendingDataItem>
+                        adminPanelAdapter.list = response.body() as ArrayList<SlotBookRequestsItem>
                         adminPanelAdapter.notifyDataSetChanged()
                     }
                 } else {
@@ -109,7 +109,7 @@ class PendingReqFragment : Fragment() {
         }
     }
 
-    private fun actionAccept(data: SlotPendingDataItem) {
+    private fun actionAccept(data: SlotBookRequestsItem) {
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 val type = requireContext().getAuthType(AUTH_TYPE)
@@ -132,11 +132,11 @@ class PendingReqFragment : Fragment() {
         }
     }
 
-    private fun actionReject(data: SlotPendingDataItem) {
+    private fun actionReject(data: SlotBookRequestsItem) {
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Are you sure to reject ?")
-            .setMessage("On confirming, the Book request of ${data.requested_by.name} with slot number ${data.slot_data.slot_id} will be rejected. ${data.requested_by.name} will receive a notification of the same")
+            .setMessage("On confirming, the Book request of  with slot number  will be rejected.  will receive a notification of the same")
             .setNegativeButton("Cancel") { dialog, which ->
                 //
             }

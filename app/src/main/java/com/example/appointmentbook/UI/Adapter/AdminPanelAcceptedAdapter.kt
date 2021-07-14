@@ -1,18 +1,22 @@
 package com.example.appointmentbook.UI.Adapter
 
 import android.annotation.SuppressLint
+import android.icu.text.DateFormat.HOUR_MINUTE
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appointmentbook.R
-import com.example.appointmentbook.data.sample.SlotPendingDataItem
+import com.example.appointmentbook.data.SlotBookRequests.SlotBookRequestsItem
+import java.text.DateFormat
 
 class AdminPanelAcceptedAdapter :
     RecyclerView.Adapter<AdminPanelAcceptedAdapter.AcceptedViewHolder>() {
 
-    var list: ArrayList<SlotPendingDataItem> = arrayListOf()
+    var list: ArrayList<SlotBookRequestsItem> = arrayListOf()
         set(value) = run {
             field = value
         }
@@ -37,13 +41,16 @@ class AdminPanelAcceptedAdapter :
         private val acceptBranch: TextView = itemView.findViewById(R.id.acceptBranch)
         private val acceptSemester: TextView = itemView.findViewById(R.id.acceptSemester)
 
+        @RequiresApi(Build.VERSION_CODES.N)
         @SuppressLint("SetTextI18n")
-        fun bind(data: SlotPendingDataItem) {
+        fun bind(data: SlotBookRequestsItem) {
+            val bookingStart =
+                DateFormat.getDateInstance(HOUR_MINUTE.toInt()).format(data.slot.booking_start_time)
             acceptSlotDetails.text =
-                "Slot: ${data.slot_data.slot_id} (From ${data.slot_data.slot.timing.timing})"
-            acceptEmail.text = "Email: ${data.requested_by.email}"
-            acceptName.text = "Name: ${data.requested_by.name}"
-            // TODO: 08/07/21 Branch and semester will be added
+                "Slot: ${data.slot.id} (From $bookingStart )"
+//            acceptEmail.text = "Email: ${data.requested_by.email}"
+//            acceptName.text = "Name: ${data.requested_by.name}"
+//            // TODO: 08/07/21 Branch and semester will be added
         }
     }
 
