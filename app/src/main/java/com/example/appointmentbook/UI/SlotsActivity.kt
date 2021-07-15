@@ -3,6 +3,7 @@ package com.example.appointmentbook.UI
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -35,6 +36,7 @@ class SlotsActivity : AppCompatActivity() {
     }
 
     private val itemClicked = { position: Int, data: SlotsData ->
+        Log.d("myTest", data.id.toString())
         bookSlot(data.id)
     }
 
@@ -85,16 +87,17 @@ class SlotsActivity : AppCompatActivity() {
     }
 
     private fun bookSlot(id: Int) {
-        GlobalScope.launch(Dispatchers.IO) {
+        GlobalScope.launch(Dispatchers.Main) {
             try {
                 val getPref = getPreference()
                 val type = getPref.getString("type", "")
                 val token = getPref.getString("token", "") //todo create function to get token
                 val response = ApiAdapter.apiClient.bookSlot(
-                    "$type $token"
+                    "$type $token",
+                    id
                 )
                 if (response.isSuccessful && response.body() != null) {
-                    val message = response.body()!!.message ?: "Booking request placed !"
+                    val message = "Booking request placed !"
                     //request placed
                     //show message or inform
                     informUser(message)
