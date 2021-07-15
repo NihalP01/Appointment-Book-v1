@@ -27,8 +27,8 @@ import java.lang.Exception
 
 class DoctorListActivity: AppCompatActivity() {
 
-    val userName = getUserName(USER_NAME)
-    val userToken = getToken(TOKEN_KEY)
+    private val userName = getUserName(USER_NAME)
+    private val userToken = getToken(TOKEN_KEY)
     val type = getAuthType(AUTH_TYPE)
 
     private val doctorPanelAdapter by lazy{

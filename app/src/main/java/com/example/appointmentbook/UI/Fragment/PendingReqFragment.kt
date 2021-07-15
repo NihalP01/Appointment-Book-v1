@@ -29,8 +29,8 @@ class PendingReqFragment : Fragment() {
 
     private val adminPanelAdapter by lazy {
         AdminPanelAdapter().apply {
-            btnAcceptAdmin = btnAcceptClick
-            btnRejectAdmin = btnRejectClick
+//            btnAcceptAdmin = btnAcceptClick
+//            btnRejectAdmin = btnRejectClick
         }
     }
 
@@ -96,7 +96,7 @@ class PendingReqFragment : Fragment() {
                         recyclerAllReq.visibility = View.INVISIBLE
                     } else {
                         pendingReqMessage.visibility = View.INVISIBLE
-                        adminPanelAdapter.list = response.body() as ArrayList<SlotBookRequestsItem>
+//                        adminPanelAdapter.list = response.body() as ArrayList<SlotBookRequestsItem>
                         adminPanelAdapter.notifyDataSetChanged()
                     }
                 } else {

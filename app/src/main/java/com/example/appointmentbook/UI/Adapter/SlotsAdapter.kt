@@ -36,7 +36,7 @@ class SlotsAdapter : RecyclerView.Adapter<SlotsAdapter.myViewHolder>() {
         private val btnBookSlots: Button = itemView.findViewById(R.id.btnBookSlot)
 
         fun bind(data: SlotsData, position: Int) {
-            slotTiming.text = "Available form ${data.slot.timing.timing}"
+            slotTiming.text = "Available form ${data.start_time} to ${data.end_time}"
             slotNumber.text = "Slot: ${data.id}"
             btnBookSlots.setOnClickListener {
                 btnBookSlot?.invoke(position, data)

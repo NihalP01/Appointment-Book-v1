@@ -3,6 +3,7 @@ package com.example.appointmentbook
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.appointmentbook.UI.AdminPanelActivity
 import com.example.appointmentbook.UI.AdminPanelFragment
 import com.example.appointmentbook.UI.DoctorListActivity
 import com.example.appointmentbook.UI.Login.Admin.AdminLoginActivity
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 "doctor" -> {
 //                    startActivity(AdminPanelActivity::class.java)
-                    startActivity(AdminPanelFragment::class.java)
+                    startActivity(AdminPanelActivity::class.java)
                     finish()
                 }
                 else -> {

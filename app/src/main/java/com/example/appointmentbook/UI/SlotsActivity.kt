@@ -12,8 +12,12 @@ import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.Adapter.SlotsAdapter
 import com.example.appointmentbook.UI.Login.User.UserLoginActivity
 import com.example.appointmentbook.data.SlotsData
+import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
+import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
 import com.example.appointmentbook.utils.Utils.Companion.USER_NAME
+import com.example.appointmentbook.utils.Utils.Companion.getAuthType
 import com.example.appointmentbook.utils.Utils.Companion.getPreference
+import com.example.appointmentbook.utils.Utils.Companion.getToken
 import com.example.appointmentbook.utils.Utils.Companion.getUserName
 import com.example.appointmentbook.utils.Utils.Companion.logout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -31,7 +35,6 @@ class SlotsActivity : AppCompatActivity() {
     }
 
     private val itemClicked = { position: Int, data: SlotsData ->
-        //handle item clicked
         bookSlot(data.id)
     }
 
@@ -52,7 +55,9 @@ class SlotsActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val response = ApiAdapter.apiClient.slotAvailable()
+                val token = getToken(TOKEN_KEY)
+                val type = getAuthType(AUTH_TYPE)
+                val response = ApiAdapter.apiClient.slotAvailable("$type $token")
                 if (response.isSuccessful && response.body() != null) {
                     slotProgressBar.visibility = View.INVISIBLE
                     slotsRecycler.visibility = View.VISIBLE
@@ -86,8 +91,7 @@ class SlotsActivity : AppCompatActivity() {
                 val type = getPref.getString("type", "")
                 val token = getPref.getString("token", "") //todo create function to get token
                 val response = ApiAdapter.apiClient.bookSlot(
-                    "$type $token",
-                    id
+                    "$type $token"
                 )
                 if (response.isSuccessful && response.body() != null) {
                     val message = response.body()!!.message ?: "Booking request placed !"
@@ -117,29 +121,6 @@ class SlotsActivity : AppCompatActivity() {
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
             //let's show user's requests
             startActivity(Intent(this, BookReqActivity::class.java))
-        }
-    }
-
-    @SuppressLint("WrongConstant")
-    private fun bookRequests() {
-        GlobalScope.launch(Dispatchers.Main) {
-            try {
-                val getPref = getPreference()
-                val type = getPref.getString("type", "")
-                val token = getPref.getString("token", "") //todo create function to get token
-                val response = ApiAdapter.apiClient.bookReq("$type $token")
-                if (response.isSuccessful && response.body() != null) {
-                    startActivity(Intent(this@SlotsActivity, BookReqActivity::class.java))
-                } else {
-                    Toast.makeText(
-                        this@SlotsActivity,
-                        response.message().toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            } catch (e: Exception) {
-                Toast.makeText(this@SlotsActivity, e.message.toString(), Toast.LENGTH_SHORT).show()
-            }
         }
     }
 

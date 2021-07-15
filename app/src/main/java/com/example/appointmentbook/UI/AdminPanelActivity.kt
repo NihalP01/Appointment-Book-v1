@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.Login.Admin.AdminLoginActivity
+import com.example.appointmentbook.data.AlllBookReq.AllBookReqDataItem
 import com.example.appointmentbook.data.SlotBookRequests.SlotBookRequestsItem
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
@@ -37,11 +38,11 @@ class AdminPanelActivity : AppCompatActivity() {
         }
     }
 
-    private val btnAcceptClick = { position: Int, data: SlotBookRequestsItem ->
+    private val btnAcceptClick = { position: Int, data: AllBookReqDataItem ->
         actionAccept(data)
     }
 
-    private val btnRejectClick = { position: Int, data: SlotBookRequestsItem ->
+    private val btnRejectClick = { position: Int, data: AllBookReqDataItem ->
         showAlert(data)
     }
 
@@ -68,11 +69,11 @@ class AdminPanelActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val response = ApiAdapter.apiClient.slotReqPending("$type $token")
+                val response = ApiAdapter.apiClient.allSlotReq("$type $token")
                 Log.d("myTag", response.toString())
                 if (response.isSuccessful && response.body() != null) {
                     Log.d("myTag", response.body().toString())
-                    adminPanelAdapter.list = response.body() as ArrayList<SlotBookRequestsItem>
+                    adminPanelAdapter.list = response.body() as ArrayList<AllBookReqDataItem>
                     adminPanelAdapter.notifyDataSetChanged()
                 } else {
                     Toast.makeText(
@@ -88,7 +89,7 @@ class AdminPanelActivity : AppCompatActivity() {
         }
     }
 
-    private fun actionAccept(data: SlotBookRequestsItem) {
+    private fun actionAccept(data: AllBookReqDataItem) {
         GlobalScope.launch {
             try {
                 val res = ApiAdapter.apiClient.slotAction("$type $token", "accepted", data.id)
@@ -108,7 +109,7 @@ class AdminPanelActivity : AppCompatActivity() {
         }
     }
 
-    private fun actionReject(data: SlotBookRequestsItem) {
+    private fun actionReject(data: AllBookReqDataItem) {
         GlobalScope.launch {
             try {
                 val res = ApiAdapter.apiClient.slotAction("$type $token", "rejected", data.id)
@@ -128,7 +129,7 @@ class AdminPanelActivity : AppCompatActivity() {
         }
     }
     //show a confirmation alert dialog
-    private fun showAlert(data: SlotBookRequestsItem) {
+    private fun showAlert(data: AllBookReqDataItem) {
         MaterialAlertDialogBuilder(this)
             .setTitle("Are you sure to reject ?")
             .setMessage("On confirming, the Book request of with slot number  will be rejected. will receive a notification of the same")

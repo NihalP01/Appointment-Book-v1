@@ -1,10 +1,8 @@
-package com.example.appointmentbook.data
+package com.example.appointmentbook.data.SlotsListData
 
-data class ApiSlotData (
-    val results : ArrayList<SlotsData>
-)
+class SlotsListData : ArrayList<SlotsListDataItem>()
 
-data class SlotsData(
+data class SlotsListDataItem(
     val associate_id: Int,
     val available: Int,
     val booking_end_time: String,

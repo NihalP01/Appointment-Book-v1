@@ -1,6 +1,7 @@
 package com.example.appointmentbook.Network
 
 import com.example.appointmentbook.data.ActionStatusData
+import com.example.appointmentbook.data.AlllBookReq.AllBookReqDataItem
 import com.example.appointmentbook.data.BookRequestData.BookRequestData
 import com.example.appointmentbook.data.BookSlotData
 import com.example.appointmentbook.data.DoctorListData.DoctorsListData
@@ -45,14 +46,14 @@ interface ApiClient {
     @GET("my_requests")
     suspend fun bookReq(@Header("Authorization") BearerToken: String): Response<BookRequestData>
 
-    @GET("slot/available")
-    suspend fun slotAvailable(): Response<List<SlotsData>>
+    @GET("doctor/2/slots")
+    suspend fun slotAvailable(@Header("Authorization") BearerToken: String): Response<List<SlotsData>>
 
     @FormUrlEncoded
-    @POST("slot/request")
+    @POST("doctor/{slot_id}/book")
     suspend fun bookSlot(
         @Header("Authorization") token: String,
-        @Field("teacher_slot_id") id: Int
+        @Path("slot_id") id: Int
     ): Response<BookSlotData>
 
     @GET("my_requests/pending")
@@ -63,6 +64,9 @@ interface ApiClient {
 
     @GET("my_requests/rejected")
     suspend fun slotReqRejected(@Header("Authorization") BearerToken: String): Response<List<SlotBookRequestsItem>>
+
+    @GET("slots/requests")
+    suspend fun allSlotReq(@Header("Authorization") BearerToken: String): Response<List<AllBookReqDataItem>>
 
     @FormUrlEncoded
     @PUT("slot/action")
@@ -78,7 +82,7 @@ interface ApiClient {
 
 object ApiAdapter {
     val apiClient: ApiClient = Retrofit.Builder()
-        .baseUrl("https://fe10879e9f21.ngrok.io/api/v1/")
+        .baseUrl("https://a6a6badb0e8a.ngrok.io/api/v1/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(OkHttpClient())
         .build()
