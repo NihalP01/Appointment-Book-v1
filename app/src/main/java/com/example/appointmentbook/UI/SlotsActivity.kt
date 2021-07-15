@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.activity_slots.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 
 class SlotsActivity : AppCompatActivity() {
 
@@ -118,6 +119,7 @@ class SlotsActivity : AppCompatActivity() {
             ).show()
         }
     }
+
 
     private fun informUser(message: String) {
         runOnUiThread {

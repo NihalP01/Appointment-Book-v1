@@ -39,7 +39,7 @@ class BookReqAdapter : RecyclerView.Adapter<BookReqAdapter.ReqViewHolder>() {
     inner class ReqViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val slotTime: TextView = itemView.findViewById(R.id.bookSlotTime)
         private val bookSlotNumber: TextView = itemView.findViewById(R.id.bookSlotNumber)
-        private val bookedTeacherName: TextView = itemView.findViewById(R.id.bookedTeacherName)
+        private val bookedTeacherName: TextView = itemView.findViewById(R.id.bookedDoctorName)
         private val bookStatus: TextView = itemView.findViewById(R.id.bookStatus)
         private val slotCard: CardView = itemView.findViewById(R.id.slotCard)
         private val btnContact: Button = itemView.findViewById(R.id.btnContact)
