@@ -2,27 +2,22 @@ package com.example.appointmentbook.UI
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
-import com.example.appointmentbook.UI.Login.DOctor.DoctorLoginActivity
-import com.example.appointmentbook.data.BookReqData.BookReqDataItem
+import com.example.appointmentbook.data.SlotsbyReqIdData.SlotsByReqIdItem
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
 import com.example.appointmentbook.utils.Utils.Companion.USER_NAME
 import com.example.appointmentbook.utils.Utils.Companion.getAuthType
 import com.example.appointmentbook.utils.Utils.Companion.getToken
 import com.example.appointmentbook.utils.Utils.Companion.getUserName
-import com.example.appointmentbook.utils.Utils.Companion.logout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.android.synthetic.main.activity_doc_slots.*
-import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_slot_req_by_id.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -32,49 +27,44 @@ class DoctorSlotReqActivity : AppCompatActivity() {
 
     val type = getAuthType(AUTH_TYPE)
     private val token = getToken(TOKEN_KEY)
-    private val adminPanelAdapter by lazy {
+
+    private val doctorPanelAdapter by lazy {
         DoctorSlotReqAdapter().apply {
             btnAcceptDoc = btnAcceptClick
             btnRejectDoc = btnRejectClick
         }
     }
 
-    private val btnAcceptClick = { position: Int, data: BookReqDataItem ->
+    private val btnAcceptClick = { position: Int, data: SlotsByReqIdItem ->
         actionAccept(data, position)
     }
 
-    private val btnRejectClick = { position: Int, data: BookReqDataItem ->
+    private val btnRejectClick = { position: Int, data: SlotsByReqIdItem ->
         showAlert(data, position)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_doc_slots)
+        setContentView(R.layout.activity_slot_req_by_id)
+
+        val intent = Intent()
+        val id = intent.getStringExtra("id")
+
         supportActionBar?.hide()
-        getData()
 
-        btnAdminLogout0?.setOnClickListener {
-            logout()
-            startActivity(Intent(this, DoctorLoginActivity::class.java))
-            finish()
-        }
-
-        notificationRecycler.apply {
+        recSlotReqById.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = adminPanelAdapter
+            adapter = doctorPanelAdapter
             setHasFixedSize(true)
         }
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val response = ApiAdapter.apiClient.docSlotRec("$type $token")
-                Log.d("myTag", response.toString())
+                val response = ApiAdapter.apiClient.slotsByID("$type $token", 22)
                 if (response.isSuccessful && response.body() != null) {
-                    Log.d("myTag", response.body().toString())
-                    adminPanelAdapter.list = response.body() as ArrayList<BookReqDataItem>
-                    adminPanelAdapter.notifyDataSetChanged()
+                    doctorPanelAdapter.list = response.body() as ArrayList<SlotsByReqIdItem>
+                    doctorPanelAdapter.notifyDataSetChanged()
                 } else {
                     Toast.makeText(
                         this@DoctorSlotReqActivity,
@@ -89,11 +79,14 @@ class DoctorSlotReqActivity : AppCompatActivity() {
         }
     }
 
-    private fun actionAccept(data: BookReqDataItem, position: Int) {
+    private fun actionAccept(data: SlotsByReqIdItem, position: Int) {
         GlobalScope.launch {
             try {
-                val res = ApiAdapter.apiClient.slotAction("$type $token", "accepted", data.bookings[position].id)
-                Log.d("myTag", res.body().toString())
+                val res = ApiAdapter.apiClient.slotAction(
+                    "$type $token",
+                    "accepted",
+                    data.id
+                )
                 if (res.isSuccessful && res.body() != null) {
                     Toast.makeText(
                         this@DoctorSlotReqActivity,
@@ -109,10 +102,14 @@ class DoctorSlotReqActivity : AppCompatActivity() {
         }
     }
 
-    private fun actionReject(data: BookReqDataItem, position: Int) {
+    private fun actionReject(data: SlotsByReqIdItem, position: Int) {
         GlobalScope.launch {
             try {
-                val res = ApiAdapter.apiClient.slotAction("$type $token", "rejected", data.bookings[position].id)
+                val res = ApiAdapter.apiClient.slotAction(
+                    "$type $token",
+                    "rejected",
+                    data.id
+                )
                 if (res.isSuccessful && res.body() != null) {
                     Toast.makeText(
                         this@DoctorSlotReqActivity,
@@ -130,7 +127,7 @@ class DoctorSlotReqActivity : AppCompatActivity() {
     }
 
     //show a confirmation alert dialog
-    private fun showAlert(data: BookReqDataItem, position: Int) {
+    private fun showAlert(data: SlotsByReqIdItem, position: Int) {
         MaterialAlertDialogBuilder(this)
             .setTitle("Are you sure to reject ?")
             .setMessage("On confirming, the Book request of with slot number  will be rejected. will receive a notification of the same")
@@ -141,10 +138,5 @@ class DoctorSlotReqActivity : AppCompatActivity() {
                 actionReject(data, position)
             }
             .show()
-    }
-
-    private fun getData() {
-        val name = getUserName(USER_NAME)
-        adminName.text = name
     }
 }

@@ -8,17 +8,17 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appointmentbook.R
-import com.example.appointmentbook.data.BookReqData.BookReqDataItem
+import com.example.appointmentbook.data.SlotsbyReqIdData.SlotsByReqIdItem
 
 class DoctorSlotReqAdapter : RecyclerView.Adapter<DoctorSlotReqAdapter.AdminSlotViewHolder>() {
 
-    var btnAcceptDoc: ((position: Int, data: BookReqDataItem) -> Unit)? = null
+    var btnAcceptDoc: ((position: Int, data: SlotsByReqIdItem) -> Unit)? = null
         set(value) = run { field = value }
 
-    var btnRejectDoc: ((position: Int, data: BookReqDataItem) -> Unit)? = null
+    var btnRejectDoc: ((position: Int, data: SlotsByReqIdItem) -> Unit)? = null
         set(value) = run { field = value }
 
-    var list: ArrayList<BookReqDataItem> = arrayListOf()
+    var list: ArrayList<SlotsByReqIdItem> = arrayListOf()
         set(value) = run {
             field = value
         }
@@ -40,17 +40,18 @@ class DoctorSlotReqAdapter : RecyclerView.Adapter<DoctorSlotReqAdapter.AdminSlot
         private val reqName: TextView = itemView.findViewById(R.id.reqUserName)
         private val reqEmail: TextView = itemView.findViewById(R.id.reqUserEmail)
         private val reqPhone: TextView = itemView.findViewById(R.id.reqUserPhone)
-        private val reqSemester: TextView = itemView.findViewById(R.id.requestedAt)
+        private val requestedAt: TextView = itemView.findViewById(R.id.requestedAt)
         private val btnAccept: Button = itemView.findViewById(R.id.reqBtnAccept)
         private val btnReject: Button = itemView.findViewById(R.id.reqBtnReject)
 
         @SuppressLint("SetTextI18n")
-        fun bind(data: BookReqDataItem, position: Int) {
+        fun bind(data: SlotsByReqIdItem, position: Int) {
             reqSlotDetails.text =
-                "Slot: ${data.id} (From ${data.booking_start_time})"
-            reqName.text = "Name: ${data.bookings[position].requested_user[position].name}"
-            reqEmail.text = "Email: ${data.bookings[position].requested_user[position].email}"
-
+                "Slot: ${data.id}"
+            reqName.text = "Name: ${data.requested_user.name}"
+            reqEmail.text = "Email: ${data.requested_user.email}"
+            reqPhone.text = "Phone: ${data.requested_user.phone}"
+            requestedAt.text = "Requested At: ${data.created_at}"
 
             btnAccept.setOnClickListener {
                 this@DoctorSlotReqAdapter.btnAcceptDoc?.invoke(position, data)

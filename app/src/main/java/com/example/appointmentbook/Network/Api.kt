@@ -9,6 +9,7 @@ import com.example.appointmentbook.data.DoctorListData.DoctorsListData
 import com.example.appointmentbook.data.SlotActionData
 import com.example.appointmentbook.data.SlotBookRequests.SlotBookRequestsItem
 import com.example.appointmentbook.data.SlotsData
+import com.example.appointmentbook.data.SlotsbyReqIdData.SlotsByReqIdItem
 import com.example.appointmentbook.data.roleData.RoleData
 import okhttp3.OkHttpClient
 import retrofit2.Response
@@ -89,6 +90,12 @@ interface ApiClient {
         @Path("action") action: String,
         @Field("request_id") request_id: Int,
         ) : Response<SlotActionData>
+
+    @GET("slots/{id}/requests")
+    suspend fun slotsByID(
+        @Header("Authorization") BearerToken: String,
+        @Path("id") slot_id: Int,
+    ) : Response<SlotsByReqIdItem>
 }
 
 object ApiAdapter {

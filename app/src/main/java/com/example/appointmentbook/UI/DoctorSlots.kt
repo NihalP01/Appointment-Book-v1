@@ -2,6 +2,7 @@ package com.example.appointmentbook.UI
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
+import kotlin.collections.ArrayList
 
 class DoctorSlots : AppCompatActivity() {
 
@@ -31,7 +33,9 @@ class DoctorSlots : AppCompatActivity() {
     }
 
     private val btnViewReq = { position: Int, data: SlotsData ->
-        startActivity(Intent(this, DoctorSlotReqActivity::class.java))
+        val intent = Intent(this, DoctorSlotReqActivity::class.java)
+        intent.putExtra("id", data.id)
+        startActivity(intent)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
