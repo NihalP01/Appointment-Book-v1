@@ -3,7 +3,6 @@ package com.example.appointmentbook.UI
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,8 +13,10 @@ import com.example.appointmentbook.UI.Adapter.SlotsAdapter
 import com.example.appointmentbook.UI.Login.User.UserLoginActivity
 import com.example.appointmentbook.data.SlotsData
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
+import com.example.appointmentbook.utils.Utils.Companion.DOC_ID
 import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
 import com.example.appointmentbook.utils.Utils.Companion.USER_NAME
+import com.example.appointmentbook.utils.Utils.Companion.docId
 import com.example.appointmentbook.utils.Utils.Companion.getAuthType
 import com.example.appointmentbook.utils.Utils.Companion.getPreference
 import com.example.appointmentbook.utils.Utils.Companion.getToken
@@ -26,9 +27,10 @@ import kotlinx.android.synthetic.main.activity_slots.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 
 class SlotsActivity : AppCompatActivity() {
+
+    private val docId = docId(DOC_ID)
 
     private val slotsAdapter by lazy {
         SlotsAdapter().apply {
@@ -37,7 +39,6 @@ class SlotsActivity : AppCompatActivity() {
     }
 
     private val itemClicked = { position: Int, data: SlotsData ->
-        Log.d("myTest", data.id.toString())
         bookSlot(data.id)
     }
 
@@ -60,12 +61,17 @@ class SlotsActivity : AppCompatActivity() {
             try {
                 val token = getToken(TOKEN_KEY)
                 val type = getAuthType(AUTH_TYPE)
-                val response = ApiAdapter.apiClient.slotAvailable("$type $token")
+                val response = ApiAdapter.apiClient.slotAvailable("$type $token", docId.toInt())
                 if (response.isSuccessful && response.body() != null) {
                     slotProgressBar.visibility = View.INVISIBLE
                     slotsRecycler.visibility = View.VISIBLE
-                    slotsAdapter.list = response.body() as ArrayList<SlotsData>
-                    slotsAdapter.notifyDataSetChanged() //this line can be invoked from about code, inside adapter class
+                    if (response.body()!!.isEmpty()) {
+                        emptyBodyMsg.visibility = View.VISIBLE
+                    } else {
+                        emptyBodyMsg.visibility = View.INVISIBLE
+                        slotsAdapter.list = response.body() as ArrayList<SlotsData>
+                        slotsAdapter.notifyDataSetChanged() //this line can be invoked from about code, inside adapter class
+                    }
                 } else {
                     Toast.makeText(
                         this@SlotsActivity,
@@ -79,7 +85,7 @@ class SlotsActivity : AppCompatActivity() {
         }
 
         loggedInUserName.setOnClickListener {
-            startActivity(Intent(this, AdminPanelFragment::class.java))
+            startActivity(Intent(this, BookReqActivity::class.java))
         }
 
         btnLogout.setOnClickListener {

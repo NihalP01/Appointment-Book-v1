@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
-import com.example.appointmentbook.UI.AdminPanelActivity
+import com.example.appointmentbook.UI.DoctorPanelActivity
 import com.example.appointmentbook.utils.Utils
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.ROLE_KEY
@@ -81,7 +81,7 @@ class AdminLoginActivity : AppCompatActivity() {
                         startActivity(
                             Intent(
                                 this@AdminLoginActivity,
-                                AdminPanelActivity::class.java
+                                DoctorPanelActivity::class.java
                             )
                         )
                         finish()

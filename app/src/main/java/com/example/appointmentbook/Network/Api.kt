@@ -2,9 +2,9 @@ package com.example.appointmentbook.Network
 
 import com.example.appointmentbook.data.ActionStatusData
 import com.example.appointmentbook.data.AlllBookReq.AllBookReqDataItem
-import com.example.appointmentbook.data.BookRequestData.BookRequestData
 import com.example.appointmentbook.data.BookSlotData
 import com.example.appointmentbook.data.DoctorListData.DoctorsListData
+import com.example.appointmentbook.data.DoctorSlotsReq.DoctorSlotsReqItem
 import com.example.appointmentbook.data.SlotBookRequests.SlotBookRequestsItem
 import com.example.appointmentbook.data.SlotsData
 import com.example.appointmentbook.data.roleData.RoleData
@@ -26,13 +26,12 @@ interface ApiClient {
     suspend fun role(@Header("Authorization") BearerToken: String): Response<RoleData>
 
     @FormUrlEncoded
-    @POST("student/register")
+    @POST("register")
     suspend fun signUpStudent(
         @Field("name") name: String,
         @Field("email") email: String,
         @Field("password") password: String,
-        @Field("branch") branch: String,
-        @Field("semester") semester: String,
+        @Field("phone") branch: String,
     ): Response<Signup>
 
     @FormUrlEncoded
@@ -44,12 +43,14 @@ interface ApiClient {
     ): Response<SignUpTeacher>
 
     @GET("my_requests")
-    suspend fun bookReq(@Header("Authorization") BearerToken: String): Response<BookRequestData>
+    suspend fun bookReq(@Header("Authorization") BearerToken: String): Response<List<AllBookReqDataItem>>
 
-    @GET("doctor/2/slots")
-    suspend fun slotAvailable(@Header("Authorization") BearerToken: String): Response<List<SlotsData>>
+    @GET("doctor/{id}/slots")
+    suspend fun slotAvailable(
+        @Header("Authorization") BearerToken: String,
+        @Path("id") id: Int
+    ): Response<List<SlotsData>>
 
-    @FormUrlEncoded
     @POST("doctor/{slot_id}/book")
     suspend fun bookSlot(
         @Header("Authorization") token: String,
@@ -68,6 +69,9 @@ interface ApiClient {
     @GET("slots/requests")
     suspend fun allSlotReq(@Header("Authorization") BearerToken: String): Response<List<AllBookReqDataItem>>
 
+    @GET("slots/my")
+    suspend fun docReqList(@Header("Authorization") BearerToken: String): Response<List<DoctorSlotsReqItem>>
+
     @FormUrlEncoded
     @PUT("slot/action")
     suspend fun slotAction(
@@ -82,7 +86,7 @@ interface ApiClient {
 
 object ApiAdapter {
     val apiClient: ApiClient = Retrofit.Builder()
-        .baseUrl("https://a6a6badb0e8a.ngrok.io/api/v1/")
+        .baseUrl("https://00cc56d9e328.ngrok.io/api/v1/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(OkHttpClient())
         .build()

@@ -23,6 +23,7 @@ class Utils {
         const val AUTH_TYPE = "type"
         const val USER_NAME = "userName"
         const val USER_EMAIL = "userEmail"
+        const val DOC_ID = "doc_id"
 
         private var _preferences: SharedPreferences? = null
 
@@ -88,6 +89,12 @@ class Utils {
         fun Context.getId(): Int {
             if (!getSharedPreferences(this).contains(ID_KEY)) throw Exception("$ID_KEY not found")
             return getSharedPreferences(this).getInt(ID_KEY, -1)
+        }
+
+        fun Context.docId(id: String): String {
+            val pref = getSharedPreferences(this)
+            if (!pref.contains(id)) throw Exception("Id not found")
+            return pref.getString(id, "").toString()
         }
 
         fun Context.getToken(token: String): String {

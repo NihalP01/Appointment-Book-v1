@@ -9,16 +9,16 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appointmentbook.R
-import com.example.appointmentbook.data.BookRequestData.BookRequestDataItem
+import com.example.appointmentbook.data.AlllBookReq.AllBookReqDataItem
 
 class BookReqAdapter : RecyclerView.Adapter<BookReqAdapter.ReqViewHolder>() {
 
-    var list: ArrayList<BookRequestDataItem> = arrayListOf()
+    var list: ArrayList<AllBookReqDataItem> = arrayListOf()
         set(value) = run {
             field = value
         }
 
-    var btnContact: ((position: Int, data: BookRequestDataItem) -> Unit)? = null
+    var btnContact: ((position: Int, data: AllBookReqDataItem) -> Unit)? = null
         set(value) = run { field = value }
 
     override fun onCreateViewHolder(
@@ -44,15 +44,19 @@ class BookReqAdapter : RecyclerView.Adapter<BookReqAdapter.ReqViewHolder>() {
         private val slotCard: CardView = itemView.findViewById(R.id.slotCard)
         private val btnContact: Button = itemView.findViewById(R.id.btnContact)
 
-        fun bind(data: BookRequestDataItem, position: Int) {
-            slotTime.text = "From ${data.slot_data.slot.timing.timing}"
-            bookSlotNumber.text = "Slot: ${data.slot_data.slot.name}"
-            bookedTeacherName.text = "Doctor Name: ${data.slot_data.teacher.name}"
+        fun bind(data: AllBookReqDataItem, position: Int) {
+            slotTime.text = "From ${data.slot.start_time}"
+            bookSlotNumber.text = "Slot: ${data.slot.id}"
+            bookedTeacherName.text = "Doctor Name: Dr Name"
             bookStatus.text = "Status: ${data.status}"
+
             if (data.status == "rejected") {
                 slotCard.setCardBackgroundColor(Color.rgb(239, 83, 80))
                 markButtonDisable(btnContact)
-            } else {
+            } else if (data.status == "requested"){
+                slotCard.setCardBackgroundColor(Color.rgb(100, 181, 246))
+                markButtonDisable(btnContact)
+            }else {
                 slotCard.setCardBackgroundColor(Color.rgb(102, 187, 106))
             }
 

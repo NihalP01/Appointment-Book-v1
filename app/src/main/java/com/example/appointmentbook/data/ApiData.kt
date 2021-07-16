@@ -14,7 +14,9 @@ data class User(
 
 data class Signup(
     val status: String,
+    val error: Error,
 )
+
 
 data class SignUpTeacher(
     val status: String

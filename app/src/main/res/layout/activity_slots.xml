@@ -16,6 +16,20 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/emptyBodyMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:text="Selcted doctor does not have any Slot available for booking"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialTextView3"
+            app:layout_constraintVertical_bias="0.29000002" />
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/materialTextView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -74,6 +88,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"

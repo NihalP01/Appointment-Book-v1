@@ -8,17 +8,19 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appointmentbook.R
-import com.example.appointmentbook.data.AlllBookReq.AllBookReqDataItem
+import com.example.appointmentbook.data.DoctorSlotsReq.Booking
+import com.example.appointmentbook.data.DoctorSlotsReq.DoctorSlotsReqItem
+import com.example.appointmentbook.data.DoctorSlotsReq.RequestedUser
 
 class AdminPanelAdapter : RecyclerView.Adapter<AdminPanelAdapter.AdminSlotViewHolder>() {
 
-    var btnAcceptAdmin: ((position: Int, data: AllBookReqDataItem) -> Unit)? = null
+    var btnAcceptAdmin: ((position: Int, data: DoctorSlotsReqItem) -> Unit)? = null
         set(value) = run { field = value }
 
-    var btnRejectAdmin: ((position: Int, data: AllBookReqDataItem) -> Unit)? = null
+    var btnRejectAdmin: ((position: Int, data: DoctorSlotsReqItem) -> Unit)? = null
         set(value) = run { field = value }
 
-    var list: ArrayList<AllBookReqDataItem> = arrayListOf()
+    var list: ArrayList<DoctorSlotsReqItem> = arrayListOf()
         set(value) = run {
             field = value
         }
@@ -45,13 +47,13 @@ class AdminPanelAdapter : RecyclerView.Adapter<AdminPanelAdapter.AdminSlotViewHo
         private val btnReject: Button = itemView.findViewById(R.id.btnReject)
 
         @SuppressLint("SetTextI18n")
-        fun bind(data: AllBookReqDataItem, position: Int) {
+        fun bind(data: DoctorSlotsReqItem, position: Int) {
             reqSlotDetails.text =
-                "Slot: ${data.slot.id} (From ${data.slot.booking_start_time})"
-            reqEmail.text = "Email: ${data.slot.associated_to.email}"
-            reqName.text = "Name: ${data.slot.associated_to.name}"
-            reqPhone.text = "Phone: ${data.slot.associated_to.phone}"
-            // TODO: 08/07/21 Will be added soon
+                "Slot: ${data.id} (From ${data.start_time})"
+            reqEmail.text = "Email: ${data.id}"
+//            reqName.text = "Name: ${user.requested_by}"
+//            reqPhone.text = "Phone: ${data.bookings.requested_user.phone}"
+//            // TODO: 08/07/21 Will be added soon
 //            reqBranch.text = "Branch: ${data.requested_by.student_details.branch}"
 //            reqSemester.text = "Semester: ${data.requested_by.student_details.semester}"
 

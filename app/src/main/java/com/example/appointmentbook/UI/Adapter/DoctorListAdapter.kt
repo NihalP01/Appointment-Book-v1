@@ -41,7 +41,6 @@ class DoctorListAdapter : RecyclerView.Adapter<DoctorListAdapter.DoctorViewHolde
         private val viewSlot: Button = itmeView.findViewById(R.id.doctorViewSlots)
 
         fun bind(data: DoctorsListData, position: Int) {
-
             doctorName.text = "${data.name}"
             doctorDegree.text = "${data.details.details}"
             doctorConsultant.text = " "

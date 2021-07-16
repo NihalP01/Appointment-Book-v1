@@ -3,13 +3,14 @@ package com.example.appointmentbook.UI
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.Adapter.BookReqAdapter
-import com.example.appointmentbook.data.BookRequestData.BookRequestDataItem
+import com.example.appointmentbook.data.AlllBookReq.AllBookReqDataItem
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
 import com.example.appointmentbook.utils.Utils.Companion.getAuthType
@@ -27,7 +28,7 @@ class BookReqActivity : AppCompatActivity() {
         }
     }
 
-    private val btnContactDoc = { position: Int, data: BookRequestDataItem ->
+    private val btnContactDoc = { position: Int, data: AllBookReqDataItem ->
         showAlert()
     }
 
@@ -35,6 +36,8 @@ class BookReqActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_req)
         supportActionBar?.hide()
+
+        myReqProgress.visibility = View.VISIBLE
 
         rvBookReq.apply {
             layoutManager = LinearLayoutManager(this@BookReqActivity)
@@ -48,9 +51,16 @@ class BookReqActivity : AppCompatActivity() {
             val response = ApiAdapter.apiClient.bookReq("$type $token")
             try {
                 if (response.isSuccessful && response.body() != null) {
-                    bookReqAdapter.list = response.body() as ArrayList<BookRequestDataItem>
-                    bookReqAdapter.list.sortBy { it.slot_data.slot.name }
-                    bookReqAdapter.notifyDataSetChanged()
+                    if (response.body()!!.isEmpty()){
+                        emptyBodyMsg2.visibility = View.VISIBLE
+                        myReqProgress.visibility = View.INVISIBLE
+                    }else{
+                        myReqProgress.visibility = View.INVISIBLE
+                        emptyBodyMsg2.visibility = View.INVISIBLE
+                        bookReqAdapter.list = response.body() as ArrayList<AllBookReqDataItem>
+                        bookReqAdapter.notifyDataSetChanged()
+                    }
+
                 } else {
                     Toast.makeText(
                         this@BookReqActivity,
@@ -66,7 +76,7 @@ class BookReqActivity : AppCompatActivity() {
     }
 
     //to open whatsapp chat
-    private fun actionContact(){
+    private fun actionContact() {
         val phoneNo = "+917002028029"
         val url = "https://api.whatsapp.com/send?phone=$phoneNo"
         val openURL = Intent(Intent.ACTION_VIEW)

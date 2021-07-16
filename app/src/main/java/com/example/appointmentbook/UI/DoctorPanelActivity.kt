@@ -12,7 +12,7 @@ import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.Login.Admin.AdminLoginActivity
 import com.example.appointmentbook.data.AlllBookReq.AllBookReqDataItem
-import com.example.appointmentbook.data.SlotBookRequests.SlotBookRequestsItem
+import com.example.appointmentbook.data.DoctorSlotsReq.DoctorSlotsReqItem
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
 import com.example.appointmentbook.utils.Utils.Companion.USER_NAME
@@ -27,7 +27,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class AdminPanelActivity : AppCompatActivity() {
+class DoctorPanelActivity : AppCompatActivity() {
 
     val type = getAuthType(AUTH_TYPE)
     private val token = getToken(TOKEN_KEY)
@@ -38,11 +38,11 @@ class AdminPanelActivity : AppCompatActivity() {
         }
     }
 
-    private val btnAcceptClick = { position: Int, data: AllBookReqDataItem ->
+    private val btnAcceptClick = { position: Int, data: DoctorSlotsReqItem ->
         actionAccept(data)
     }
 
-    private val btnRejectClick = { position: Int, data: AllBookReqDataItem ->
+    private val btnRejectClick = { position: Int, data: DoctorSlotsReqItem ->
         showAlert(data)
     }
 
@@ -69,34 +69,34 @@ class AdminPanelActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val response = ApiAdapter.apiClient.allSlotReq("$type $token")
+                val response = ApiAdapter.apiClient.docReqList("$type $token")
                 Log.d("myTag", response.toString())
                 if (response.isSuccessful && response.body() != null) {
                     Log.d("myTag", response.body().toString())
-                    adminPanelAdapter.list = response.body() as ArrayList<AllBookReqDataItem>
+                    adminPanelAdapter.list = response.body() as ArrayList<DoctorSlotsReqItem>
                     adminPanelAdapter.notifyDataSetChanged()
                 } else {
                     Toast.makeText(
-                        this@AdminPanelActivity,
+                        this@DoctorPanelActivity,
                         response.body().toString(),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             } catch (e: Exception) {
-                Toast.makeText(this@AdminPanelActivity, e.message.toString(), Toast.LENGTH_SHORT)
+                Toast.makeText(this@DoctorPanelActivity, e.message.toString(), Toast.LENGTH_SHORT)
                     .show()
             }
         }
     }
 
-    private fun actionAccept(data: AllBookReqDataItem) {
+    private fun actionAccept(data: DoctorSlotsReqItem) {
         GlobalScope.launch {
             try {
                 val res = ApiAdapter.apiClient.slotAction("$type $token", "accepted", data.id)
                 Log.d("myTag", res.body().toString())
                 if (res.isSuccessful && res.body() != null) {
                     Toast.makeText(
-                        this@AdminPanelActivity,
+                        this@DoctorPanelActivity,
                         "Request has been accepted",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -109,13 +109,13 @@ class AdminPanelActivity : AppCompatActivity() {
         }
     }
 
-    private fun actionReject(data: AllBookReqDataItem) {
+    private fun actionReject(data: DoctorSlotsReqItem) {
         GlobalScope.launch {
             try {
                 val res = ApiAdapter.apiClient.slotAction("$type $token", "rejected", data.id)
                 if (res.isSuccessful && res.body() != null) {
                     Toast.makeText(
-                        this@AdminPanelActivity,
+                        this@DoctorPanelActivity,
                         "Request has been rejected",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -123,13 +123,14 @@ class AdminPanelActivity : AppCompatActivity() {
                     Log.d("myTag", res.message().toString())
                 }
             } catch (e: Exception) {
-                Toast.makeText(this@AdminPanelActivity, e.message.toString(), Toast.LENGTH_SHORT)
+                Toast.makeText(this@DoctorPanelActivity, e.message.toString(), Toast.LENGTH_SHORT)
                     .show()
             }
         }
     }
+
     //show a confirmation alert dialog
-    private fun showAlert(data: AllBookReqDataItem) {
+    private fun showAlert(data: DoctorSlotsReqItem) {
         MaterialAlertDialogBuilder(this)
             .setTitle("Are you sure to reject ?")
             .setMessage("On confirming, the Book request of with slot number  will be rejected. will receive a notification of the same")
@@ -142,7 +143,7 @@ class AdminPanelActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun getData(){
+    private fun getData() {
         val name = getUserName(USER_NAME)
         adminName.text = name
     }

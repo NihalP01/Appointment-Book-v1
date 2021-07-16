@@ -38,13 +38,18 @@ class UserSignUpActivity : AppCompatActivity() {
             userName.requestFocus()
             return
         }
-        if (userPhoneNumber.text.toString().isEmpty() || !Patterns.PHONE.matcher(userPhoneNumber.text.toString()).matches()) {
+        if (userPhoneNumber.text.toString()
+                .isEmpty() || !Patterns.PHONE.matcher(userPhoneNumber.text.toString()).matches()
+        ) {
             userPhoneNumber.error = "Please enter a valid phone number"
             userPhoneNumber.requestFocus()
             return
         }
 
-        if (userSignupEmail.text.toString().isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(userSignupEmail.text.toString()).matches()) {
+        if (userSignupEmail.text.toString().isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(
+                userSignupEmail.text.toString()
+            ).matches()
+        ) {
             userSignupEmail.error = "Please enter a valid email ID"
             userSignupEmail.requestFocus()
             return
@@ -73,7 +78,6 @@ class UserSignUpActivity : AppCompatActivity() {
                     userName,
                     userSignupEmail.text.toString(),
                     userSignupPass.text.toString(),
-                    userPhoneNumber,
                     userPhoneNumber
                 )
 
@@ -86,6 +90,7 @@ class UserSignUpActivity : AppCompatActivity() {
                     edit.putString("userName", userName)
                     edit.apply()
                     startActivity(Intent(this@UserSignUpActivity, UserLoginActivity::class.java))
+                    finish()
                 } else {
                     btnUserSignup.visibility = View.VISIBLE
                     signupProgressBar.visibility = View.INVISIBLE
