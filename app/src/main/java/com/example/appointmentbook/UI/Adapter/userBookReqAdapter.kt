@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.appointmentbook.R
 import com.example.appointmentbook.data.AlllBookReq.AllBookReqDataItem
 
-class BookReqAdapter : RecyclerView.Adapter<BookReqAdapter.ReqViewHolder>() {
+class userBookReqAdapter : RecyclerView.Adapter<userBookReqAdapter.ReqViewHolder>() {
 
     var list: ArrayList<AllBookReqDataItem> = arrayListOf()
         set(value) = run {
@@ -30,7 +30,7 @@ class BookReqAdapter : RecyclerView.Adapter<BookReqAdapter.ReqViewHolder>() {
         return ReqViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: BookReqAdapter.ReqViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: userBookReqAdapter.ReqViewHolder, position: Int) {
         holder.bind(list[position], position)
     }
 
@@ -61,7 +61,7 @@ class BookReqAdapter : RecyclerView.Adapter<BookReqAdapter.ReqViewHolder>() {
             }
 
             btnContact.setOnClickListener {
-                this@BookReqAdapter.btnContact?.invoke(position, data)
+                this@userBookReqAdapter.btnContact?.invoke(position, data)
             }
         }
 

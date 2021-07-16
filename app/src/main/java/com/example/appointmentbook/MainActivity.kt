@@ -3,9 +3,9 @@ package com.example.appointmentbook
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.appointmentbook.UI.DoctorPanelActivity
 import com.example.appointmentbook.UI.DoctorListActivity
-import com.example.appointmentbook.UI.Login.Admin.AdminLoginActivity
+import com.example.appointmentbook.UI.DoctorSlots
+import com.example.appointmentbook.UI.Login.DOctor.DoctorLoginActivity
 import com.example.appointmentbook.UI.Login.User.UserLoginActivity
 import com.example.appointmentbook.utils.Utils.Companion.ROLE_KEY
 import com.example.appointmentbook.utils.Utils.Companion.getFromPref
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 "doctor" -> {
 //                    startActivity(AdminPanelActivity::class.java)
-                    startActivity(DoctorPanelActivity::class.java)
+                    startActivity(DoctorSlots::class.java)
                     finish()
                 }
                 else -> {
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnAdmin.setOnClickListener {
-            startActivity(Intent(this, AdminLoginActivity::class.java))
+            startActivity(Intent(this, DoctorLoginActivity::class.java))
         }
 
 //        btnTeacher.setOnClickListener {

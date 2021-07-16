@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
-import com.example.appointmentbook.UI.DoctorPanelAdapter
+import com.example.appointmentbook.UI.DoctorSlotsAdapter
 import com.example.appointmentbook.data.SlotBookRequests.SlotBookRequestsItem
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
 class PendingReqFragment : Fragment() {
 
     private val adminPanelAdapter by lazy {
-        DoctorPanelAdapter().apply {
+        DoctorSlotsAdapter().apply {
 //            btnAcceptAdmin = btnAcceptClick
 //            btnRejectAdmin = btnRejectClick
         }

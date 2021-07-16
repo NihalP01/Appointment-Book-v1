@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
-import com.example.appointmentbook.UI.DoctorPanelActivity
+import com.example.appointmentbook.UI.DoctorSlotReqActivity
 import com.example.appointmentbook.UI.Signup.Teacher.TeacherSignUpActivity
 import kotlinx.android.synthetic.main.activity_teacher_login.*
 import kotlinx.coroutines.Dispatchers
@@ -72,7 +72,7 @@ class TeacherLoginActivity : AppCompatActivity() {
 //                    edit.putBoolean("login", true)
 //                    edit.apply()
 
-                    startActivity(Intent(this@TeacherLoginActivity, DoctorPanelActivity::class.java))
+                    startActivity(Intent(this@TeacherLoginActivity, DoctorSlotReqActivity::class.java))
                     finish()
                 } else {
                     Toast.makeText(
@@ -98,7 +98,7 @@ class TeacherLoginActivity : AppCompatActivity() {
         Log.d("myRole", role.toString())
         if (login) {
             if (role == "admin") {
-                startActivity(Intent(this, DoctorPanelActivity::class.java))
+                startActivity(Intent(this, DoctorSlotReqActivity::class.java))
             }
         } else {
             Toast.makeText(this, "Login to continue", Toast.LENGTH_SHORT).show()

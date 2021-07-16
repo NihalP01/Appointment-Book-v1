@@ -1,8 +1,8 @@
-package com.example.appointmentbook.data.DoctorSlotsReq
+package com.example.appointmentbook.data.BookReqData
 
-class DoctorSlotsReq : ArrayList<DoctorSlotsReqItem>()
+class BookReqData : ArrayList<BookReqDataItem>()
 
-data class DoctorSlotsReqItem(
+data class BookReqDataItem(
     val associate_id: Int,
     val available: Int,
     val booking_end_time: String,

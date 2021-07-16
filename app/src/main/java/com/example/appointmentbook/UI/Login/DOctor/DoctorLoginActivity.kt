@@ -1,4 +1,4 @@
-package com.example.appointmentbook.UI.Login.Admin
+package com.example.appointmentbook.UI.Login.DOctor
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
-import com.example.appointmentbook.UI.DoctorPanelActivity
+import com.example.appointmentbook.UI.DoctorSlots
 import com.example.appointmentbook.utils.Utils
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.ROLE_KEY
@@ -24,7 +24,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class AdminLoginActivity : AppCompatActivity() {
+class DoctorLoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_login)
@@ -80,21 +80,21 @@ class AdminLoginActivity : AppCompatActivity() {
                         setLogged(true)
                         startActivity(
                             Intent(
-                                this@AdminLoginActivity,
-                                DoctorPanelActivity::class.java
+                                this@DoctorLoginActivity,
+                                DoctorSlots::class.java
                             )
                         )
                         finish()
                     } else {
                         Toast.makeText(
-                            this@AdminLoginActivity,
+                            this@DoctorLoginActivity,
                             role.body().toString(),
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
             } catch (e: Exception) {
-                Toast.makeText(this@AdminLoginActivity, e.message.toString(), Toast.LENGTH_SHORT)
+                Toast.makeText(this@DoctorLoginActivity, e.message.toString(), Toast.LENGTH_SHORT)
                     .show()
             }
 

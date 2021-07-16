@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.Fragment.FragmentResource
-import com.example.appointmentbook.UI.Login.Admin.AdminLoginActivity
+import com.example.appointmentbook.UI.Login.DOctor.DoctorLoginActivity
 import com.example.appointmentbook.utils.Utils.Companion.USER_NAME
 import com.example.appointmentbook.utils.Utils.Companion.getUserName
 import com.example.appointmentbook.utils.Utils.Companion.logout
@@ -23,9 +23,9 @@ class AdminPanelFragment : AppCompatActivity() {
         supportActionBar?.hide()
         loggedInAdminName.text = adminName
 
-        btnAdminLogout.setOnClickListener {
+        btnAdminLogout0.setOnClickListener {
             logout()
-            startActivity(Intent(this, AdminLoginActivity::class.java))
+            startActivity(Intent(this, DoctorLoginActivity::class.java))
             finish()
         }
         renderViewPager()

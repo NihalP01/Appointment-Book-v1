@@ -61,7 +61,7 @@ class SlotsActivity : AppCompatActivity() {
             try {
                 val token = getToken(TOKEN_KEY)
                 val type = getAuthType(AUTH_TYPE)
-                val response = ApiAdapter.apiClient.slotAvailable("$type $token", docId.toInt())
+                val response = ApiAdapter.apiClient.docSlotAvailable("$type $token", docId.toInt())
                 if (response.isSuccessful && response.body() != null) {
                     slotProgressBar.visibility = View.INVISIBLE
                     slotsRecycler.visibility = View.VISIBLE

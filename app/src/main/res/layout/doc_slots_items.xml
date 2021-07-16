@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="210dp">
+    android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_margin="4dp"
         app:cardElevation="4dp"
         android:backgroundTint="@color/material_blue_a400"
@@ -27,28 +27,30 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/reqName"
+                android:id="@+id/reqBookingStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Name: Nihal Buragohain"
+                android:text="Booking Start time: 10:30 AM"
                 android:textSize="16sp"
                 android:textColor="#ffffff"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reqSlotDetails"
+                app:layout_constraintTop_toBottomOf="@+id/reqSlotId"
                 app:layout_constraintVertical_bias="0.0" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/reqSlotDetails"
-                android:layout_width="wrap_content"
+                android:id="@+id/reqSlotId"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Slot 1: From 10:30 AM"
+                android:text="Slot 1"
+                android:gravity="center_horizontal"
+                android:background="@drawable/rounded_bg"
+                android:textColor="#ffffff"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="#ffffff"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -56,10 +58,10 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/reqBranch"
+                android:id="@+id/reqBookingEnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Branch: "
+                android:text="Booking End time: 11:30 AM"
                 android:textSize="16sp"
                 android:textColor="#ffffff"
                 android:layout_marginTop="2dp"
@@ -67,14 +69,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reqName"
+                app:layout_constraintTop_toBottomOf="@+id/reqBookingStart"
                 app:layout_constraintVertical_bias="0.0" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/reqSemester"
+                android:id="@+id/reqAvailability"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Semester: "
+                android:text="Availability: Available"
                 android:textSize="16sp"
                 android:textColor="#ffffff"
                 android:layout_marginTop="2dp"
@@ -82,64 +84,40 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reqEmail"
+                app:layout_constraintTop_toBottomOf="@+id/reqSlotCapacity"
                 app:layout_constraintVertical_bias="0.0" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/reqEmail"
+                android:id="@+id/reqSlotCapacity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email: nihalburagohain02@gmail.com"
+                android:text="Capacity: 2"
                 android:textSize="16sp"
                 android:textColor="#ffffff"
+
                 android:layout_marginTop="2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reqBranch"
+                app:layout_constraintTop_toBottomOf="@+id/reqBookingEnd"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btnLayout"
-                android:layout_width="200dp"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnViewReqs"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="View Requests"
+                android:textAllCaps="false"
+                app:elevation="4dp"
+                android:backgroundTint="@color/material_orange_400"
+                app:cornerRadius="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/reqSemester"
-                app:layout_constraintTop_toBottomOf="@+id/reqSemester">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnAccept"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:backgroundTint="@color/material_green_400"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:text="Accept"
-                    android:textAllCaps="false"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.11"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnReject"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:backgroundTint="@color/material_red_400"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:text="Reject"
-                    android:textAllCaps="false"
-                    app:layout_constraintBottom_toBottomOf="@+id/btnAccept"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/btnAccept"
-                    app:layout_constraintTop_toTopOf="@+id/btnAccept" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/reqSlotCapacity"
+                app:layout_constraintTop_toBottomOf="@+id/reqSlotId"
+                app:layout_constraintVertical_bias="1.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

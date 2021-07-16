@@ -27,11 +27,12 @@
         <activity android:name=".UI.Signup.User.UserSignUpActivity" />
         <activity android:name=".UI.SlotsActivity" />
         <activity android:name=".UI.Signup.Teacher.TeacherSignUpActivity"/>
-        <activity android:name=".UI.DoctorPanelActivity"/>
+        <activity android:name=".UI.DoctorSlotReqActivity"/>
         <activity android:name=".UI.BookReqActivity" />
-        <activity android:name=".UI.Login.Admin.AdminLoginActivity"/>
+        <activity android:name=".UI.Login.DOctor.DoctorLoginActivity"/>
         <activity android:name=".UI.AdminPanelFragment"/>
         <activity android:name=".UI.DoctorListActivity"/>
+        <activity android:name=".UI.DoctorSlots"/>
 
 
         <service
