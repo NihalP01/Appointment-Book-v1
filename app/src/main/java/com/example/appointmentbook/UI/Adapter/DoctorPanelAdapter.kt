@@ -8,11 +8,9 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appointmentbook.R
-import com.example.appointmentbook.data.DoctorSlotsReq.Booking
 import com.example.appointmentbook.data.DoctorSlotsReq.DoctorSlotsReqItem
-import com.example.appointmentbook.data.DoctorSlotsReq.RequestedUser
 
-class AdminPanelAdapter : RecyclerView.Adapter<AdminPanelAdapter.AdminSlotViewHolder>() {
+class DoctorPanelAdapter : RecyclerView.Adapter<DoctorPanelAdapter.AdminSlotViewHolder>() {
 
     var btnAcceptAdmin: ((position: Int, data: DoctorSlotsReqItem) -> Unit)? = null
         set(value) = run { field = value }
@@ -51,18 +49,18 @@ class AdminPanelAdapter : RecyclerView.Adapter<AdminPanelAdapter.AdminSlotViewHo
             reqSlotDetails.text =
                 "Slot: ${data.id} (From ${data.start_time})"
             reqEmail.text = "Email: ${data.id}"
-//            reqName.text = "Name: ${user.requested_by}"
+            reqName.text = "Name: ${data.bookings[position].requested_user[position].name}"
 //            reqPhone.text = "Phone: ${data.bookings.requested_user.phone}"
 //            // TODO: 08/07/21 Will be added soon
 //            reqBranch.text = "Branch: ${data.requested_by.student_details.branch}"
 //            reqSemester.text = "Semester: ${data.requested_by.student_details.semester}"
 
             btnAccept.setOnClickListener {
-                this@AdminPanelAdapter.btnAcceptAdmin?.invoke(position, data)
+                this@DoctorPanelAdapter.btnAcceptAdmin?.invoke(position, data)
             }
 
             btnReject.setOnClickListener {
-                this@AdminPanelAdapter.btnRejectAdmin?.invoke(position, data)
+                this@DoctorPanelAdapter.btnRejectAdmin?.invoke(position, data)
             }
         }
     }

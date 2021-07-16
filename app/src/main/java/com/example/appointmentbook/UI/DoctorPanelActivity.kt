@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.Login.Admin.AdminLoginActivity
-import com.example.appointmentbook.data.AlllBookReq.AllBookReqDataItem
 import com.example.appointmentbook.data.DoctorSlotsReq.DoctorSlotsReqItem
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
@@ -32,7 +31,7 @@ class DoctorPanelActivity : AppCompatActivity() {
     val type = getAuthType(AUTH_TYPE)
     private val token = getToken(TOKEN_KEY)
     private val adminPanelAdapter by lazy {
-        AdminPanelAdapter().apply {
+        DoctorPanelAdapter().apply {
             btnAcceptAdmin = btnAcceptClick
             btnRejectAdmin = btnRejectClick
         }
