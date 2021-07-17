@@ -2,12 +2,17 @@ package com.example.appointmentbook.UI
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appointmentbook.R
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import kotlinx.android.synthetic.main.activity_add_slot.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class CreateSlotActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +39,9 @@ class CreateSlotActivity : AppCompatActivity() {
 
         val slotCapacity = slotCapacity.text
 
+        btnCreateSlot.setOnClickListener {
+            showAlert()
+        }
     }
 
     private fun datePick() {
@@ -62,6 +70,7 @@ class CreateSlotActivity : AppCompatActivity() {
                 .build()
         timePicker.addOnPositiveButtonClickListener {
             Log.d("finalTime", "$date ${timePicker.hour}:${timePicker.minute}")
+            showToast("Picked Time: $date ${timePicker.hour}:${timePicker.minute}")
         }
         timePicker.addOnNegativeButtonClickListener {
             //
@@ -70,4 +79,31 @@ class CreateSlotActivity : AppCompatActivity() {
         timePicker.show(supportFragmentManager, "MATERIAL_TIME_PICKER")
     }
 
+    private fun showAlert() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Are you Sure ?")
+            .setIcon(R.drawable.ic_warning)
+            .setMessage("By confirming this, A new slot will be created")
+            .setPositiveButton("Confirm") { dialog, which ->
+                createSlot()
+            }
+            .setNegativeButton("Cancel") { dialog, which ->
+                //
+            }
+            .show()
+    }
+
+    private fun createSlot() {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+
+            } catch (e: Exception) {
+
+            }
+        }
+    }
+
+    private fun showToast(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
 }
