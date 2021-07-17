@@ -87,5 +87,24 @@
             app:layout_constraintTop_toBottomOf="@+id/materialTextView15"
             app:layout_constraintVertical_bias="0.0" />
 
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/btnFloatingAddSlot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:backgroundTint="@color/material_green_500"
+            app:icon="@drawable/ic_add"
+            app:elevation="4dp"
+            android:text="Add Slot"
+            android:textAllCaps="false"
+            android:textColor="@color/material_blue_050"
+            app:iconTint="@color/material_blue_050"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

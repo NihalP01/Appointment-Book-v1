@@ -47,7 +47,12 @@ class DoctorSlotsAdapter : RecyclerView.Adapter<DoctorSlotsAdapter.AdminSlotView
             slotBookingStart.text = "Starts At: ${timeFormatter(data.booking_start_time)}"
             slotCapacity.text = "Capacity: ${data.capacity}"
             slotBookingEnd.text = "Ends At: ${timeFormatter(data.booking_end_time)}"
-            slotAvailability.text = "Availability: ${data.available}"
+
+            if (data.available == 1){
+                slotAvailability.text = "Availability: Available"
+            }else{
+                slotAvailability.text = "Availability: Unavailable"
+            }
             btnViewRequests.setOnClickListener {
                 btnSlot?.invoke(position, data)
             }

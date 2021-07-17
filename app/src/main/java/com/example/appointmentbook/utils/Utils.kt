@@ -24,6 +24,7 @@ class Utils {
         const val USER_NAME = "userName"
         const val USER_EMAIL = "userEmail"
         const val DOC_ID = "doc_id"
+        const val SLOT_ID = "slotId"
 
         private var _preferences: SharedPreferences? = null
 
@@ -115,10 +116,10 @@ class Utils {
             return pref.getString(userName, "").toString()
         }
 
-        fun Context.getUserEmail(userEmail: String) : String {
+        fun Context.getSlotId(slotId: String) : String {
             val pref = getSharedPreferences(this)
-            if (!pref.contains(userEmail)) throw Exception("User email not found")
-            return  pref.getString(userEmail, "").toString()
+            if (!pref.contains(slotId)) throw Exception("Slot id not found")
+            return pref.getString(slotId, "").toString()
         }
 
         fun Context.subscribeToRole() {

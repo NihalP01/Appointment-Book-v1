@@ -84,6 +84,7 @@ interface ApiClient {
     @GET("slots/my")
     suspend fun docSlotRec(@Header("Authorization") BearerToken: String) : Response<List<BookReqDataItem>>
 
+    @FormUrlEncoded
     @POST("slots/action/{action}")
     suspend fun slotAction(
         @Header("Authorization") BearerToken: String,
@@ -95,12 +96,12 @@ interface ApiClient {
     suspend fun slotsByID(
         @Header("Authorization") BearerToken: String,
         @Path("id") slot_id: Int,
-    ) : Response<SlotsByReqIdItem>
+    ) : Response<List<SlotsByReqIdItem>>
 }
 
 object ApiAdapter {
     val apiClient: ApiClient = Retrofit.Builder()
-        .baseUrl("https://23dc1ef4c9df.ngrok.io/api/v1/")
+        .baseUrl("https://652fd9d5d735.ngrok.io/api/v1/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(OkHttpClient())
         .build()

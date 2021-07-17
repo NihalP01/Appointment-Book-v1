@@ -52,13 +52,17 @@ class DoctorSlotReqAdapter : RecyclerView.Adapter<DoctorSlotReqAdapter.AdminSlot
             reqEmail.text = "Email: ${data.requested_user.email}"
             reqPhone.text = "Phone: ${data.requested_user.phone}"
             requestedAt.text = "Requested At: ${data.created_at}"
+            if (data.status == "rejected"){
+                btnReject.text = "Rejected"
+                btnAccept.visibility = View.INVISIBLE
+            }else {
+                btnAccept.setOnClickListener {
+                    this@DoctorSlotReqAdapter.btnAcceptDoc?.invoke(position, data)
+                }
 
-            btnAccept.setOnClickListener {
-                this@DoctorSlotReqAdapter.btnAcceptDoc?.invoke(position, data)
-            }
-
-            btnReject.setOnClickListener {
-                this@DoctorSlotReqAdapter.btnRejectDoc?.invoke(position, data)
+                btnReject.setOnClickListener {
+                    this@DoctorSlotReqAdapter.btnRejectDoc?.invoke(position, data)
+                }
             }
         }
     }

@@ -33,6 +33,7 @@
         <activity android:name=".UI.AdminPanelFragment"/>
         <activity android:name=".UI.DoctorListActivity"/>
         <activity android:name=".UI.DoctorSlots"/>
+        <activity android:name=".UI.CreateSlotActivity"/>
 
 
         <service
