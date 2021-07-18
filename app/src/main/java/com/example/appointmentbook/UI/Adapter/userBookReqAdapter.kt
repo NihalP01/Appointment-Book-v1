@@ -10,6 +10,9 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appointmentbook.R
 import com.example.appointmentbook.data.AlllBookReq.AllBookReqDataItem
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class userBookReqAdapter : RecyclerView.Adapter<userBookReqAdapter.ReqViewHolder>() {
 
@@ -45,7 +48,8 @@ class userBookReqAdapter : RecyclerView.Adapter<userBookReqAdapter.ReqViewHolder
         private val btnContact: Button = itemView.findViewById(R.id.btnContact)
 
         fun bind(data: AllBookReqDataItem, position: Int) {
-            slotTime.text = "From ${data.slot.start_time}"
+            slotTime.text =
+                "From ${timeFormatter(data.slot.booking_start_time)} to ${timeFormatter(data.slot.booking_end_time)}"
             bookSlotNumber.text = "Slot: ${data.slot.id}"
             bookedTeacherName.text = "Doctor Name: Dr Name"
             bookStatus.text = "Status: ${data.status}"
@@ -53,10 +57,10 @@ class userBookReqAdapter : RecyclerView.Adapter<userBookReqAdapter.ReqViewHolder
             if (data.status == "rejected") {
                 slotCard.setCardBackgroundColor(Color.rgb(239, 83, 80))
                 markButtonDisable(btnContact)
-            } else if (data.status == "requested"){
+            } else if (data.status == "requested") {
                 slotCard.setCardBackgroundColor(Color.rgb(100, 181, 246))
                 markButtonDisable(btnContact)
-            }else {
+            } else {
                 slotCard.setCardBackgroundColor(Color.rgb(102, 187, 106))
             }
 
@@ -70,6 +74,14 @@ class userBookReqAdapter : RecyclerView.Adapter<userBookReqAdapter.ReqViewHolder
             button.setTextColor(Color.WHITE)
             button.setBackgroundColor(Color.GRAY)
         }
+
+        private fun timeFormatter(inputDate: String): String {
+            val sdf = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss", Locale.US)
+            val parseDate = sdf.parse(inputDate)
+            val formatter = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT)
+            return formatter.format(parseDate!!)
+        }
+
     }
 
 }

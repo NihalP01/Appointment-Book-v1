@@ -1,12 +1,11 @@
 package com.example.appointmentbook.UI
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.data.SlotsbyReqIdData.SlotsByReqIdItem
@@ -23,7 +22,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
-import kotlin.collections.ArrayList
 
 class DoctorSlotReqActivity : AppCompatActivity() {
 
@@ -52,16 +50,35 @@ class DoctorSlotReqActivity : AppCompatActivity() {
         setContentView(R.layout.activity_slot_req_by_id)
         supportActionBar?.hide()
 
+        val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.reqSwipeRefresh)
+
+        swipeRefreshLayout?.post(kotlinx.coroutines.Runnable {
+            kotlin.run {
+                swipeRefreshLayout.isRefreshing = true
+                getData()
+            }
+        })
+
+        swipeRefreshLayout?.setOnRefreshListener {
+            getData()
+        }
+
         recSlotReqById.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = doctorPanelAdapter
             setHasFixedSize(true)
         }
 
+    }
+
+
+    private fun getData() {
         GlobalScope.launch(Dispatchers.Main) {
             try {
+                reqSwipeRefresh.isRefreshing = true
                 val response = ApiAdapter.apiClient.slotsByID("$type $token", slotId.toInt())
                 if (response.isSuccessful && response.body() != null) {
+                    reqSwipeRefresh.isRefreshing = false
                     doctorPanelAdapter.list = response.body() as ArrayList<SlotsByReqIdItem>
                     doctorPanelAdapter.notifyDataSetChanged()
                 } else {

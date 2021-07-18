@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,10 +20,11 @@
             android:id="@+id/adminName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dr. Name"
-            android:textStyle="bold"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:text="Dr. Name"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/btnAdminLogout"
             app:layout_constraintEnd_toStartOf="@+id/btnAdminLogout"
             app:layout_constraintHorizontal_bias="1.0"
@@ -51,10 +52,10 @@
             android:id="@+id/materialTextView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="My Slots"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
+            android:gravity="center_horizontal"
+            android:text="My Slots"
             android:textSize="28sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -66,30 +67,42 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/materialTextView15"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textSize="16sp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
             android:text="You have the following Slots"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/materialTextView10"
             app:layout_constraintVertical_bias="0.0" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/notificationRecycler"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/docSlotRefresh"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            tools:listitem="@layout/doc_slots_items"
+            android:layout_marginTop="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/materialTextView15"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/notificationRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/materialTextView15"
+                app:layout_constraintVertical_bias="0.0"
+                tools:listitem="@layout/doc_slots_items" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/btnFloatingAddSlot"
@@ -97,11 +110,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="28dp"
             android:backgroundTint="@color/material_green_700"
-            app:icon="@drawable/ic_add"
-            app:elevation="4dp"
             android:text="Add Slot"
             android:textAllCaps="false"
             android:textColor="@color/material_blue_050"
+            app:elevation="4dp"
+            app:icon="@drawable/ic_add"
             app:iconTint="@color/material_blue_050"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -109,6 +122,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnUpDateInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="24sp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:backgroundTint="@color/material_purple_400"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="Update info"
+            android:textAllCaps="false"
+            android:textSize="12dp"
+            app:cornerRadius="10dp"
+            app:elevation="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/notificationRecycler"
+            app:layout_constraintEnd_toEndOf="@+id/btnAdminLogout"
+            app:layout_constraintStart_toStartOf="@+id/adminName"
+            app:layout_constraintTop_toBottomOf="@+id/adminName"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressBarDocSlots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/notificationRecycler"
+            app:layout_constraintEnd_toEndOf="@+id/notificationRecycler"
+            app:layout_constraintStart_toStartOf="@+id/notificationRecycler"
+            app:layout_constraintTop_toTopOf="@+id/notificationRecycler"
+            app:layout_constraintVertical_bias="0.32999998" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

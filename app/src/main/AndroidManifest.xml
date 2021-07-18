@@ -34,6 +34,7 @@
         <activity android:name=".UI.DoctorListActivity"/>
         <activity android:name=".UI.DoctorSlots"/>
         <activity android:name=".UI.CreateSlotActivity"/>
+        <activity android:name=".UI.DocInfoUpdate"/>
 
 
         <service

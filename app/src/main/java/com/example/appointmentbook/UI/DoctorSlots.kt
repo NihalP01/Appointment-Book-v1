@@ -3,10 +3,9 @@ package com.example.appointmentbook.UI
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.Login.DOctor.DoctorLoginActivity
@@ -21,12 +20,13 @@ import com.example.appointmentbook.utils.Utils.Companion.getPreference
 import com.example.appointmentbook.utils.Utils.Companion.getToken
 import com.example.appointmentbook.utils.Utils.Companion.logout
 import com.example.appointmentbook.utils.Utils.Companion.toast
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_doc_slots.*
+import kotlinx.android.synthetic.main.fragment_pending.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
-import kotlin.collections.ArrayList
 
 class DoctorSlots : AppCompatActivity() {
 
@@ -48,15 +48,29 @@ class DoctorSlots : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doc_slots)
         supportActionBar?.hide()
+        val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.docSlotRefresh)
+
+        btnUpDateInfo.setOnClickListener {
+            startActivity(Intent(this, DocInfoUpdate::class.java))
+        }
+
+        swipeRefreshLayout?.post(kotlinx.coroutines.Runnable {
+            kotlin.run {
+                swipeRefreshLayout.isRefreshing = true
+                fetchData()
+            }
+        })
+
+        swipeRefreshLayout?.setOnRefreshListener {
+            fetchData()
+        }
 
         btnFloatingAddSlot.setOnClickListener {
             startActivity(Intent(this, CreateSlotActivity::class.java))
         }
 
         btnAdminLogout.setOnClickListener {
-            logout()
-            startActivity(Intent(this, DoctorLoginActivity::class.java))
-            finish()
+            showAlert()
         }
 
         notificationRecycler.apply {
@@ -64,18 +78,18 @@ class DoctorSlots : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@DoctorSlots)
             setHasFixedSize(true)
         }
-
-        fetchData()
     }
 
     private fun fetchData() {
         GlobalScope.launch(Dispatchers.Main) {
             try {
+                docSlotRefresh.isRefreshing = true
                 val type = getAuthType(AUTH_TYPE)
                 val token = getToken(TOKEN_KEY)
                 val docId = docId(DOC_ID)
                 val response = ApiAdapter.apiClient.docSlotAvailable("$type $token", docId.toInt())
                 if (response.isSuccessful && response.body() != null) {
+                    docSlotRefresh.isRefreshing = false
                     doctorSlot.list = response.body() as ArrayList<SlotsData>
                     doctorSlot.notifyDataSetChanged()
                 } else {
@@ -85,5 +99,21 @@ class DoctorSlots : AppCompatActivity() {
                 toast(e.toString())
             }
         }
+    }
+
+    private fun showAlert() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Warning !")
+            .setIcon(R.drawable.ic_warning)
+            .setMessage("Do you want to logout ?")
+            .setPositiveButton("Confirm") { dialog, which ->
+                logout()
+                startActivity(Intent(this, DoctorLoginActivity::class.java))
+                finish()
+            }
+            .setNegativeButton("Cancel") { dialog, which ->
+                //
+            }
+            .show()
     }
 }

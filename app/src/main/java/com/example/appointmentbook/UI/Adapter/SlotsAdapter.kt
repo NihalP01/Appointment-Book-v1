@@ -47,10 +47,10 @@ class SlotsAdapter : RecyclerView.Adapter<SlotsAdapter.myViewHolder>() {
                 "Available form: ${timeFormatter(data.booking_start_time)} to ${timeFormatter(data.booking_end_time)}"
             slotNumber.text = "Slot: ${data.id}"
             if (data.capacity == data.current_filled) {
-                slotStatus.text = "Not Available"
+                slotStatus.text = "Status: Already booked"
                 markButtonDisable(btnBookSlots)
             } else {
-                slotStatus.text = "Available"
+                slotStatus.text = "Status: Available"
             }
 
             btnBookSlots.setOnClickListener {

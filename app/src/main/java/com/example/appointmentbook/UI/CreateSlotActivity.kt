@@ -2,7 +2,7 @@ package com.example.appointmentbook.UI
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
@@ -22,50 +22,97 @@ class CreateSlotActivity : AppCompatActivity() {
     private val type = getAuthType(AUTH_TYPE)
     private val token = getToken(TOKEN_KEY)
 
+    lateinit var _slotStartTime: String
+    lateinit var _slotEndTime: String
+    lateinit var _bookingStartTime: String
+    lateinit var _bookingEndTime: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_slot)
         supportActionBar?.hide()
 
+        slotStartTime.hint = "Slot start time"
+        slotStartTime.setOnClickListener {
+            DateTimePicker().start(
+                fragmentManager = supportFragmentManager,
+                title = "Select slot start"
+            ) { cancelled, dateTime ->
+                if (cancelled) {
+                    return@start
+                }
+                _slotStartTime = dateTime.toString()
+                slotStartTime.hint = dateTime.toString()
+                Log.d("myTag", _slotStartTime)
+            }
+        }
 
-
+        slotEndTime.hint = "Slot End time"
         slotEndTime.setOnClickListener {
-            //
+            DateTimePicker().start(
+                fragmentManager = supportFragmentManager,
+                title = "Select slot end time"
+            ) { cancelled, dateTime ->
+                if (cancelled) {
+                    return@start
+                }
+                _slotEndTime = dateTime.toString()
+                slotEndTime.hint = dateTime.toString()
+            }
         }
 
+        bookingStartTime.hint = "Booking start time"
         bookingStartTime.setOnClickListener {
-            //
+            DateTimePicker().start(
+                fragmentManager = supportFragmentManager,
+                title = "Select booking start time"
+            ) { cancelled, dateTime ->
+                if (cancelled) {
+                    return@start
+                }
+                _bookingStartTime = dateTime.toString()
+                bookingStartTime.hint = dateTime.toString()
+            }
         }
 
+        bookingEndTime.hint = "Booking end time"
         bookingEndTime.setOnClickListener {
-            //
+            DateTimePicker().start(
+                fragmentManager = supportFragmentManager,
+                title = "Select booking ending time"
+            ) { cancelled, dateTime ->
+                if (cancelled) {
+                    return@start
+                }
+                _bookingEndTime = dateTime.toString()
+                bookingEndTime.hint = dateTime.toString()
+            }
         }
-
-        val slotCapacity = slotCapacity.text
 
         btnCreateSlot.setOnClickListener {
             showAlert()
         }
+
     }
 
-    private fun createMySlot() {
+    private fun createSlot() {
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 val response =
                     ApiAdapter.apiClient.createSlots(
                         "$type $token",
-                        "",
-                        "",
-                        "",
-                        "",
-                        0,
+                        _slotStartTime,
+                        _slotEndTime,
+                        _bookingStartTime,
+                        _bookingEndTime,
+                        slotCapacity.text.toString().toInt(),
                         true
                     )
-                if (response.isSuccessful && response.body() != null){
+                if (response.isSuccessful && response.body() != null) {
                     toast("Slot created Successfully")
                     startActivity(Intent(this@CreateSlotActivity, DoctorSlots::class.java))
                     finish()
-                }else{
+                } else {
                     toast(response.message().toString())
                 }
             } catch (e: Exception) {
@@ -87,16 +134,5 @@ class CreateSlotActivity : AppCompatActivity() {
             }
             .show()
     }
-
-    private fun createSlot() {
-        GlobalScope.launch(Dispatchers.Main) {
-            try {
-
-            } catch (e: Exception) {
-
-            }
-        }
-    }
-
 
 }

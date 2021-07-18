@@ -9,6 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appointmentbook.R
 import com.example.appointmentbook.data.SlotsbyReqIdData.SlotsByReqIdItem
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DoctorSlotReqAdapter : RecyclerView.Adapter<DoctorSlotReqAdapter.AdminSlotViewHolder>() {
 
@@ -43,19 +46,28 @@ class DoctorSlotReqAdapter : RecyclerView.Adapter<DoctorSlotReqAdapter.AdminSlot
         private val requestedAt: TextView = itemView.findViewById(R.id.requestedAt)
         private val btnAccept: Button = itemView.findViewById(R.id.reqBtnAccept)
         private val btnReject: Button = itemView.findViewById(R.id.reqBtnReject)
+        private val btnStatus: Button = itemView.findViewById(R.id.btnStatus)
 
         @SuppressLint("SetTextI18n")
         fun bind(data: SlotsByReqIdItem, position: Int) {
             reqSlotDetails.text =
-                "Slot: ${data.id}"
+                "Slot: ${data.slot_id}"
             reqName.text = "Name: ${data.requested_user.name}"
             reqEmail.text = "Email: ${data.requested_user.email}"
             reqPhone.text = "Phone: ${data.requested_user.phone}"
-            requestedAt.text = "Requested At: ${data.created_at}"
-            if (data.status == "rejected"){
-                btnReject.text = "Rejected"
+            requestedAt.text = "Requested At: ${timeFormatter(data.created_at)}"
+
+            if (data.status == "rejected") {
+                btnStatus.text = "Rejected"
+                btnStatus.visibility = View.VISIBLE
+                btnReject.visibility = View.INVISIBLE
                 btnAccept.visibility = View.INVISIBLE
-            }else {
+            } else if (data.status == "accepted") {
+                btnStatus.visibility = View.VISIBLE
+                btnStatus.text = "Accepted"
+                btnAccept.visibility = View.INVISIBLE
+                btnReject.visibility = View.INVISIBLE
+            } else {
                 btnAccept.setOnClickListener {
                     this@DoctorSlotReqAdapter.btnAcceptDoc?.invoke(position, data)
                 }
@@ -64,6 +76,13 @@ class DoctorSlotReqAdapter : RecyclerView.Adapter<DoctorSlotReqAdapter.AdminSlot
                     this@DoctorSlotReqAdapter.btnRejectDoc?.invoke(position, data)
                 }
             }
+        }
+
+        private fun timeFormatter(inputDate: String): String {
+            val sdf = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss", Locale.US)
+            val parseDate = sdf.parse(inputDate)
+            val formatter = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT)
+            return formatter.format(parseDate!!)
         }
     }
 
