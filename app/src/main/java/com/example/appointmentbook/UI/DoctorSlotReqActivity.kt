@@ -16,6 +16,7 @@ import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
 import com.example.appointmentbook.utils.Utils.Companion.getAuthType
 import com.example.appointmentbook.utils.Utils.Companion.getSlotId
 import com.example.appointmentbook.utils.Utils.Companion.getToken
+import com.example.appointmentbook.utils.Utils.Companion.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_slot_req_by_id.*
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +29,7 @@ class DoctorSlotReqActivity : AppCompatActivity() {
 
     val type = getAuthType(AUTH_TYPE)
     private val token = getToken(TOKEN_KEY)
-    val slotId = getSlotId(SLOT_ID)
+    private val slotId = getSlotId(SLOT_ID)
 
     private val doctorPanelAdapter by lazy {
         DoctorSlotReqAdapter().apply {
@@ -64,15 +65,10 @@ class DoctorSlotReqActivity : AppCompatActivity() {
                     doctorPanelAdapter.list = response.body() as ArrayList<SlotsByReqIdItem>
                     doctorPanelAdapter.notifyDataSetChanged()
                 } else {
-                    Toast.makeText(
-                        this@DoctorSlotReqActivity,
-                        response.body().toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    toast(response.body().toString())
                 }
             } catch (e: Exception) {
-                Toast.makeText(this@DoctorSlotReqActivity, e.message.toString(), Toast.LENGTH_SHORT)
-                    .show()
+                toast(e.message.toString())
             }
         }
     }
@@ -86,13 +82,9 @@ class DoctorSlotReqActivity : AppCompatActivity() {
                     data.id
                 )
                 if (res.isSuccessful && res.body() != null) {
-                    Toast.makeText(
-                        this@DoctorSlotReqActivity,
-                        "Request has been accepted",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    toast("Request has been accepted")
                 } else {
-                    Log.d("myTag", res.message().toString())
+                    toast(res.message().toString())
                 }
             } catch (e: Exception) {
                 Log.d("myTag", e.message.toString())
@@ -109,17 +101,12 @@ class DoctorSlotReqActivity : AppCompatActivity() {
                     data.id
                 )
                 if (res.isSuccessful && res.body() != null) {
-                    Toast.makeText(
-                        this@DoctorSlotReqActivity,
-                        "Request has been rejected",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    toast("Request has been rejected")
                 } else {
-                    Log.d("myTag", res.message().toString())
+                    toast(res.message().toString())
                 }
             } catch (e: Exception) {
-                Toast.makeText(this@DoctorSlotReqActivity, e.message.toString(), Toast.LENGTH_SHORT)
-                    .show()
+                toast(e.message.toString())
             }
         }
     }

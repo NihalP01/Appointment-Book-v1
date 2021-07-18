@@ -15,6 +15,7 @@ import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
 import com.example.appointmentbook.utils.Utils.Companion.getAuthType
 import com.example.appointmentbook.utils.Utils.Companion.getToken
+import com.example.appointmentbook.utils.Utils.Companion.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_book_req.*
 import kotlinx.coroutines.Dispatchers
@@ -62,15 +63,17 @@ class BookReqActivity : AppCompatActivity() {
                     }
 
                 } else {
-                    Toast.makeText(
-                        this@BookReqActivity,
-                        response.message().toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    toast(response.message().toString())
+//                    Toast.makeText(
+//                        this@BookReqActivity,
+//                        response.message().toString(),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
                 }
             } catch (e: Exception) {
-                Toast.makeText(this@BookReqActivity, e.message.toString(), Toast.LENGTH_SHORT)
-                    .show()
+                toast(e.message.toString())
+//                Toast.makeText(this@BookReqActivity, e.message.toString(), Toast.LENGTH_SHORT)
+//                    .show()
             }
         }
     }
@@ -94,7 +97,6 @@ class BookReqActivity : AppCompatActivity() {
             }
             .setPositiveButton("Confirm") { dialog, which ->
                 actionContact()
-                Toast.makeText(this, "HAHAAHAHA", Toast.LENGTH_SHORT).show()
             }
             .show()
     }

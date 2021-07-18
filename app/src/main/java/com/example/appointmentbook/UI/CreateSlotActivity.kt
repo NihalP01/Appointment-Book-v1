@@ -27,9 +27,7 @@ class CreateSlotActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_slot)
         supportActionBar?.hide()
 
-        slotStartTime.setOnClickListener {
-            //
-        }
+
 
         slotEndTime.setOnClickListener {
             //
@@ -75,7 +73,6 @@ class CreateSlotActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun showAlert() {
         MaterialAlertDialogBuilder(this)

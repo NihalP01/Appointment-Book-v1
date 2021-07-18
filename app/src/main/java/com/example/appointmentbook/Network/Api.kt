@@ -113,7 +113,7 @@ interface ApiClient {
 
 object ApiAdapter {
     val apiClient: ApiClient = Retrofit.Builder()
-        .baseUrl("https://77d817118110.ngrok.io/api/v1/")
+        .baseUrl("https://510e8ac5e38d.ngrok.io/api/v1/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(OkHttpClient())
         .build()

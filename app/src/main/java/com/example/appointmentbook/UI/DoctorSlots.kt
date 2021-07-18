@@ -20,6 +20,7 @@ import com.example.appointmentbook.utils.Utils.Companion.getAuthType
 import com.example.appointmentbook.utils.Utils.Companion.getPreference
 import com.example.appointmentbook.utils.Utils.Companion.getToken
 import com.example.appointmentbook.utils.Utils.Companion.logout
+import com.example.appointmentbook.utils.Utils.Companion.toast
 import kotlinx.android.synthetic.main.activity_doc_slots.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -78,15 +79,11 @@ class DoctorSlots : AppCompatActivity() {
                     doctorSlot.list = response.body() as ArrayList<SlotsData>
                     doctorSlot.notifyDataSetChanged()
                 } else {
-                    showToast(response.message().toString())
+                    toast(response.message().toString())
                 }
             } catch (e: Exception) {
-                showToast(e.toString())
+                toast(e.toString())
             }
         }
-    }
-
-    private fun showToast(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 }

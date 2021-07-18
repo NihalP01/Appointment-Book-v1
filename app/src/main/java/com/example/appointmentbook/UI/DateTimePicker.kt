@@ -28,7 +28,7 @@ class DateTimePicker{
         datePicker.addOnNegativeButtonClickListener {
             //
         }
-        datePicker.show(supportFragmentManager, "MATERIAL_DATE_PICKER")
+        //datePicker.show(supportFragmentManager, "MATERIAL_DATE_PICKER")
     }
 
     private fun timePick(date: String) {
@@ -44,7 +44,7 @@ class DateTimePicker{
         timePicker.addOnNegativeButtonClickListener {
             onDone?.invoke(true, "")
         }
-        timePicker.show(supportFragmentManager, "MATERIAL_TIME_PICKER")
+       // timePicker.show(supportFragmentManager, "MATERIAL_TIME_PICKER")
     }
 
 }

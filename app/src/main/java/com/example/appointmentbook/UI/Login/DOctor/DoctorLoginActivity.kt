@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
@@ -19,6 +18,7 @@ import com.example.appointmentbook.utils.Utils.Companion.USER_NAME
 import com.example.appointmentbook.utils.Utils.Companion.getPreference
 import com.example.appointmentbook.utils.Utils.Companion.setLogged
 import com.example.appointmentbook.utils.Utils.Companion.subscribeToTopic
+import com.example.appointmentbook.utils.Utils.Companion.toast
 import kotlinx.android.synthetic.main.activity_admin_login.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -65,6 +65,7 @@ class DoctorLoginActivity : AppCompatActivity() {
                         ApiAdapter.apiClient.role("${response.body()!!.type} ${response.body()!!.token}")
 
                     if (role.isSuccessful && role.body() != null) {
+                        toast("Logged in successfully")
                         val sharedPreferences = getPreference()
                         val edit: SharedPreferences.Editor = sharedPreferences.edit()
                         val id = role.body()!!.data.user.id
@@ -86,16 +87,11 @@ class DoctorLoginActivity : AppCompatActivity() {
                         )
                         finish()
                     } else {
-                        Toast.makeText(
-                            this@DoctorLoginActivity,
-                            role.body().toString(),
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        toast(role.body().toString())
                     }
                 }
             } catch (e: Exception) {
-                Toast.makeText(this@DoctorLoginActivity, e.message.toString(), Toast.LENGTH_SHORT)
-                    .show()
+                toast(e.message.toString())
             }
 
         }
