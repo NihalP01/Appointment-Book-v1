@@ -2,6 +2,7 @@ package com.example.appointmentbook.UI
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appointmentbook.Network.ApiAdapter
@@ -29,6 +30,18 @@ class CreateSlotActivity : AppCompatActivity() {
 
         slotStartTime.setOnClickListener {
             //
+            DateTimePicker().start(
+                fragmentManager = supportFragmentManager,
+                title = "Select slot start"
+            ) { cancelled, dateTime ->
+                //
+                if (cancelled) {
+                    //show cancelled
+                    return@start
+                }
+                // dateTime is the selected one
+                Log.d("mridx", "selected one is: $dateTime")
+            }
         }
 
         slotEndTime.setOnClickListener {
@@ -63,11 +76,11 @@ class CreateSlotActivity : AppCompatActivity() {
                         0,
                         true
                     )
-                if (response.isSuccessful && response.body() != null){
+                if (response.isSuccessful && response.body() != null) {
                     toast("Slot created Successfully")
                     startActivity(Intent(this@CreateSlotActivity, DoctorSlots::class.java))
                     finish()
-                }else{
+                } else {
                     toast(response.message().toString())
                 }
             } catch (e: Exception) {

@@ -2,7 +2,9 @@ package com.example.appointmentbook
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.appointmentbook.UI.DateTimePicker
 import com.example.appointmentbook.UI.DoctorListActivity
 import com.example.appointmentbook.UI.DoctorSlots
 import com.example.appointmentbook.UI.Login.DOctor.DoctorLoginActivity
@@ -11,6 +13,7 @@ import com.example.appointmentbook.utils.Utils.Companion.ROLE_KEY
 import com.example.appointmentbook.utils.Utils.Companion.getFromPref
 import com.example.appointmentbook.utils.Utils.Companion.getLogged
 import com.example.appointmentbook.utils.Utils.Companion.startActivity
+import com.example.appointmentbook.utils.Utils.Companion.toast
 import kotlinx.android.synthetic.main.activity_startup.*
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         // TODO: 04/07/21 check if user logged in
+
 
         if (getLogged(context = this)) {
             //user logged in
