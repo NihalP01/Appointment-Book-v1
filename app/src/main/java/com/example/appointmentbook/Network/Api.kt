@@ -1,10 +1,9 @@
 package com.example.appointmentbook.Network
 
-import com.example.appointmentbook.data.ActionStatusData
 import com.example.appointmentbook.data.AlllBookReq.AllBookReqDataItem
 import com.example.appointmentbook.data.BookReqData.BookReqDataItem
-import com.example.appointmentbook.data.BookReqData.Booking
 import com.example.appointmentbook.data.BookSlotData
+import com.example.appointmentbook.data.CreateSlotData
 import com.example.appointmentbook.data.DoctorListData.DoctorsListData
 import com.example.appointmentbook.data.SlotActionData
 import com.example.appointmentbook.data.SlotBookRequests.SlotBookRequestsItem
@@ -82,7 +81,7 @@ interface ApiClient {
     suspend fun doctorList(@Header("Authorization") BearerToken: String): Response<List<DoctorsListData>>
 
     @GET("slots/my")
-    suspend fun docSlotRec(@Header("Authorization") BearerToken: String) : Response<List<BookReqDataItem>>
+    suspend fun docSlotRec(@Header("Authorization") BearerToken: String): Response<List<BookReqDataItem>>
 
     @FormUrlEncoded
     @POST("slots/action/{action}")
@@ -90,18 +89,31 @@ interface ApiClient {
         @Header("Authorization") BearerToken: String,
         @Path("action") action: String,
         @Field("request_id") request_id: Int,
-        ) : Response<SlotActionData>
+    ): Response<SlotActionData>
 
     @GET("slots/{id}/requests")
     suspend fun slotsByID(
         @Header("Authorization") BearerToken: String,
         @Path("id") slot_id: Int,
-    ) : Response<List<SlotsByReqIdItem>>
+    ): Response<List<SlotsByReqIdItem>>
+
+    @FormUrlEncoded
+    @POST("slots/add")
+    suspend fun createSlots(
+        @Header("Authorization") BearerToken: String,
+        @Field("start_time") startTime: String,
+        @Field("end_time") endTime: String,
+        @Field("booking_start_time") bookingStartTime: String,
+        @Field("booking_end_time") bookingEndTime: String,
+        @Field("capacity") slotCapacity: Int,
+        @Field("available") available: Boolean,
+    ): Response<CreateSlotData>
+
 }
 
 object ApiAdapter {
     val apiClient: ApiClient = Retrofit.Builder()
-        .baseUrl("https://652fd9d5d735.ngrok.io/api/v1/")
+        .baseUrl("https://77d817118110.ngrok.io/api/v1/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(OkHttpClient())
         .build()

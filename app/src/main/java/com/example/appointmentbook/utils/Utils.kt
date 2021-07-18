@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.SharedPreferences
+import android.widget.Toast
 import androidx.core.content.edit
 import com.example.appointmentbook.utils.Utils.Companion.clearPreferences
 import com.example.appointmentbook.utils.Utils.Companion.getRole
@@ -134,6 +135,9 @@ class Utils {
             FirebaseMessaging.getInstance().subscribeToTopic(topic)
         }
 
+        fun Context.toast(message: CharSequence) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

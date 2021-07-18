@@ -51,10 +51,10 @@ class BookReqActivity : AppCompatActivity() {
             val response = ApiAdapter.apiClient.bookReq("$type $token")
             try {
                 if (response.isSuccessful && response.body() != null) {
-                    if (response.body()!!.isEmpty()){
+                    if (response.body()!!.isEmpty()) {
                         emptyBodyMsg2.visibility = View.VISIBLE
                         myReqProgress.visibility = View.INVISIBLE
-                    }else{
+                    } else {
                         myReqProgress.visibility = View.INVISIBLE
                         emptyBodyMsg2.visibility = View.INVISIBLE
                         bookReqAdapter.list = response.body() as ArrayList<AllBookReqDataItem>

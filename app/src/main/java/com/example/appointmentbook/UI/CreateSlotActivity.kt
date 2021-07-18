@@ -1,40 +1,46 @@
 package com.example.appointmentbook.UI
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
-import com.google.android.material.datepicker.MaterialDatePicker
+import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
+import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
+import com.example.appointmentbook.utils.Utils.Companion.getAuthType
+import com.example.appointmentbook.utils.Utils.Companion.getToken
+import com.example.appointmentbook.utils.Utils.Companion.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.timepicker.MaterialTimePicker
-import com.google.android.material.timepicker.TimeFormat
 import kotlinx.android.synthetic.main.activity_add_slot.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class CreateSlotActivity : AppCompatActivity() {
+
+    private val type = getAuthType(AUTH_TYPE)
+    private val token = getToken(TOKEN_KEY)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_slot)
         supportActionBar?.hide()
 
-
         slotStartTime.setOnClickListener {
-            datePick()
+            //
         }
 
         slotEndTime.setOnClickListener {
-            datePick()
+            //
         }
 
         bookingStartTime.setOnClickListener {
-            datePick()
+            //
         }
 
         bookingEndTime.setOnClickListener {
-            datePick()
+            //
         }
 
         val slotCapacity = slotCapacity.text
@@ -44,40 +50,32 @@ class CreateSlotActivity : AppCompatActivity() {
         }
     }
 
-    private fun datePick() {
-        val datePicker =
-            MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Select appointment date")
-                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                .build()
-        datePicker.addOnPositiveButtonClickListener {
-            val getDate = datePicker.headerText
-            timePick(getDate)
+    private fun createMySlot() {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                val response =
+                    ApiAdapter.apiClient.createSlots(
+                        "$type $token",
+                        "",
+                        "",
+                        "",
+                        "",
+                        0,
+                        true
+                    )
+                if (response.isSuccessful && response.body() != null){
+                    toast("Slot created Successfully")
+                    startActivity(Intent(this@CreateSlotActivity, DoctorSlots::class.java))
+                    finish()
+                }else{
+                    toast(response.message().toString())
+                }
+            } catch (e: Exception) {
+                toast(e.message.toString())
+            }
         }
-        datePicker.addOnNegativeButtonClickListener {
-            //
-        }
-        datePicker.show(supportFragmentManager, "MATERIAL_DATE_PICKER")
-
     }
 
-    private fun timePick(date: String) {
-        val timePicker =
-            MaterialTimePicker.Builder()
-                .setTimeFormat(TimeFormat.CLOCK_12H)
-                .setHour(12)
-                .setTitleText("Select appointment time")
-                .build()
-        timePicker.addOnPositiveButtonClickListener {
-            Log.d("finalTime", "$date ${timePicker.hour}:${timePicker.minute}")
-            showToast("Picked Time: $date ${timePicker.hour}:${timePicker.minute}")
-        }
-        timePicker.addOnNegativeButtonClickListener {
-            //
-        }
-
-        timePicker.show(supportFragmentManager, "MATERIAL_TIME_PICKER")
-    }
 
     private fun showAlert() {
         MaterialAlertDialogBuilder(this)
@@ -103,7 +101,5 @@ class CreateSlotActivity : AppCompatActivity() {
         }
     }
 
-    private fun showToast(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-    }
+
 }
