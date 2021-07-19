@@ -3,9 +3,12 @@ package com.example.appointmentbook.UI
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.appointmentbook.MainActivity
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.Login.DOctor.DoctorLoginActivity
@@ -14,10 +17,12 @@ import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.DOC_ID
 import com.example.appointmentbook.utils.Utils.Companion.SLOT_ID
 import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
+import com.example.appointmentbook.utils.Utils.Companion.USER_NAME
 import com.example.appointmentbook.utils.Utils.Companion.docId
 import com.example.appointmentbook.utils.Utils.Companion.getAuthType
 import com.example.appointmentbook.utils.Utils.Companion.getPreference
 import com.example.appointmentbook.utils.Utils.Companion.getToken
+import com.example.appointmentbook.utils.Utils.Companion.getUserName
 import com.example.appointmentbook.utils.Utils.Companion.logout
 import com.example.appointmentbook.utils.Utils.Companion.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -29,6 +34,8 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class DoctorSlots : AppCompatActivity() {
+
+    val docName = getUserName(USER_NAME)
 
     private val doctorSlot by lazy {
         DoctorSlotsAdapter().apply {
@@ -49,6 +56,8 @@ class DoctorSlots : AppCompatActivity() {
         setContentView(R.layout.activity_doc_slots)
         supportActionBar?.hide()
         val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.docSlotRefresh)
+
+        adminName.text = docName
 
         btnUpDateInfo.setOnClickListener {
             startActivity(Intent(this, DocInfoUpdate::class.java))
@@ -87,11 +96,19 @@ class DoctorSlots : AppCompatActivity() {
                 val type = getAuthType(AUTH_TYPE)
                 val token = getToken(TOKEN_KEY)
                 val docId = docId(DOC_ID)
+                Log.d("docId", docId)
                 val response = ApiAdapter.apiClient.docSlotAvailable("$type $token", docId.toInt())
                 if (response.isSuccessful && response.body() != null) {
-                    docSlotRefresh.isRefreshing = false
-                    doctorSlot.list = response.body() as ArrayList<SlotsData>
-                    doctorSlot.notifyDataSetChanged()
+                    if (response.body()!!.isEmpty()) {
+                        notiEmptySlot.visibility = View.VISIBLE
+                        docSlotRefresh.isRefreshing = false
+                    } else {
+                        docSlotRefresh.isRefreshing = false
+                        notiEmptySlot.visibility = View.INVISIBLE
+                        doctorSlot.list = response.body() as ArrayList<SlotsData>
+                        doctorSlot.notifyDataSetChanged()
+                    }
+
                 } else {
                     toast(response.message().toString())
                 }
@@ -108,7 +125,7 @@ class DoctorSlots : AppCompatActivity() {
             .setMessage("Do you want to logout ?")
             .setPositiveButton("Confirm") { dialog, which ->
                 logout()
-                startActivity(Intent(this, DoctorLoginActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }
             .setNegativeButton("Cancel") { dialog, which ->

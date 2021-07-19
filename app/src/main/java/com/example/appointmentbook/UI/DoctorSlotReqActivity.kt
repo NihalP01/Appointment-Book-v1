@@ -3,6 +3,7 @@ package com.example.appointmentbook.UI
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -79,8 +80,12 @@ class DoctorSlotReqActivity : AppCompatActivity() {
                 val response = ApiAdapter.apiClient.slotsByID("$type $token", slotId.toInt())
                 if (response.isSuccessful && response.body() != null) {
                     reqSwipeRefresh.isRefreshing = false
-                    doctorPanelAdapter.list = response.body() as ArrayList<SlotsByReqIdItem>
-                    doctorPanelAdapter.notifyDataSetChanged()
+                    if (response.body()!!.isEmpty()) {
+                        notiNoReq.visibility = View.VISIBLE
+                    } else {
+                        doctorPanelAdapter.list = response.body() as ArrayList<SlotsByReqIdItem>
+                        doctorPanelAdapter.notifyDataSetChanged()
+                    }
                 } else {
                     toast(response.body().toString())
                 }

@@ -3,6 +3,7 @@ package com.example.appointmentbook.UI
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -30,7 +31,7 @@ class BookReqActivity : AppCompatActivity() {
     }
 
     private val btnContactDoc = { position: Int, data: AllBookReqDataItem ->
-        showAlert()
+        showAlert(data.slot.associated_to.phone)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,15 +80,16 @@ class BookReqActivity : AppCompatActivity() {
     }
 
     //to open whatsapp chat
-    private fun actionContact() {
-        val phoneNo = "+917002028029"
+    private fun actionContact(phone: String) {
+        val phoneNo = "+91${phone}"
+        Log.d("docPh", phone)
         val url = "https://api.whatsapp.com/send?phone=$phoneNo"
         val openURL = Intent(Intent.ACTION_VIEW)
         openURL.data = Uri.parse(url)
         startActivity(openURL)
     }
 
-    private fun showAlert() {
+    private fun showAlert(phoneNo: String) {
         MaterialAlertDialogBuilder(this)
             .setTitle("Warning")
             .setIcon(R.drawable.ic_warning)
@@ -96,7 +98,7 @@ class BookReqActivity : AppCompatActivity() {
                 //
             }
             .setPositiveButton("Confirm") { dialog, which ->
-                actionContact()
+                actionContact(phoneNo)
             }
             .show()
     }

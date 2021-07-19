@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:text="Dr. Name"
+            android:text=" "
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/btnAdminLogout"
@@ -37,8 +37,8 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginRight="6dp"
             android:src="@drawable/ic_logout"
 
             app:layout_constraintBottom_toTopOf="@+id/materialTextView15"
@@ -128,8 +128,6 @@
             android:layout_width="wrap_content"
             android:layout_height="24sp"
             android:layout_marginTop="6dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:backgroundTint="@color/material_purple_400"
             android:insetTop="0dp"
             android:insetBottom="0dp"
@@ -138,21 +136,28 @@
             android:textSize="12dp"
             app:cornerRadius="10dp"
             app:elevation="4dp"
-            app:layout_constraintBottom_toTopOf="@+id/notificationRecycler"
-            app:layout_constraintEnd_toEndOf="@+id/btnAdminLogout"
-            app:layout_constraintStart_toStartOf="@+id/adminName"
-            app:layout_constraintTop_toBottomOf="@+id/adminName"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintBottom_toTopOf="@+id/docSlotRefresh"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adminName" />
 
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/progressBarDocSlots"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/notiEmptySlot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/notificationRecycler"
-            app:layout_constraintEnd_toEndOf="@+id/notificationRecycler"
-            app:layout_constraintStart_toStartOf="@+id/notificationRecycler"
-            app:layout_constraintTop_toTopOf="@+id/notificationRecycler"
-            app:layout_constraintVertical_bias="0.32999998" />
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:gravity="center_horizontal"
+            android:text="You don't have any slots. To create a new slot, tap on Add slot"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.35000002" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

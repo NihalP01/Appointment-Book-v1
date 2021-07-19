@@ -32,28 +32,25 @@
         app:layout_constraintTop_toBottomOf="@+id/materialTextView20"
         app:layout_constraintVertical_bias="0.008" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/doctorRecycler"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/docListRefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialTextView21"
-        tools:listitem="@layout/doctor_list_items" />
+        app:layout_constraintTop_toBottomOf="@+id/materialTextView21">
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/docListProgress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/doctorRecycler"
-        app:layout_constraintEnd_toEndOf="@+id/doctorRecycler"
-        app:layout_constraintStart_toStartOf="@+id/doctorRecycler"
-        app:layout_constraintTop_toBottomOf="@+id/materialTextView21"
-        app:layout_constraintVertical_bias="0.29000002" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/doctorRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialTextView21"
+            tools:listitem="@layout/doctor_list_items" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/btnUserLogout1"

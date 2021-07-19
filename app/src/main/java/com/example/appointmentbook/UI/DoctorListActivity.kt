@@ -3,9 +3,11 @@ package com.example.appointmentbook.UI
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.Adapter.DoctorListAdapter
@@ -25,6 +27,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_doctor_list.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.launch
 
 class DoctorListActivity : AppCompatActivity() {
@@ -50,7 +53,20 @@ class DoctorListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_doctor_list)
         supportActionBar?.hide()
         userName1.text = userName
-        docListProgress.visibility = View.VISIBLE
+
+        val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.docListRefresh)
+
+        swipeRefreshLayout?.post ( Runnable{
+            run{
+                swipeRefreshLayout.isRefreshing = true
+                getDoctorList(userToken, type)
+            }
+        })
+
+        swipeRefreshLayout.setOnRefreshListener {
+            getDoctorList(userToken, type)
+        }
+
         btnUserLogout1.setOnClickListener {
             showAlert()
         }
@@ -59,7 +75,7 @@ class DoctorListActivity : AppCompatActivity() {
             startActivity(Intent(this, SlotsActivity::class.java))
         }
 
-        getDoctorList(userToken, type)
+
 
         doctorRecycler.apply {
             layoutManager = LinearLayoutManager(this@DoctorListActivity)
@@ -69,20 +85,22 @@ class DoctorListActivity : AppCompatActivity() {
         }
     }
 
-    private fun slotList(id: String) {
+    private fun slotList(docId: String) {
         val sharedPreferences = getPreference()
         val edit: SharedPreferences.Editor = sharedPreferences.edit()
-        edit.putString(DOC_ID, id)
+        edit.putString(DOC_ID, docId)
         edit.apply()
+        Log.d("nihal", docId)
         startActivity(Intent(this, SlotsActivity::class.java))
     }
 
     private fun getDoctorList(token: String, type: String) {
         GlobalScope.launch(Dispatchers.Main) {
             try {
+                docListRefresh.isRefreshing = true
                 val response = ApiAdapter.apiClient.doctorList("$type $token")
                 if (response.isSuccessful && response.body() != null) {
-                    docListProgress.visibility = View.INVISIBLE
+                    docListRefresh.isRefreshing = false
                     doctorPanelAdapter.list = response.body() as ArrayList<DoctorsListData>
                     doctorPanelAdapter.notifyDataSetChanged()
                 } else {

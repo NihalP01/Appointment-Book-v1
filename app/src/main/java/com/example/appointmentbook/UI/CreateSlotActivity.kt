@@ -3,6 +3,7 @@ package com.example.appointmentbook.UI
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
@@ -98,6 +99,8 @@ class CreateSlotActivity : AppCompatActivity() {
     private fun createSlot() {
         GlobalScope.launch(Dispatchers.Main) {
             try {
+                createProgressBar.visibility = View.VISIBLE
+                btnCreateSlot.visibility = View.INVISIBLE
                 val response =
                     ApiAdapter.apiClient.createSlots(
                         "$type $token",
@@ -109,6 +112,8 @@ class CreateSlotActivity : AppCompatActivity() {
                         true
                     )
                 if (response.isSuccessful && response.body() != null) {
+                    createProgressBar.visibility = View.INVISIBLE
+                    btnCreateSlot.visibility = View.VISIBLE
                     toast("Slot created Successfully")
                     startActivity(Intent(this@CreateSlotActivity, DoctorSlots::class.java))
                     finish()

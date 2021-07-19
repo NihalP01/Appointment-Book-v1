@@ -42,17 +42,20 @@ class userBookReqAdapter : RecyclerView.Adapter<userBookReqAdapter.ReqViewHolder
     inner class ReqViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val slotTime: TextView = itemView.findViewById(R.id.bookSlotTime)
         private val bookSlotNumber: TextView = itemView.findViewById(R.id.bookSlotNumber)
-        private val bookedTeacherName: TextView = itemView.findViewById(R.id.bookedDoctorName)
+        private val bookedTeacherName: TextView? = itemView.findViewById(R.id.bookedDoctorName)
         private val bookStatus: TextView = itemView.findViewById(R.id.bookStatus)
         private val slotCard: CardView = itemView.findViewById(R.id.slotCard)
         private val btnContact: Button = itemView.findViewById(R.id.btnContact)
+        private val docEmail: TextView? = itemView.findViewById(R.id.docEmail)
 
         fun bind(data: AllBookReqDataItem, position: Int) {
             slotTime.text =
-                "From ${timeFormatter(data.slot.booking_start_time)} to ${timeFormatter(data.slot.booking_end_time)}"
+                "From: ${timeFormatter(data.slot.booking_start_time)} to ${timeFormatter(data.slot.booking_end_time)}"
             bookSlotNumber.text = "Slot: ${data.slot.id}"
-            bookedTeacherName.text = "Doctor Name: Dr Name"
-            bookStatus.text = "Status: ${data.status}"
+//            bookedTeacherName?.text = "Doctor Name: ${data.slot.associated_to.name}"
+//            bookStatus.text = "Status: ${data.status}"
+//            docEmail?.text = "Email: ${data.slot.associated_to.email}"
+
 
             if (data.status == "rejected") {
                 slotCard.setCardBackgroundColor(Color.rgb(239, 83, 80))

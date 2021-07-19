@@ -3,10 +3,12 @@ package com.example.appointmentbook.UI
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.Adapter.SlotsAdapter
@@ -18,7 +20,6 @@ import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
 import com.example.appointmentbook.utils.Utils.Companion.USER_NAME
 import com.example.appointmentbook.utils.Utils.Companion.docId
 import com.example.appointmentbook.utils.Utils.Companion.getAuthType
-import com.example.appointmentbook.utils.Utils.Companion.getPreference
 import com.example.appointmentbook.utils.Utils.Companion.getToken
 import com.example.appointmentbook.utils.Utils.Companion.getUserName
 import com.example.appointmentbook.utils.Utils.Companion.logout
@@ -26,11 +27,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_slots.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.launch
 
 class SlotsActivity : AppCompatActivity() {
 
-    private val docId = docId(DOC_ID)
+    private val docID: String = docId(DOC_ID)
 
     private val slotsAdapter by lazy {
         SlotsAdapter().apply {
@@ -48,7 +50,19 @@ class SlotsActivity : AppCompatActivity() {
         getData()
         supportActionBar?.hide()
 
-        slotProgressBar.visibility = View.VISIBLE
+        val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.bookSlotRefresh)
+
+        swipeRefreshLayout.post(Runnable {
+            kotlin.run {
+                swipeRefreshLayout.isRefreshing = true
+                getSlots()
+            }
+        })
+
+        swipeRefreshLayout.setOnRefreshListener {
+            getSlots()
+        }
+
         slotsRecycler.visibility = View.INVISIBLE
 
         slotsRecycler.apply {
@@ -57,13 +71,25 @@ class SlotsActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@SlotsActivity)
         }
 
+        loggedInUserName.setOnClickListener {
+            startActivity(Intent(this, BookReqActivity::class.java))
+        }
+
+        btnLogout.setOnClickListener {
+            showAlert()
+        }
+    }
+
+    private fun getSlots() {
         GlobalScope.launch(Dispatchers.Main) {
             try {
+                bookSlotRefresh.isRefreshing = true
                 val token = getToken(TOKEN_KEY)
                 val type = getAuthType(AUTH_TYPE)
-                val response = ApiAdapter.apiClient.docSlotAvailable("$type $token", docId.toInt())
+                val response =
+                    ApiAdapter.apiClient.docSlotAvailable("$type $token", docID.toInt())
                 if (response.isSuccessful && response.body() != null) {
-                    slotProgressBar.visibility = View.INVISIBLE
+                    bookSlotRefresh.isRefreshing = false
                     slotsRecycler.visibility = View.VISIBLE
                     if (response.body()!!.isEmpty()) {
                         emptyBodyMsg.visibility = View.VISIBLE
@@ -83,22 +109,13 @@ class SlotsActivity : AppCompatActivity() {
                 Toast.makeText(this@SlotsActivity, e.message.toString(), Toast.LENGTH_SHORT).show()
             }
         }
-
-        loggedInUserName.setOnClickListener {
-            startActivity(Intent(this, BookReqActivity::class.java))
-        }
-
-        btnLogout.setOnClickListener {
-            showAlert()
-        }
     }
 
     private fun bookSlot(id: Int) {
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val getPref = getPreference()
-                val type = getPref.getString("type", "")
-                val token = getPref.getString("token", "") //todo create function to get token
+                val type = getAuthType(AUTH_TYPE)
+                val token = getToken(TOKEN_KEY)
                 val response = ApiAdapter.apiClient.bookSlot(
                     "$type $token",
                     id

@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp">
+    android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/slotCard"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="wrap_content"
         app:cardElevation="4dp"
         android:layout_margin="10dp"
         app:cardBackgroundColor="@android:color/white"
@@ -45,6 +45,7 @@
                 android:text="Slot Timing: From 10:00 AM to 10:30AM"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:gravity="center_horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -55,21 +56,19 @@
                 android:id="@+id/bookStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
                 android:text="Status: Accepted"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bookedDoctorName"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/docEmail" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/bookedDoctorName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Doctor Name: Dr. Name Title"
+                android:text="Doctor Name: "
                 android:textSize="16sp"
                 android:layout_marginTop="2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -96,6 +95,20 @@
                 app:layout_constraintStart_toEndOf="@+id/bookStatus"
                 app:layout_constraintTop_toBottomOf="@+id/bookedDoctorName" />
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/docEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:text="Email: "
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnContact"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bookedDoctorName"
+                app:layout_constraintVertical_bias="0.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

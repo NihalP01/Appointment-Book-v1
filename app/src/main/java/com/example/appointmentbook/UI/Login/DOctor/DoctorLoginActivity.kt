@@ -11,6 +11,7 @@ import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.DoctorSlots
 import com.example.appointmentbook.utils.Utils
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
+import com.example.appointmentbook.utils.Utils.Companion.DOC_ID
 import com.example.appointmentbook.utils.Utils.Companion.ROLE_KEY
 import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
 import com.example.appointmentbook.utils.Utils.Companion.USER_EMAIL
@@ -20,6 +21,7 @@ import com.example.appointmentbook.utils.Utils.Companion.setLogged
 import com.example.appointmentbook.utils.Utils.Companion.subscribeToTopic
 import com.example.appointmentbook.utils.Utils.Companion.toast
 import kotlinx.android.synthetic.main.activity_admin_login.*
+import kotlinx.android.synthetic.main.activity_user_login.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -36,16 +38,25 @@ class DoctorLoginActivity : AppCompatActivity() {
     }
 
     private fun adminLogin() {
-        if (adminEmail.text.toString().isEmpty()) {
-            adminEmail.error = "Please enter your email"
-            adminEmail.requestFocus()
-            return
+        if (adminEmail.text.toString().contains("@")) {
+            if (adminEmail.text.toString()
+                    .isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(adminEmail.text.toString())
+                    .matches()
+            ) {
+                adminEmail.error = "Enter a valid email id or phone number"
+                adminEmail.requestFocus()
+                return
+            }
+        } else {
+            if (adminEmail.text.toString()
+                    .isEmpty() || !Patterns.PHONE.matcher(adminEmail.text.toString()).matches()
+            ) {
+                adminEmail.error = "Enter a valid email id or phone number"
+                adminEmail.requestFocus()
+                return
+            }
         }
-        if (!Patterns.EMAIL_ADDRESS.matcher(adminEmail.text.toString()).matches()) {
-            adminEmail.error = "Email id is not valid"
-            adminEmail.requestFocus()
-            return
-        }
+
         if (adminPassword.text.toString().isEmpty()) {
             adminPassword.error = "Please enter your password"
             adminPassword.requestFocus()
@@ -70,6 +81,7 @@ class DoctorLoginActivity : AppCompatActivity() {
                         val edit: SharedPreferences.Editor = sharedPreferences.edit()
                         val id = role.body()!!.data.user.id
                         edit.putInt(Utils.ID_KEY, id)
+                        edit.putString(DOC_ID, role.body()!!.data.user.id.toString())
                         edit.putString(AUTH_TYPE, response.body()!!.type)
                         edit.putString(TOKEN_KEY, response.body()!!.token)
                         edit.putString(ROLE_KEY, role.body()!!.data.user.role)
