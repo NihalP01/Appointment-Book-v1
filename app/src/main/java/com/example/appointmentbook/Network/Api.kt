@@ -1,13 +1,10 @@
 package com.example.appointmentbook.Network
 
+import com.example.appointmentbook.data.*
 import com.example.appointmentbook.data.AlllBookReq.AllBookReqDataItem
 import com.example.appointmentbook.data.BookReqData.BookReqDataItem
-import com.example.appointmentbook.data.BookSlotData
-import com.example.appointmentbook.data.CreateSlotData
 import com.example.appointmentbook.data.DoctorListData.DoctorsListData
-import com.example.appointmentbook.data.SlotActionData
 import com.example.appointmentbook.data.SlotBookRequests.SlotBookRequestsItem
-import com.example.appointmentbook.data.SlotsData
 import com.example.appointmentbook.data.SlotsbyReqIdData.SlotsByReqIdItem
 import com.example.appointmentbook.data.roleData.RoleData
 import okhttp3.OkHttpClient
@@ -109,11 +106,17 @@ interface ApiClient {
         @Field("available") available: Boolean,
     ): Response<CreateSlotData>
 
+    @POST("details")
+    suspend fun updateDocDetails(
+        @Header("Authorization") BearerToken: String,
+        @Body detailsUpdate: DetailsUpdateData
+    ) : Response<ResStatus>
+
 }
 
 object ApiAdapter {
     val apiClient: ApiClient = Retrofit.Builder()
-        .baseUrl("https://811810048243.ngrok.io/api/v1/")
+        .baseUrl("https://doc-book.herokuapp.com/api/v1/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(OkHttpClient())
         .build()

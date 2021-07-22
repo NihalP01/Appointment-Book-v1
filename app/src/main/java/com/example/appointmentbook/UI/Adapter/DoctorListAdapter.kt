@@ -36,13 +36,13 @@ class DoctorListAdapter : RecyclerView.Adapter<DoctorListAdapter.DoctorViewHolde
 
     inner class DoctorViewHolder(itmeView: View) : RecyclerView.ViewHolder(itmeView) {
         private val doctorName: TextView = itmeView.findViewById(R.id.doctorName)
-        private val doctorDegree: TextView = itemView.findViewById(R.id.doctorDegree)
+        private val doctorDegree: TextView? = itemView.findViewById(R.id.doctorDegree)
         private val doctorConsultant: TextView = itemView.findViewById(R.id.doctorConsultant)
         private val viewSlot: Button = itmeView.findViewById(R.id.doctorViewSlots)
 
         fun bind(data: DoctorsListData, position: Int) {
             doctorName.text = "${data.name}"
-            doctorDegree.text = "${data.details.details}"
+            doctorDegree?.text = "${data.details.details}"
             doctorConsultant.text = " "
             viewSlot.setOnClickListener {
                 this@DoctorListAdapter.btnViewSlot?.invoke(position, data)

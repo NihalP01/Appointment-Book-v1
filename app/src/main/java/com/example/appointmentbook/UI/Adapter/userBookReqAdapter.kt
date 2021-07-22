@@ -52,9 +52,9 @@ class userBookReqAdapter : RecyclerView.Adapter<userBookReqAdapter.ReqViewHolder
             slotTime.text =
                 "From: ${timeFormatter(data.slot.booking_start_time)} to ${timeFormatter(data.slot.booking_end_time)}"
             bookSlotNumber.text = "Slot: ${data.slot.id}"
-//            bookedTeacherName?.text = "Doctor Name: ${data.slot.associated_to.name}"
-//            bookStatus.text = "Status: ${data.status}"
-//            docEmail?.text = "Email: ${data.slot.associated_to.email}"
+            bookedTeacherName?.text = "Doctor Name: ${data.slot.associated_to.name}"
+            bookStatus.text = "Status: ${data.status}"
+            docEmail?.text = "Email: ${data.slot.associated_to.email}"
 
 
             if (data.status == "rejected") {
