@@ -2,144 +2,203 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="20dp">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/materialTextView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="Update your Work Details"
-        android:textSize="22dp"
-        android:textStyle="bold"
-        android:layout_marginTop="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/docWorkDetails"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout18"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/docInfoToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Works at"
-        android:layout_marginTop="12dp"
+        app:title="My Info"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialTextView22"
-        app:layout_constraintVertical_bias="0.0">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/docWorksAt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout19"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout18"
-        app:layout_constraintVertical_bias="0.0">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/docSpeciality"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Speciality" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnUpdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Update"
-        android:textAllCaps="false"
-        android:layout_marginTop="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout19"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/updateProgress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/btnUpdate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnUpdate" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/materialTextView23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Current Info:"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:layout_marginTop="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/docCurrentInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:lineSpacingExtra="6dp"
-        android:layout_marginTop="6dp"
-        android:textSize="16sp"
-        android:text=" "
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView3"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_margin="10dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialTextView23"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/docDetailsCardView"
+        app:layout_constraintVertical_bias="0.0">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/materialTextView24"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/materialTextView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Update your Work Details"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout18"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Works at"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/materialTextView22"
+                app:layout_constraintVertical_bias="0.0">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/docWorksAt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout19"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout18"
+                app:layout_constraintVertical_bias="0.0">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/docSpeciality"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Speciality" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Update"
+                app:cornerRadius="18dp"
+                android:backgroundTint="@color/material_blue_400"
+                android:textAllCaps="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout19"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/updateProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/btnUpdate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btnUpdate" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/docDetailsProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Works At:"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginTop="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/docCurrentInfo"
-        app:layout_constraintVertical_bias="0.0" />
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/docDetailsCardView"
+        app:layout_constraintEnd_toEndOf="@+id/docDetailsCardView"
+        app:layout_constraintStart_toStartOf="@+id/docDetailsCardView"
+        app:layout_constraintTop_toTopOf="@+id/docDetailsCardView" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/docWorkDetails"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/docDetailsCardView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=" "
-        android:layout_marginTop="4dp"
-        android:lineSpacingExtra="6dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialTextView24"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/docInfoToolbar"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/materialTextView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current Info"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/docCurrentInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:lineSpacingExtra="6dp"
+                android:text=" "
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/materialTextView23"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/materialTextView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Works At:"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/docCurrentInfo"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/docWorkDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:lineSpacingExtra="6dp"
+                android:text=" "
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/materialTextView24"
+                app:layout_constraintVertical_bias="0.0" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

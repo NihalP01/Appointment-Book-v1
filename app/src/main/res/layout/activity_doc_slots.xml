@@ -5,24 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:menu="@menu/toolbar_menu"
+            app:subtitle="You have the following Slots"
+            app:title="My Slots" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/adminName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:text=" "
+            android:text=""
+            android:layout_marginRight="6dp"
+            android:layout_marginEnd="6dp"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/btnAdminLogout"
@@ -36,49 +61,15 @@
             android:id="@+id/btnAdminLogout"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="6dp"
             android:layout_marginRight="6dp"
+            android:layout_marginTop="4dp"
             android:src="@drawable/ic_logout"
-
-            app:layout_constraintBottom_toTopOf="@+id/materialTextView15"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/materialTextView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:gravity="center_horizontal"
-            android:text="My Slots"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/adminName"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/materialTextView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="4dp"
-            android:text="You have the following Slots"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialTextView10"
             app:layout_constraintVertical_bias="0.0" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -89,8 +80,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialTextView15"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toBottomOf="@+id/adminName">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/notificationRecycler"
@@ -122,25 +112,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnUpDateInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="24sp"
-            android:layout_marginTop="6dp"
-            android:backgroundTint="@color/material_purple_400"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:text="Update info"
-            android:textAllCaps="false"
-            android:textSize="12dp"
-            app:cornerRadius="10dp"
-            app:elevation="4dp"
-            app:layout_constraintBottom_toTopOf="@+id/docSlotRefresh"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/adminName" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/notiEmptySlot"

@@ -11,7 +11,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appointmentbook.MainActivity
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
-import com.example.appointmentbook.UI.Login.DOctor.DoctorLoginActivity
 import com.example.appointmentbook.data.SlotsData
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.DOC_ID
@@ -54,12 +53,13 @@ class DoctorSlots : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doc_slots)
-        supportActionBar?.hide()
+        setSupportActionBar(materialToolbar)
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.docSlotRefresh)
 
         adminName.text = docName
 
-        btnUpDateInfo.setOnClickListener {
+        adminName.setOnClickListener {
             startActivity(Intent(this, DocInfoUpdate::class.java))
         }
 

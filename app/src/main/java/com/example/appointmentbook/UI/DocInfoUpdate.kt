@@ -1,6 +1,7 @@
 package com.example.appointmentbook.UI
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appointmentbook.Network.ApiAdapter
@@ -24,9 +25,12 @@ class DocInfoUpdate : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.hide()
+        setSupportActionBar(docInfoToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setContentView(R.layout.activity_update_doc_info)
+
         currentInfo()
+
 
         btnUpdate?.setOnClickListener {
             validateInput()
@@ -51,8 +55,12 @@ class DocInfoUpdate : AppCompatActivity() {
     private fun currentInfo() {
         GlobalScope.launch(Dispatchers.Main) {
             try {
+                docDetailsCardView.visibility = View.INVISIBLE
+                docDetailsProgressBar.visibility = View.VISIBLE
                 val response = ApiAdapter.apiClient.role("$type $token")
                 if (response.isSuccessful && response.body() != null) {
+                    docDetailsProgressBar.visibility = View.INVISIBLE
+                    docDetailsCardView.visibility = View.VISIBLE
                     docCurrentInfo.text =
                         "Name: ${response.body()!!.data.user.name}\nEmail: ${response.body()!!.data.user.email}\nPhone: ${response.body()!!.data.user.phone}"
                     if (response.body()!!.data.details.details == null) {
@@ -99,4 +107,12 @@ class DocInfoUpdate : AppCompatActivity() {
             }
         }
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> onBackPressed()
+        }
+        return true
+    }
+
 }
