@@ -53,11 +53,9 @@ class DoctorSlots : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doc_slots)
-        setSupportActionBar(materialToolbar)
 //        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.docSlotRefresh)
 
-        adminName.text = docName
 
         adminName.setOnClickListener {
             startActivity(Intent(this, DocInfoUpdate::class.java))
@@ -78,9 +76,9 @@ class DoctorSlots : AppCompatActivity() {
             startActivity(Intent(this, CreateSlotActivity::class.java))
         }
 
-        btnAdminLogout.setOnClickListener {
-            showAlert()
-        }
+//        btnAdminLogout.setOnClickListener {
+//            showAlert()
+//        }
 
         notificationRecycler.apply {
             adapter = doctorSlot
@@ -118,19 +116,4 @@ class DoctorSlots : AppCompatActivity() {
         }
     }
 
-    private fun showAlert() {
-        MaterialAlertDialogBuilder(this)
-            .setTitle("Warning !")
-            .setIcon(R.drawable.ic_warning)
-            .setMessage("Do you want to logout ?")
-            .setPositiveButton("Confirm") { dialog, which ->
-                logout()
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            }
-            .setNegativeButton("Cancel") { dialog, which ->
-                //
-            }
-            .show()
-    }
 }

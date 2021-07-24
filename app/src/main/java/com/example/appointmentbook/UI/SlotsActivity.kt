@@ -1,9 +1,7 @@
 package com.example.appointmentbook.UI
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,11 +14,9 @@ import com.example.appointmentbook.data.SlotsData
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.DOC_ID
 import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
-import com.example.appointmentbook.utils.Utils.Companion.USER_NAME
 import com.example.appointmentbook.utils.Utils.Companion.docId
 import com.example.appointmentbook.utils.Utils.Companion.getAuthType
 import com.example.appointmentbook.utils.Utils.Companion.getToken
-import com.example.appointmentbook.utils.Utils.Companion.getUserName
 import kotlinx.android.synthetic.main.activity_slots.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -44,10 +40,11 @@ class SlotsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_slots)
-        getData()
         supportActionBar?.hide()
 
-        Log.d("myTag", docID)
+        userDetails.setOnClickListener {
+            startActivity(Intent(this, UserDetails::class.java))
+        }
 
         val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.bookSlotRefresh)
 
@@ -68,10 +65,6 @@ class SlotsActivity : AppCompatActivity() {
             adapter = slotsAdapter
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@SlotsActivity)
-        }
-
-        loggedInUserName.setOnClickListener {
-            startActivity(Intent(this, BookReqActivity::class.java))
         }
 
     }
@@ -146,11 +139,5 @@ class SlotsActivity : AppCompatActivity() {
             //let's show user's requests
             startActivity(Intent(this, BookReqActivity::class.java))
         }
-    }
-
-    @SuppressLint("WrongConstant")
-    private fun getData() {
-        val userName = getUserName(USER_NAME)
-        loggedInUserName.text = userName
     }
 }

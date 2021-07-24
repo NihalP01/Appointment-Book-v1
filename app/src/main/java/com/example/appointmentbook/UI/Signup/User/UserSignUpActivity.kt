@@ -29,6 +29,7 @@ class UserSignUpActivity : AppCompatActivity() {
 
         btnHaveAccount.setOnClickListener {
             startActivity(Intent(this, UserLoginActivity::class.java))
+            finish()
         }
     }
 

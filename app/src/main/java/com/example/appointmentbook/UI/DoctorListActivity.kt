@@ -4,14 +4,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.Adapter.DoctorListAdapter
-import com.example.appointmentbook.UI.Login.User.UserLoginActivity
 import com.example.appointmentbook.data.DoctorListData.DoctorsListData
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.DOC_ID
@@ -21,9 +19,7 @@ import com.example.appointmentbook.utils.Utils.Companion.getAuthType
 import com.example.appointmentbook.utils.Utils.Companion.getPreference
 import com.example.appointmentbook.utils.Utils.Companion.getToken
 import com.example.appointmentbook.utils.Utils.Companion.getUserName
-import com.example.appointmentbook.utils.Utils.Companion.logout
 import com.example.appointmentbook.utils.Utils.Companion.toast
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_doctor_list.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -52,12 +48,15 @@ class DoctorListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor_list)
         supportActionBar?.hide()
-        userName1.text = userName
+
+        username1.setOnClickListener {
+            startActivity(Intent(this, BookReqActivity::class.java))
+        }
 
         val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.docListRefresh)
 
-        swipeRefreshLayout?.post ( Runnable{
-            run{
+        swipeRefreshLayout?.post(Runnable {
+            run {
                 swipeRefreshLayout.isRefreshing = true
                 getDoctorList(userToken, type)
             }
@@ -67,15 +66,9 @@ class DoctorListActivity : AppCompatActivity() {
             getDoctorList(userToken, type)
         }
 
-        btnUserLogout1.setOnClickListener {
-            showAlert()
-        }
-
         materialTextView20.setOnClickListener {
             startActivity(Intent(this, SlotsActivity::class.java))
         }
-
-
 
         doctorRecycler.apply {
             layoutManager = LinearLayoutManager(this@DoctorListActivity)
@@ -111,27 +104,6 @@ class DoctorListActivity : AppCompatActivity() {
             }
         }
     }
-
-    private fun doUserLogout() {
-        logout()
-        startActivity(Intent(this, UserLoginActivity::class.java))
-        finish()
-    }
-
-    private fun showAlert() {
-        MaterialAlertDialogBuilder(this)
-            .setTitle("Warning !")
-            .setIcon(R.drawable.ic_warning)
-            .setMessage("Do you want to logout?")
-            .setNegativeButton("Cancel") { dialog, which ->
-                //
-            }
-            .setPositiveButton("Confirm") { dialog, which ->
-                doUserLogout()
-            }
-            .show()
-    }
-
 }
 
 

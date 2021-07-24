@@ -1,9 +1,11 @@
 package com.example.appointmentbook.UI
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.appointmentbook.MainActivity
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.data.Details
@@ -12,7 +14,9 @@ import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
 import com.example.appointmentbook.utils.Utils.Companion.getAuthType
 import com.example.appointmentbook.utils.Utils.Companion.getToken
+import com.example.appointmentbook.utils.Utils.Companion.logout
 import com.example.appointmentbook.utils.Utils.Companion.toast
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_update_doc_info.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -25,12 +29,14 @@ class DocInfoUpdate : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setSupportActionBar(docInfoToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setContentView(R.layout.activity_update_doc_info)
 
         currentInfo()
 
+        btnAdminLogout.setOnClickListener {
+            showAlert()
+        }
 
         btnUpdate?.setOnClickListener {
             validateInput()
@@ -108,11 +114,22 @@ class DocInfoUpdate : AppCompatActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> onBackPressed()
-        }
-        return true
+    private fun showAlert() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Warning !")
+            .setIcon(R.drawable.ic_warning)
+            .setMessage("Do you want to logout ?")
+            .setPositiveButton("Confirm") { dialog, which ->
+                logout()
+                val intent = Intent(this, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                intent.putExtra("EXIT", true)
+                startActivity(intent)
+            }
+            .setNegativeButton("Cancel") { dialog, which ->
+                //
+            }
+            .show()
     }
 
 }

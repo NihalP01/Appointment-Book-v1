@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Appointment Book"
+        android:text="MedoMind"
         android:textColor="#FFFFFF"
         android:textSize="28sp"
         android:textStyle="bold"

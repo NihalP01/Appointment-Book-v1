@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="MedoMine"
+        android:text="MedoMind"
         android:textSize="26sp"
         android:layout_marginTop="30dp"
         android:textColor="#FFFFFF"
@@ -77,6 +77,8 @@
                 android:layout_marginTop="30dp"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
+                android:maxLines="1"
+                android:imeOptions="actionNext"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -85,6 +87,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/userName"
+                    android:inputType="text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Full Name" />
@@ -98,6 +101,8 @@
                 android:padding="2dp"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
+                android:maxLines="1"
+                android:imeOptions="actionNext"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -106,6 +111,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/userPhoneNumber"
+                    android:inputType="phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Phone Number" />
@@ -120,6 +126,8 @@
                 android:padding="2dp"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
+                android:maxLines="1"
+                android:imeOptions="actionNext"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -128,6 +136,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/userSignupEmail"
+                    android:inputType="textEmailAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Email" />

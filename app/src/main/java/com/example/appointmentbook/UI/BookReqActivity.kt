@@ -5,17 +5,18 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.Adapter.userBookReqAdapter
+import com.example.appointmentbook.UI.Login.User.UserLoginActivity
 import com.example.appointmentbook.data.AlllBookReq.AllBookReqDataItem
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
 import com.example.appointmentbook.utils.Utils.Companion.getAuthType
 import com.example.appointmentbook.utils.Utils.Companion.getToken
+import com.example.appointmentbook.utils.Utils.Companion.logout
 import com.example.appointmentbook.utils.Utils.Companion.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_book_req.*
@@ -38,7 +39,6 @@ class BookReqActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_req)
         supportActionBar?.hide()
-
         myReqProgress.visibility = View.VISIBLE
 
         rvBookReq.apply {
@@ -65,16 +65,9 @@ class BookReqActivity : AppCompatActivity() {
 
                 } else {
                     toast(response.message().toString())
-//                    Toast.makeText(
-//                        this@BookReqActivity,
-//                        response.message().toString(),
-//                        Toast.LENGTH_SHORT
-//                    ).show()
                 }
             } catch (e: Exception) {
                 toast(e.message.toString())
-//                Toast.makeText(this@BookReqActivity, e.message.toString(), Toast.LENGTH_SHORT)
-//                    .show()
             }
         }
     }

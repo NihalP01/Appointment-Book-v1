@@ -22,11 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.Login.Teacher.TeacherLoginActivity" />
         <activity android:name=".UI.Login.User.UserLoginActivity" />
         <activity android:name=".UI.Signup.User.UserSignUpActivity" />
         <activity android:name=".UI.SlotsActivity" />
-        <activity android:name=".UI.Signup.Teacher.TeacherSignUpActivity"/>
         <activity android:name=".UI.DoctorSlotReqActivity"/>
         <activity android:name=".UI.BookReqActivity" />
         <activity android:name=".UI.Login.DOctor.DoctorLoginActivity"/>
@@ -35,7 +33,7 @@
         <activity android:name=".UI.DoctorSlots"/>
         <activity android:name=".UI.CreateSlotActivity"/>
         <activity android:name=".UI.DocInfoUpdate"/>
-
+        <activity android:name=".UI.UserDetails"/>
 
         <service
             android:name=".service.FCMService">

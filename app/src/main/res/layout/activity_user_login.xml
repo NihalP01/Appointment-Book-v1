@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="MedoMine"
+        android:text="MedoMind"
         android:textColor="#FFFFFF"
         android:textSize="28dp"
         android:textStyle="bold"
@@ -58,6 +58,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email or Phone"
+                android:maxLines="1"
+                android:imeOptions="actionNext"
                 app:hintTextColor="@color/material_blue_400"
                 app:boxStrokeColor="@color/material_blue_400"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -68,6 +70,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/userEmail"
+                    android:inputType="textEmailAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
