@@ -22,7 +22,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="300dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         app:cardCornerRadius="14dp"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/materialTextView26"
-        app:layout_constraintVertical_bias="0.29000002">
+        app:layout_constraintVertical_bias="0.22000003">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                 android:id="@+id/materialTextView25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Patient Login"
+                android:text="Doctor Login"
                 android:textColor="@color/material_blue_400"
                 android:textSize="20dp"
                 android:textStyle="bold"
@@ -58,8 +58,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email or Phone"
-                app:hintTextColor="@color/material_blue_400"
                 app:boxStrokeColor="@color/material_blue_400"
+                app:hintTextColor="@color/material_blue_400"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,7 @@
                 app:layout_constraintVertical_bias="0.16000003">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/userEmail"
+                    android:id="@+id/adminEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -79,10 +79,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
-                app:endIconTint="@color/material_blue_400"
-                app:endIconMode="password_toggle"
-                app:hintTextColor="@color/material_blue_400"
                 app:boxStrokeColor="@color/material_blue_400"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/material_blue_400"
+                app:hintTextColor="@color/material_blue_400"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +90,7 @@
                 app:layout_constraintVertical_bias="0.0">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/userPassword"
+                    android:id="@+id/adminPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -104,19 +104,19 @@
 
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/loginProgressBar"
+                android:id="@+id/adminSigninProgress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:indeterminate="true"
                 android:visibility="invisible"
                 app:indicatorColor="@color/colorAccent"
-                app:layout_constraintBottom_toBottomOf="@+id/btnUserLogin"
+                app:layout_constraintBottom_toBottomOf="@+id/btnAdminLogin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btnUserLogin" />
+                app:layout_constraintTop_toTopOf="@+id/btnAdminLogin" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnUserLogin"
+                android:id="@+id/btnAdminLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -129,17 +129,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout21"
                 app:layout_constraintVertical_bias="0.0" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/btnUserSignup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Don't have an account? Sign up"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnUserLogin"
-                app:layout_constraintVertical_bias="0.36" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

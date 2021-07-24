@@ -1,8 +1,6 @@
 package com.example.appointmentbook.UI
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appointmentbook.Network.ApiAdapter
@@ -36,30 +34,34 @@ class DocInfoUpdate : AppCompatActivity() {
     }
 
     private fun validateInput() {
+        if (docWorksAt.text.toString().isEmpty()) {
+            docWorksAt.error = "Enter where you work"
+            docWorksAt.requestFocus()
+            return
+        }
+
         if (docSpeciality.text.toString().isEmpty()) {
             docSpeciality.error = "Enter your speciality"
             docSpeciality.requestFocus()
             return
         }
-        if (docWorksAt.text.toString().isEmpty()) {
-            docWorksAt.error = "Enter where you works"
-            docWorksAt.requestFocus()
-            return
-        }
         doUpdate()
     }
 
-    private fun currentInfo(){
+    private fun currentInfo() {
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 val response = ApiAdapter.apiClient.role("$type $token")
                 if (response.isSuccessful && response.body() != null) {
-                    if (response.body()!!.data.details == null){
-                        val txt = "Not available, please update it"
-                        docCurrentInfo.text = "Name: ${response.body()!!.data.user.name}\nEmail: ${response.body()!!.data.user.email}\nPhone: ${response.body()!!.data.user.phone}\nWork details: $txt"
-                    }else {
-                        val txt = response.body()!!.data.details
-                        docCurrentInfo.text = "Name: ${response.body()!!.data.user.name}\nEmail: ${response.body()!!.data.user.email}\nPhone: ${response.body()!!.data.user.phone}\nWork details: $txt"
+                    docCurrentInfo.text =
+                        "Name: ${response.body()!!.data.user.name}\nEmail: ${response.body()!!.data.user.email}\nPhone: ${response.body()!!.data.user.phone}"
+                    if (response.body()!!.data.details.details == null) {
+                        val txt = "Not available, please update your work details"
+                        docWorkDetails.text = txt
+                    } else {
+                        val WorksAt = response.body()!!.data.details.details.works_at
+                        val speciality = response.body()!!.data.details.details.speciality
+                        docWorkDetails.text = "Work Details: $WorksAt\nSpeciality: $speciality"
                     }
                 } else {
                     toast(response.message().toString())
@@ -69,7 +71,6 @@ class DocInfoUpdate : AppCompatActivity() {
             }
         }
     }
-
 
     private fun doUpdate() {
         GlobalScope.launch(Dispatchers.Main) {

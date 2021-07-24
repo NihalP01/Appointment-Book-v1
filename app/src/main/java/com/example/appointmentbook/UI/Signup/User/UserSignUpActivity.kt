@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.Login.User.UserLoginActivity
-import kotlinx.android.synthetic.main.activity_signup.*
+import kotlinx.android.synthetic.main.activity_user_signup.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -20,7 +20,7 @@ class UserSignUpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_signup)
+        setContentView(R.layout.activity_user_signup)
         supportActionBar?.hide()
         val btnUserSignUp = findViewById<Button>(R.id.btnUserSignup)
         btnUserSignUp.setOnClickListener {

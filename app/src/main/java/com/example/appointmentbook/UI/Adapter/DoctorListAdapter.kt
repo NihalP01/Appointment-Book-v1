@@ -42,8 +42,8 @@ class DoctorListAdapter : RecyclerView.Adapter<DoctorListAdapter.DoctorViewHolde
 
         fun bind(data: DoctorsListData, position: Int) {
             doctorName.text = "${data.name}"
-            doctorDegree?.text = "${data.details.details}"
-            doctorConsultant.text = " "
+            doctorDegree?.text = "Works At: ${data.details.details.works_at}"
+            doctorConsultant.text = "Speciality: ${data.details.details.speciality}"
             viewSlot.setOnClickListener {
                 this@DoctorListAdapter.btnViewSlot?.invoke(position, data)
             }

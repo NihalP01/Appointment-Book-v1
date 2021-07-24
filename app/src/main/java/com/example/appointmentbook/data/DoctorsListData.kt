@@ -10,8 +10,13 @@ data class DoctorsListData(
 
 data class Details(
     val created_at: String,
-    val details: String,
+    val details: Doc,
     val id: Int,
     val updated_at: String,
     val user_id: Int
+)
+
+data class Doc(
+    val works_at: String,
+    val speciality: String,
 )

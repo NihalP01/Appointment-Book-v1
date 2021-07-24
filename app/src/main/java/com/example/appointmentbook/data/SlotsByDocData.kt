@@ -6,7 +6,7 @@ data class ApiSlotData (
 
 data class SlotsData(
     val associate_id: Int,
-    val available: Int,
+    val available: Boolean,
     val booking_end_time: String,
     val booking_start_time: String,
     val capacity: Int,

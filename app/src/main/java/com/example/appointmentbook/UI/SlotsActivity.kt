@@ -12,7 +12,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.Adapter.SlotsAdapter
-import com.example.appointmentbook.UI.Login.User.UserLoginActivity
 import com.example.appointmentbook.data.SlotsData
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.DOC_ID
@@ -22,8 +21,6 @@ import com.example.appointmentbook.utils.Utils.Companion.docId
 import com.example.appointmentbook.utils.Utils.Companion.getAuthType
 import com.example.appointmentbook.utils.Utils.Companion.getToken
 import com.example.appointmentbook.utils.Utils.Companion.getUserName
-import com.example.appointmentbook.utils.Utils.Companion.logout
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_slots.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -50,6 +47,8 @@ class SlotsActivity : AppCompatActivity() {
         getData()
         supportActionBar?.hide()
 
+        Log.d("myTag", docID)
+
         val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.bookSlotRefresh)
 
         swipeRefreshLayout.post(Runnable {
@@ -75,9 +74,6 @@ class SlotsActivity : AppCompatActivity() {
             startActivity(Intent(this, BookReqActivity::class.java))
         }
 
-        btnLogout.setOnClickListener {
-            showAlert()
-        }
     }
 
     private fun getSlots() {
@@ -156,26 +152,5 @@ class SlotsActivity : AppCompatActivity() {
     private fun getData() {
         val userName = getUserName(USER_NAME)
         loggedInUserName.text = userName
-    }
-
-    private fun doUserLogout() {
-        logout()
-        //clearPreferences() this can be used instead of logout
-        startActivity(Intent(this, UserLoginActivity::class.java))
-        finish()
-    }
-
-    private fun showAlert() {
-        MaterialAlertDialogBuilder(this)
-            .setTitle("Warning !")
-            .setIcon(R.drawable.ic_warning)
-            .setMessage("Do you want to logout ?")
-            .setPositiveButton("Confirm") { dialog, which ->
-                doUserLogout()
-            }
-            .setNegativeButton("Cancel") { dialog, which ->
-                //
-            }
-            .show()
     }
 }

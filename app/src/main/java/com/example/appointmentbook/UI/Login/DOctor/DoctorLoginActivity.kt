@@ -20,7 +20,7 @@ import com.example.appointmentbook.utils.Utils.Companion.getPreference
 import com.example.appointmentbook.utils.Utils.Companion.setLogged
 import com.example.appointmentbook.utils.Utils.Companion.subscribeToTopic
 import com.example.appointmentbook.utils.Utils.Companion.toast
-import kotlinx.android.synthetic.main.activity_admin_login.*
+import kotlinx.android.synthetic.main.activity_doc_login.*
 import kotlinx.android.synthetic.main.activity_user_login.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 class DoctorLoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_admin_login)
+        setContentView(R.layout.activity_doc_login)
         supportActionBar?.hide()
 
         btnAdminLogin.setOnClickListener {

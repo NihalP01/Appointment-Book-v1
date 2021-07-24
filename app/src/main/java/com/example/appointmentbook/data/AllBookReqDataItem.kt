@@ -25,7 +25,7 @@ data class RequestedUser(
 data class Slot(
     val associate_id: Int,
     val associated_to: User,
-    val available: Int,
+    val available: Boolean,
     val booking_end_time: String,
     val booking_start_time: String,
     val capacity: Int,

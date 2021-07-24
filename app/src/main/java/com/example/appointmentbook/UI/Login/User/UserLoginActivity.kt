@@ -14,7 +14,6 @@ import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.DoctorListActivity
 import com.example.appointmentbook.UI.Signup.User.UserSignUpActivity
-import com.example.appointmentbook.UI.SlotsActivity
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.ID_KEY
 import com.example.appointmentbook.utils.Utils.Companion.ROLE_KEY
@@ -51,13 +50,18 @@ class UserLoginActivity : AppCompatActivity() {
 
     private fun userLogin() {
         if (userEmail.text.toString().contains("@")) {
-            if (userEmail.text.toString().isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(userEmail.text.toString()).matches()) {
+            if (userEmail.text.toString()
+                    .isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(userEmail.text.toString())
+                    .matches()
+            ) {
                 userEmail.error = "Please enter a valid email or phone number"
                 userEmail.requestFocus()
                 return
             }
         } else {
-            if (userEmail.text.toString().isEmpty() || !Patterns.PHONE.matcher(userEmail.text.toString()).matches()) {
+            if (userEmail.text.toString()
+                    .isEmpty() || !Patterns.PHONE.matcher(userEmail.text.toString()).matches()
+            ) {
                 userEmail.error = "Please enter a valid email or phone number"
                 userEmail.requestFocus()
                 return
