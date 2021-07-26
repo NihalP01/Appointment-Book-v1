@@ -145,5 +145,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.35000002" />
 
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/slotAddProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            app:indicatorColor="@color/material_green_400"
+            app:layout_constraintBottom_toBottomOf="@+id/btnFloatingAddSlot"
+            app:layout_constraintEnd_toEndOf="@+id/btnFloatingAddSlot"
+            app:layout_constraintStart_toStartOf="@+id/btnFloatingAddSlot"
+            app:layout_constraintTop_toTopOf="@+id/btnFloatingAddSlot" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

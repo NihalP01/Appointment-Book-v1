@@ -8,7 +8,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.appointmentbook.MainActivity
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.data.SlotsData
@@ -16,13 +15,10 @@ import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.DOC_ID
 import com.example.appointmentbook.utils.Utils.Companion.SLOT_ID
 import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
-import com.example.appointmentbook.utils.Utils.Companion.USER_NAME
 import com.example.appointmentbook.utils.Utils.Companion.docId
 import com.example.appointmentbook.utils.Utils.Companion.getAuthType
 import com.example.appointmentbook.utils.Utils.Companion.getPreference
 import com.example.appointmentbook.utils.Utils.Companion.getToken
-import com.example.appointmentbook.utils.Utils.Companion.getUserName
-import com.example.appointmentbook.utils.Utils.Companion.logout
 import com.example.appointmentbook.utils.Utils.Companion.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_doc_slots.*
@@ -34,7 +30,9 @@ import java.util.*
 
 class DoctorSlots : AppCompatActivity() {
 
-    val docName = getUserName(USER_NAME)
+    val type = getAuthType(AUTH_TYPE)
+    val token = getToken(TOKEN_KEY)
+    val docId = docId(DOC_ID)
 
     private val doctorSlot by lazy {
         DoctorSlotsAdapter().apply {
@@ -53,7 +51,6 @@ class DoctorSlots : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doc_slots)
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.docSlotRefresh)
 
 
@@ -73,12 +70,8 @@ class DoctorSlots : AppCompatActivity() {
         }
 
         btnFloatingAddSlot.setOnClickListener {
-            startActivity(Intent(this, CreateSlotActivity::class.java))
+            checkDetails()
         }
-
-//        btnAdminLogout.setOnClickListener {
-//            showAlert()
-//        }
 
         notificationRecycler.apply {
             adapter = doctorSlot
@@ -87,14 +80,37 @@ class DoctorSlots : AppCompatActivity() {
         }
     }
 
+    private fun checkDetails() {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                btnFloatingAddSlot.visibility = View.INVISIBLE
+                slotAddProgress.visibility = View.VISIBLE
+                val response = ApiAdapter.apiClient.role("$type $token")
+                if (response.isSuccessful && response.body() != null) {
+                    if (response.body()?.data?.details == null) {
+                        btnFloatingAddSlot.visibility = View.VISIBLE
+                        slotAddProgress.visibility = View.INVISIBLE
+                        showAlert()
+                    } else {
+                        btnFloatingAddSlot.visibility = View.VISIBLE
+                        slotAddProgress.visibility = View.INVISIBLE
+                        startActivity(Intent(this@DoctorSlots, CreateSlotActivity::class.java))
+                    }
+                } else {
+                    toast("Something went wrong! Please try again later.")
+                }
+            } catch (e: Exception) {
+                toast("Something went wrong! Please try again later.")
+                btnFloatingAddSlot.visibility = View.VISIBLE
+                slotAddProgress.visibility = View.INVISIBLE
+            }
+        }
+    }
+
     private fun fetchData() {
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 docSlotRefresh.isRefreshing = true
-                val type = getAuthType(AUTH_TYPE)
-                val token = getToken(TOKEN_KEY)
-                val docId = docId(DOC_ID)
-                Log.d("docId", docId)
                 val response = ApiAdapter.apiClient.docSlotAvailable("$type $token", docId.toInt())
                 if (response.isSuccessful && response.body() != null) {
                     if (response.body()!!.isEmpty()) {
@@ -106,14 +122,29 @@ class DoctorSlots : AppCompatActivity() {
                         doctorSlot.list = response.body() as ArrayList<SlotsData>
                         doctorSlot.notifyDataSetChanged()
                     }
-
                 } else {
-                    toast(response.message().toString())
+                    toast("Something went wrong. Please try again later.")
+                    docSlotRefresh.isRefreshing = false
                 }
             } catch (e: Exception) {
-                toast(e.toString())
+                toast("Couldn't connect. Please check your internet connection")
+                docSlotRefresh.isRefreshing = false
             }
         }
+    }
+
+    private fun showAlert() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Information Needed !")
+            .setIcon(R.drawable.ic_warning)
+            .setMessage("You have not given your Work details. Please update it before creating any slot.")
+            .setPositiveButton("Update now") { dialog, which ->
+                startActivity(Intent(this, DocInfoUpdate::class.java))
+            }
+            .setNegativeButton("Cancel") { dialog, which ->
+                //
+            }
+            .show()
     }
 
 }

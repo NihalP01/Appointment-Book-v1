@@ -23,6 +23,8 @@ import com.example.appointmentbook.utils.Utils.Companion.USER_NAME
 import com.example.appointmentbook.utils.Utils.Companion.getPreference
 import com.example.appointmentbook.utils.Utils.Companion.setLogged
 import com.example.appointmentbook.utils.Utils.Companion.subscribeToTopic
+import com.example.appointmentbook.utils.Utils.Companion.toast
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_user_login.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -77,7 +79,7 @@ class UserLoginActivity : AppCompatActivity() {
         btnUserLogin.visibility = View.INVISIBLE
         loginProgressBar.visibility = View.VISIBLE
 
-        GlobalScope.launch(Dispatchers.Default) {
+        GlobalScope.launch(Dispatchers.Main) {
             try {
                 val response = ApiAdapter.apiClient.login(
                     userEmail.text.toString(),
@@ -100,14 +102,21 @@ class UserLoginActivity : AppCompatActivity() {
                         edit.putString(USER_EMAIL, role.body()!!.data.user.email)
                         edit.putString(USER_NAME, role.body()!!.data.user.name)
                         edit.apply()
-                        subscribeToTopic(role.body()!!.data.user.role)
-                        subscribeToTopic(id.toString())
-                        setLogged(true)
-                        val intent = Intent(this@UserLoginActivity, DoctorListActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                        if (role.body()!!.data.user.role == "user"){
+                            subscribeToTopic(role.body()!!.data.user.role)
+                            subscribeToTopic(id.toString())
+                            setLogged(true)
+                            val intent = Intent(this@UserLoginActivity, DoctorListActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }else{
+                            showAlert()
+                            btnUserLogin.visibility = View.VISIBLE
+                            loginProgressBar.visibility = View.INVISIBLE
+                        }
+
                     } else {
-                        Log.d("myTag", response.body().toString())
+                        toast(response.body().toString())
                     }
 
                 } else {
@@ -128,18 +137,14 @@ class UserLoginActivity : AppCompatActivity() {
         }
     }
 
-
-//    private fun checkStatus() {
-//        val getPref: SharedPreferences = getSharedPreferences("app_pref", MODE_APPEND)
-//        val login = getPref.getBoolean("login", false)
-//        val role = getPref.getString("role", "")
-//        if (role == "student") {
-//            if (login) {
-//                startActivity(Intent(this, SlotsActivity::class.java))
-//                finish()
-//            } else {
-//                startActivity(Intent(this, AdminPanelActivity::class.java))
-//                finish()
-//            }
-//        }
+    private fun showAlert(){
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Login Failed !")
+            .setIcon(R.drawable.ic_warning)
+            .setMessage("You are using doctor account. Please login from doctor section.")
+            .setPositiveButton("Ok") { dialog, which ->
+                finish()
+            }
+            .show()
+    }
 }

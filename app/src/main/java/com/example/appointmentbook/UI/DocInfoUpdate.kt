@@ -69,19 +69,22 @@ class DocInfoUpdate : AppCompatActivity() {
                     docDetailsCardView.visibility = View.VISIBLE
                     docCurrentInfo.text =
                         "Name: ${response.body()!!.data.user.name}\nEmail: ${response.body()!!.data.user.email}\nPhone: ${response.body()!!.data.user.phone}"
-                    if (response.body()!!.data.details.details == null) {
+                    if (response.body()?.data?.details == null){
                         val txt = "Not available, please update your work details"
                         docWorkDetails.text = txt
                     } else {
-                        val WorksAt = response.body()!!.data.details.details.works_at
+                        val worksAt = response.body()!!.data.details.details.works_at
                         val speciality = response.body()!!.data.details.details.speciality
-                        docWorkDetails.text = "Work Details: $WorksAt\nSpeciality: $speciality"
+                        docWorkDetails.text = "Work Details: $worksAt\nSpeciality: $speciality"
                     }
                 } else {
                     toast(response.message().toString())
                 }
             } catch (e: Exception) {
-                toast(e.message.toString())
+                docCurrentInfo.text = "No info available !"
+                docDetailsProgressBar.visibility = View.INVISIBLE
+                docDetailsCardView.visibility = View.VISIBLE
+                toast("Something went wrong! Please try again later.")
             }
         }
     }
@@ -105,11 +108,14 @@ class DocInfoUpdate : AppCompatActivity() {
                     toast("Details updated successfully")
                     finish()
                 } else {
-                    btnUpdate.visibility = View.INVISIBLE
+                    btnUpdate.visibility = View.VISIBLE
+                    updateProgress.visibility = View.INVISIBLE
                     toast(response.message().toString())
                 }
             } catch (e: Exception) {
-                toast(e.message.toString())
+                btnUpdate.visibility = View.VISIBLE
+                updateProgress.visibility = View.INVISIBLE
+                toast("Something went wrong! Please try again later.")
             }
         }
     }
