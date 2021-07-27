@@ -89,6 +89,7 @@ class DoctorLoginActivity : AppCompatActivity() {
                         edit.putString(ROLE_KEY, role.body()!!.data.user.role)
                         edit.putString(USER_EMAIL, role.body()!!.data.user.email)
                         edit.putString(USER_NAME, role.body()!!.data.user.name)
+
                         edit.apply()
                         if (role.body()!!.data.user.role == "doctor"){
                             subscribeToTopic(role.body()!!.data.user.role)

@@ -33,6 +33,10 @@ class CreateSlotActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_slot)
         supportActionBar?.hide()
 
+        btnBack1.setOnClickListener {
+            finish()
+        }
+
         slotStartTime.hint = "Slot start time"
         slotStartTime.setOnClickListener {
             DateTimePicker().start(

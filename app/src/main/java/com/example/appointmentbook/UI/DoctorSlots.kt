@@ -3,10 +3,10 @@ package com.example.appointmentbook.UI
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
@@ -73,11 +73,12 @@ class DoctorSlots : AppCompatActivity() {
             checkDetails()
         }
 
-        notificationRecycler.apply {
+        slotsHolder.apply {
             adapter = doctorSlot
             layoutManager = LinearLayoutManager(this@DoctorSlots)
             setHasFixedSize(true)
         }
+
     }
 
     private fun checkDetails() {
@@ -132,6 +133,7 @@ class DoctorSlots : AppCompatActivity() {
             }
         }
     }
+
 
     private fun showAlert() {
         MaterialAlertDialogBuilder(this)

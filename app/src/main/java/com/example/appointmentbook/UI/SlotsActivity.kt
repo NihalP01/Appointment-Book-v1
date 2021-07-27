@@ -2,6 +2,7 @@ package com.example.appointmentbook.UI
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +18,9 @@ import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
 import com.example.appointmentbook.utils.Utils.Companion.docId
 import com.example.appointmentbook.utils.Utils.Companion.getAuthType
 import com.example.appointmentbook.utils.Utils.Companion.getToken
+import com.example.appointmentbook.utils.Utils.Companion.toast
 import kotlinx.android.synthetic.main.activity_slots.*
+import kotlinx.android.synthetic.main.slots_item.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Runnable
@@ -103,6 +106,8 @@ class SlotsActivity : AppCompatActivity() {
     private fun bookSlot(id: Int) {
         GlobalScope.launch(Dispatchers.Main) {
             try {
+                bookProgress.visibility = View.VISIBLE
+                btnBookSlot.visibility = View.INVISIBLE
                 val type = getAuthType(AUTH_TYPE)
                 val token = getToken(TOKEN_KEY)
                 val response = ApiAdapter.apiClient.bookSlot(
@@ -110,34 +115,32 @@ class SlotsActivity : AppCompatActivity() {
                     id
                 )
                 if (response.isSuccessful && response.body() != null) {
-                    val message = "Booking request placed !"
-                    //request placed
-                    //show message or inform
-                    informUser(message)
-                    return@launch
+                    bookProgress.visibility = View.INVISIBLE
+                    btnBookSlot.visibility = View.VISIBLE
+                    if (response.body()!!.message.length > 1){
+                        toast(response.body()!!.message)
+                        startActivity(Intent(this@SlotsActivity, BookReqActivity::class.java))
+                    }else{
+                        toast("Booking request placed")
+                        startActivity(Intent(this@SlotsActivity, BookReqActivity::class.java))
+                    }
+                }else{
+                    bookProgress.visibility = View.INVISIBLE
+                    btnBookSlot.visibility = View.VISIBLE
+                    toast("Something went wrong ! Try after sometime.")
                 }
-                showToast("Something went wrong ! Try after sometime.")
             } catch (ex: Exception) {
+                //
             }
         }
     }
 
-    private fun showToast(message: String) {
-        runOnUiThread {
-            Toast.makeText(
-                this,
-                message,
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
 
-
-    private fun informUser(message: String) {
-        runOnUiThread {
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-            //let's show user's requests
-            startActivity(Intent(this, BookReqActivity::class.java))
-        }
-    }
+//    private fun informUser(message: String) {
+//        runOnUiThread {
+//            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+//            //let's show user's requests
+//            startActivity(Intent(this, BookReqActivity::class.java))
+//        }
+//    }
 }

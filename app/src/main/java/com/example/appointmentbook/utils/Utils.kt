@@ -26,6 +26,7 @@ class Utils {
         const val USER_EMAIL = "userEmail"
         const val DOC_ID = "doc_id"
         const val SLOT_ID = "slotId"
+        const val DOC_DETAILS = "docDetails"
 
         private var _preferences: SharedPreferences? = null
 

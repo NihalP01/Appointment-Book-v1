@@ -57,6 +57,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/bookProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/btnBookSlot"
+                app:layout_constraintEnd_toEndOf="@+id/btnBookSlot"
+                app:layout_constraintStart_toStartOf="@+id/btnBookSlot"
+                app:layout_constraintTop_toTopOf="@+id/btnBookSlot" />
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/slotTiming"
                 android:layout_width="0dp"

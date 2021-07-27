@@ -2,7 +2,6 @@ package com.example.appointmentbook.UI
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appointmentbook.MainActivity
@@ -31,6 +30,10 @@ class DocInfoUpdate : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setContentView(R.layout.activity_update_doc_info)
+
+        btnBack2.setOnClickListener {
+            finish()
+        }
 
         currentInfo()
 
@@ -69,7 +72,7 @@ class DocInfoUpdate : AppCompatActivity() {
                     docDetailsCardView.visibility = View.VISIBLE
                     docCurrentInfo.text =
                         "Name: ${response.body()!!.data.user.name}\nEmail: ${response.body()!!.data.user.email}\nPhone: ${response.body()!!.data.user.phone}"
-                    if (response.body()?.data?.details == null){
+                    if (response.body()?.data?.details == null) {
                         val txt = "Not available, please update your work details"
                         docWorkDetails.text = txt
                     } else {

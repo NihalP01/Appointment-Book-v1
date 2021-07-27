@@ -51,6 +51,10 @@ class DoctorSlotReqActivity : AppCompatActivity() {
         setContentView(R.layout.activity_slot_req_by_id)
         supportActionBar?.hide()
 
+        btnBack3.setOnClickListener {
+            finish()
+        }
+
         val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.reqSwipeRefresh)
 
         swipeRefreshLayout?.post(kotlinx.coroutines.Runnable {
@@ -98,12 +102,14 @@ class DoctorSlotReqActivity : AppCompatActivity() {
     private fun actionAccept(data: SlotsByReqIdItem) {
         GlobalScope.launch {
             try {
+                reqSwipeRefresh.isRefreshing = true
                 val res = ApiAdapter.apiClient.slotAction(
                     "$type $token",
                     "accept",
                     data.id
                 )
                 if (res.isSuccessful && res.body() != null) {
+                    reqSwipeRefresh.isRefreshing = false
                     toast("Request has been accepted")
                 } else {
                     toast(res.message().toString())
@@ -117,12 +123,14 @@ class DoctorSlotReqActivity : AppCompatActivity() {
     private fun actionReject(data: SlotsByReqIdItem) {
         GlobalScope.launch(Dispatchers.Main) {
             try {
+                reqSwipeRefresh.isRefreshing = true
                 val res = ApiAdapter.apiClient.slotAction(
                     "$type $token",
                     "reject",
                     data.id
                 )
                 if (res.isSuccessful && res.body() != null) {
+                    reqSwipeRefresh.isRefreshing = false
                     toast("Request has been rejected")
                 } else {
                     toast(res.message().toString())

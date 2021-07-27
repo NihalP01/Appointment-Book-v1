@@ -41,6 +41,10 @@ class BookReqActivity : AppCompatActivity() {
         supportActionBar?.hide()
         myReqProgress.visibility = View.VISIBLE
 
+        btnBack4.setOnClickListener {
+            finish()
+        }
+
         rvBookReq.apply {
             layoutManager = LinearLayoutManager(this@BookReqActivity)
             adapter = bookReqAdapter
