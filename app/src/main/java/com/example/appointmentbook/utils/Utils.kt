@@ -10,6 +10,7 @@ import com.example.appointmentbook.utils.Utils.Companion.clearPreferences
 import com.example.appointmentbook.utils.Utils.Companion.getRole
 import com.example.appointmentbook.utils.Utils.Companion.logout
 import com.google.firebase.messaging.FirebaseMessaging
+import com.shashank.sony.fancytoastlib.FancyToast
 import kotlin.Exception
 
 class Utils {
@@ -139,6 +140,17 @@ class Utils {
         fun Context.toast(message: CharSequence) {
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
+        fun Context.fancyToastSuccess(message: CharSequence){
+            FancyToast.makeText(this, message, FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show()
+        }
+        fun Context.fancyToastFail(message: CharSequence){
+            FancyToast.makeText(this, message, FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
+        }
+        fun Context.fancyToastWarn(message: CharSequence){
+            FancyToast.makeText(this, message, FancyToast.LENGTH_SHORT, FancyToast.WARNING, false).show()
+        }
+
+
     }
 
 }

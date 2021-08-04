@@ -70,7 +70,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
     //swipe refresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-    //preference data store
-    //implementation "androidx.datastore:datastore-preferences:1.0.0-rc01"
-    //pre-made recyclerView
+    //fancy toast
+    implementation 'io.github.shashank02051997:FancyToast:2.0.1'
+
 }

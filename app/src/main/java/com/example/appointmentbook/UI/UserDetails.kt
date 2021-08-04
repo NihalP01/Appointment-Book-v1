@@ -49,11 +49,8 @@ class UserDetails : AppCompatActivity() {
 
     private fun doUserLogout() {
         logout()
-        val intent = Intent(this, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        intent.putExtra("EXIT", true)
-        startActivity(intent)
-//        startActivity(Intent(this, MainActivity::class.java))
+        finishAffinity()
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
     private fun logoutWarn() {

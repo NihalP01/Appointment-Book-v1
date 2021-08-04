@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.util.Patterns
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.Login.User.UserLoginActivity
+import com.example.appointmentbook.utils.Utils.Companion.fancyToastFail
 import kotlinx.android.synthetic.main.activity_user_signup.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -95,17 +95,12 @@ class UserSignUpActivity : AppCompatActivity() {
                 } else {
                     btnUserSignup.visibility = View.VISIBLE
                     signupProgressBar.visibility = View.INVISIBLE
-                    Toast.makeText(
-                        this@UserSignUpActivity,
-                        response.message().toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    fancyToastFail("Something went wrong! Please try again later.")
                 }
             } catch (e: Exception) {
                 btnUserSignup.visibility = View.VISIBLE
                 signupProgressBar.visibility = View.INVISIBLE
-                Toast.makeText(this@UserSignUpActivity, e.message.toString(), Toast.LENGTH_SHORT)
-                    .show()
+                fancyToastFail("Something went wrong! Please try again later.")
             }
 
         }

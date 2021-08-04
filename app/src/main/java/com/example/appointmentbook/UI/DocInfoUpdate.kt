@@ -130,10 +130,8 @@ class DocInfoUpdate : AppCompatActivity() {
             .setMessage("Do you want to logout ?")
             .setPositiveButton("Confirm") { dialog, which ->
                 logout()
-                val intent = Intent(this, MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                intent.putExtra("EXIT", true)
-                startActivity(intent)
+                finishAffinity()
+                startActivity(Intent(this, MainActivity::class.java))
             }
             .setNegativeButton("Cancel") { dialog, which ->
                 //

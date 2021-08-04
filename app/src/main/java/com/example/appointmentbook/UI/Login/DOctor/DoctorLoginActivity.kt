@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Patterns
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.example.appointmentbook.MainActivity
 import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.UI.DoctorSlots
@@ -17,11 +16,11 @@ import com.example.appointmentbook.utils.Utils.Companion.ROLE_KEY
 import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
 import com.example.appointmentbook.utils.Utils.Companion.USER_EMAIL
 import com.example.appointmentbook.utils.Utils.Companion.USER_NAME
+import com.example.appointmentbook.utils.Utils.Companion.fancyToastFail
+import com.example.appointmentbook.utils.Utils.Companion.fancyToastSuccess
 import com.example.appointmentbook.utils.Utils.Companion.getPreference
-import com.example.appointmentbook.utils.Utils.Companion.logout
 import com.example.appointmentbook.utils.Utils.Companion.setLogged
 import com.example.appointmentbook.utils.Utils.Companion.subscribeToTopic
-import com.example.appointmentbook.utils.Utils.Companion.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_doc_login.*
 import kotlinx.android.synthetic.main.activity_user_login.*
@@ -91,30 +90,37 @@ class DoctorLoginActivity : AppCompatActivity() {
                         edit.putString(USER_NAME, role.body()!!.data.user.name)
 
                         edit.apply()
-                        if (role.body()!!.data.user.role == "doctor"){
+                        if (role.body()!!.data.user.role == "doctor") {
                             subscribeToTopic(role.body()!!.data.user.role)
                             subscribeToTopic(id.toString())
                             setLogged(true)
                             startActivity(Intent(this@DoctorLoginActivity, DoctorSlots::class.java))
                             finish()
-                        }else{
+                            fancyToastSuccess("Successfully logged in")
+                        } else {
                             showAlert()
                             adminSigninProgress.visibility = View.INVISIBLE
                             btnAdminLogin.visibility = View.VISIBLE
                         }
                     } else {
-                        toast(role.body().toString())
                         adminSigninProgress.visibility = View.INVISIBLE
                         btnAdminLogin.visibility = View.VISIBLE
+                        //fancyToastFail("Login failed ! Check your credentials")
                     }
+                }else{
+                    adminSigninProgress.visibility = View.INVISIBLE
+                    btnAdminLogin.visibility = View.VISIBLE
+                    fancyToastFail("Login failed ! Check your credentials")
                 }
             } catch (e: Exception) {
-                toast(e.message.toString())
+                adminSigninProgress.visibility = View.INVISIBLE
+                btnAdminLogin.visibility = View.VISIBLE
+                //toast(e.message.toString())
             }
         }
     }
 
-    private fun showAlert(){
+    private fun showAlert() {
         MaterialAlertDialogBuilder(this)
             .setTitle("Login Failed !")
             .setIcon(R.drawable.ic_warning)

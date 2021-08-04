@@ -9,6 +9,8 @@ import com.example.appointmentbook.Network.ApiAdapter
 import com.example.appointmentbook.R
 import com.example.appointmentbook.utils.Utils.Companion.AUTH_TYPE
 import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
+import com.example.appointmentbook.utils.Utils.Companion.fancyToastSuccess
+import com.example.appointmentbook.utils.Utils.Companion.fancyToastWarn
 import com.example.appointmentbook.utils.Utils.Companion.getAuthType
 import com.example.appointmentbook.utils.Utils.Companion.getToken
 import com.example.appointmentbook.utils.Utils.Companion.toast
@@ -118,14 +120,16 @@ class CreateSlotActivity : AppCompatActivity() {
                 if (response.isSuccessful && response.body() != null) {
                     createProgressBar.visibility = View.INVISIBLE
                     btnCreateSlot.visibility = View.VISIBLE
-                    toast("Slot created Successfully")
+                    fancyToastSuccess("Slot created Successfully")
                     startActivity(Intent(this@CreateSlotActivity, DoctorSlots::class.java))
                     finish()
                 } else {
                     toast(response.message().toString())
                 }
             } catch (e: Exception) {
-                toast(e.message.toString())
+                fancyToastWarn("Please fill up all the fields")
+                createProgressBar.visibility = View.INVISIBLE
+                btnCreateSlot.visibility = View.VISIBLE
             }
         }
     }

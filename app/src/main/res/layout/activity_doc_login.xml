@@ -127,6 +127,7 @@
                 android:layout_marginTop="12dp"
                 android:backgroundTint="@color/material_blue_400"
                 android:text="Login"
+                android:textAllCaps="false"
                 app:cornerRadius="18dp"
                 app:elevation="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"

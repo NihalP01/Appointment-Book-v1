@@ -20,6 +20,8 @@ import com.example.appointmentbook.utils.Utils.Companion.ROLE_KEY
 import com.example.appointmentbook.utils.Utils.Companion.TOKEN_KEY
 import com.example.appointmentbook.utils.Utils.Companion.USER_EMAIL
 import com.example.appointmentbook.utils.Utils.Companion.USER_NAME
+import com.example.appointmentbook.utils.Utils.Companion.fancyToastFail
+import com.example.appointmentbook.utils.Utils.Companion.fancyToastSuccess
 import com.example.appointmentbook.utils.Utils.Companion.getPreference
 import com.example.appointmentbook.utils.Utils.Companion.setLogged
 import com.example.appointmentbook.utils.Utils.Companion.subscribeToTopic
@@ -108,6 +110,7 @@ class UserLoginActivity : AppCompatActivity() {
                             setLogged(true)
                             val intent = Intent(this@UserLoginActivity, DoctorListActivity::class.java)
                             startActivity(intent)
+                            fancyToastSuccess("Successfully logged in")
                             finish()
                         }else{
                             showAlert()
@@ -122,17 +125,12 @@ class UserLoginActivity : AppCompatActivity() {
                 } else {
                     btnUserLogin.visibility = View.VISIBLE
                     loginProgressBar.visibility = View.INVISIBLE
-                    Toast.makeText(
-                        this@UserLoginActivity,
-                        response.message().toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    fancyToastFail("Login failed ! Check your credentials")
                 }
             } catch (e: Exception) {
                 btnUserLogin.visibility = View.VISIBLE
                 loginProgressBar.visibility = View.INVISIBLE
-                Toast.makeText(this@UserLoginActivity, e.message.toString(), Toast.LENGTH_SHORT)
-                    .show()
+                //
             }
         }
     }
