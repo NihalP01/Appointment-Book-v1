@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.appointmentbook">
+    package="com.example.medomind">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -16,27 +16,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="m">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.medomind.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.Login.User.UserLoginActivity" />
-        <activity android:name=".UI.Signup.User.UserSignUpActivity" />
-        <activity android:name=".UI.SlotsActivity" />
-        <activity android:name=".UI.DoctorSlotReqActivity"/>
-        <activity android:name=".UI.BookReqActivity" />
-        <activity android:name=".UI.Login.DOctor.DoctorLoginActivity"/>
-        <activity android:name=".UI.AdminPanelFragment"/>
-        <activity android:name=".UI.DoctorListActivity"/>
-        <activity android:name=".UI.DoctorSlots"/>
-        <activity android:name=".UI.CreateSlotActivity"/>
-        <activity android:name=".UI.DocInfoUpdate"/>
-        <activity android:name=".UI.UserDetails"/>
+        <activity android:name="com.example.medomind.UI.Login.User.UserLoginActivity" />
+        <activity android:name="com.example.medomind.UI.Signup.User.UserSignUpActivity" />
+        <activity android:name="com.example.medomind.UI.SlotsActivity" />
+        <activity android:name="com.example.medomind.UI.DoctorSlotReqActivity"/>
+        <activity android:name="com.example.medomind.UI.BookReqActivity" />
+        <activity android:name="com.example.medomind.UI.Login.DOctor.DoctorLoginActivity"/>
+        <activity android:name="com.example.medomind.UI.AdminPanelFragment"/>
+        <activity android:name="com.example.medomind.UI.DoctorListActivity"/>
+        <activity android:name="com.example.medomind.UI.DoctorSlots"/>
+        <activity android:name="com.example.medomind.UI.CreateSlotActivity"/>
+        <activity android:name="com.example.medomind.UI.DocInfoUpdate"/>
+        <activity android:name="com.example.medomind.UI.UserDetails"/>
 
         <service
-            android:name=".service.FCMService">
+            android:name="com.example.medomind.service.FCMService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
