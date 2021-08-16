@@ -45,6 +45,7 @@ class BookReqActivity : AppCompatActivity() {
 
         rvBookReq.apply {
             layoutManager = LinearLayoutManager(this@BookReqActivity)
+
             adapter = bookReqAdapter
             setHasFixedSize(true)
         }

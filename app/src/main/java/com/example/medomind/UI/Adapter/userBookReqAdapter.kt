@@ -19,6 +19,7 @@ class userBookReqAdapter : RecyclerView.Adapter<userBookReqAdapter.ReqViewHolder
     var list: ArrayList<AllBookReqDataItem> = arrayListOf()
         set(value) = run {
             field = value
+            list.sortByDescending { it.id }
         }
 
     var btnContact: ((position: Int, data: AllBookReqDataItem) -> Unit)? = null

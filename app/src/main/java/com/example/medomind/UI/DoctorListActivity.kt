@@ -97,10 +97,10 @@ class DoctorListActivity : AppCompatActivity() {
                     doctorPanelAdapter.list = response.body() as ArrayList<DoctorsListData>
                     doctorPanelAdapter.notifyDataSetChanged()
                 } else {
-                    toast(response.message().toString())
+                    toast("Something went wrong, try again later.")
                 }
             } catch (e: Exception) {
-                toast(e.message.toString())
+                toast("Something went wrong, try again later.")
             }
         }
     }
