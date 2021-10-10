@@ -23,8 +23,6 @@ import kotlinx.android.synthetic.main.activity_update_doc_info.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.json.JSONArray
-import org.json.JSONObject
 
 
 class DocInfoUpdate : AppCompatActivity() {
@@ -68,7 +66,6 @@ class DocInfoUpdate : AppCompatActivity() {
         doUpdate()
     }
 
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun currentInfo() {
         GlobalScope.launch(Dispatchers.Main) {
             try {

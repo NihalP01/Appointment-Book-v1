@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.core.content.edit
 import com.google.firebase.messaging.FirebaseMessaging
 import com.shashank.sony.fancytoastlib.FancyToast
-import kotlin.Exception
 
 class Utils {
 

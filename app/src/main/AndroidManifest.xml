@@ -28,7 +28,6 @@
         <activity android:name="com.example.medomind.UI.DoctorSlotReqActivity"/>
         <activity android:name="com.example.medomind.UI.BookReqActivity" />
         <activity android:name="com.example.medomind.UI.Login.DOctor.DoctorLoginActivity"/>
-        <activity android:name="com.example.medomind.UI.AdminPanelFragment"/>
         <activity android:name="com.example.medomind.UI.DoctorListActivity"/>
         <activity android:name="com.example.medomind.UI.DoctorSlots"/>
         <activity android:name="com.example.medomind.UI.CreateSlotActivity"/>
