@@ -21,12 +21,12 @@ data class User(
 data class Details(
     val id: Int,
     val user_id: Int,
-    val details: WorkInfo,
+    val details: WorkDetails,
     val created_at: String,
     val updated_at: String,
 )
 
-data class WorkInfo(
+data class WorkDetails(
     val works_at: String,
     val speciality: String,
 )

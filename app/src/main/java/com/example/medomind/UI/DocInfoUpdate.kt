@@ -85,9 +85,9 @@ class DocInfoUpdate : AppCompatActivity() {
                         val txt = "Not available, please update your work details"
                         docWorkDetails.text = txt
                     } else {
-                        val worksAt = response.body()!!.data.details.details
-                        //val speciality = response.body()!!.data.details.details.speciality
-
+                        val worksAt = response.body()!!.data.details.details.works_at
+                        val speciality = response.body()!!.data.details.details.speciality
+                        Log.d("myTag", "$worksAt & $speciality")
                     }
                 } else {
                     toast(response.message().toString())
