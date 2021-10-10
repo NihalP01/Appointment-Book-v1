@@ -5,7 +5,6 @@ data class Login(
     val token: String,
 )
 
-
 data class User(
     val name: String,
     val email: String,
@@ -16,7 +15,6 @@ data class Signup(
     val status: String,
     val error: Error,
 )
-
 
 data class SignUpTeacher(
     val status: String

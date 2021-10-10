@@ -1,8 +1,11 @@
 package com.example.medomind.UI
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.medomind.MainActivity
 import com.example.medomind.Network.ApiAdapter
@@ -20,12 +23,16 @@ import kotlinx.android.synthetic.main.activity_update_doc_info.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.json.JSONArray
+import org.json.JSONObject
+
 
 class DocInfoUpdate : AppCompatActivity() {
 
     val type = getAuthType(AUTH_TYPE)
     val token = getToken(TOKEN_KEY)
 
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -61,12 +68,14 @@ class DocInfoUpdate : AppCompatActivity() {
         doUpdate()
     }
 
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun currentInfo() {
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 docDetailsCardView.visibility = View.INVISIBLE
                 docDetailsProgressBar.visibility = View.VISIBLE
                 val response = ApiAdapter.apiClient.role("$type $token")
+
                 if (response.isSuccessful && response.body() != null) {
                     docDetailsProgressBar.visibility = View.INVISIBLE
                     docDetailsCardView.visibility = View.VISIBLE
@@ -76,9 +85,9 @@ class DocInfoUpdate : AppCompatActivity() {
                         val txt = "Not available, please update your work details"
                         docWorkDetails.text = txt
                     } else {
-                        val worksAt = response.body()!!.data.details.details.works_at
-                        val speciality = response.body()!!.data.details.details.speciality
-                        docWorkDetails.text = "Work Details: $worksAt\nSpeciality: $speciality"
+                        val worksAt = response.body()!!.data.details.details
+                        //val speciality = response.body()!!.data.details.details.speciality
+
                     }
                 } else {
                     toast(response.message().toString())

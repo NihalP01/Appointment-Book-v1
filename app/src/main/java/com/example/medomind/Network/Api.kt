@@ -65,7 +65,6 @@ interface ApiClient {
     @GET("my_requests/rejected")
     suspend fun slotReqRejected(@Header("Authorization") BearerToken: String): Response<List<SlotBookRequestsItem>>
 
-
 //    @FormUrlEncoded
 //    @PUT("slot/action")
 //    suspend fun slotAction(
@@ -110,13 +109,13 @@ interface ApiClient {
     suspend fun updateDocDetails(
         @Header("Authorization") BearerToken: String,
         @Body detailsUpdate: DetailsUpdateData
-    ) : Response<ResStatus>
+    ): Response<ResStatus>
 
 }
 
 object ApiAdapter {
     val apiClient: ApiClient = Retrofit.Builder()
-        .baseUrl("https://doc-book.herokuapp.com/api/v1/")
+        .baseUrl("http://doc-book.techmess.in/api/v1/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(OkHttpClient())
         .build()

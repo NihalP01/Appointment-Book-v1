@@ -1,5 +1,6 @@
 package com.example.medomind.data.roleData
 
+
 data class RoleData(
     val `data`: Data
 )

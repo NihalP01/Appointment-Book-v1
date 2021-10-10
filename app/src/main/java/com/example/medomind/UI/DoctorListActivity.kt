@@ -98,9 +98,11 @@ class DoctorListActivity : AppCompatActivity() {
                     doctorPanelAdapter.notifyDataSetChanged()
                 } else {
                     toast("Something went wrong, try again later.")
+                    Log.d("myTag", response.message())
                 }
             } catch (e: Exception) {
                 toast("Something went wrong, try again later.")
+                Log.d("myTag", e.message.toString())
             }
         }
     }

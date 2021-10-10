@@ -32,7 +32,6 @@ class AdminPanelFragment : AppCompatActivity() {
         renderTabLayout()
     }
 
-
     private fun renderViewPager() {
         viewPager.adapter = object : FragmentStateAdapter(this) {
 

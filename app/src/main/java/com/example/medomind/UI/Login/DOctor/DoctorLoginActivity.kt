@@ -3,6 +3,7 @@ package com.example.medomind.UI.Login.DOctor
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -76,7 +77,7 @@ class DoctorLoginActivity : AppCompatActivity() {
                 if (response.isSuccessful && response.body() != null) {
                     val role =
                         ApiAdapter.apiClient.role("${response.body()!!.type} ${response.body()!!.token}")
-
+                    Log.d("noice", role.raw().toString())
                     if (role.isSuccessful && role.body() != null) {
                         val sharedPreferences = getPreference()
                         val edit: SharedPreferences.Editor = sharedPreferences.edit()
@@ -104,6 +105,7 @@ class DoctorLoginActivity : AppCompatActivity() {
                     } else {
                         adminSigninProgress.visibility = View.INVISIBLE
                         btnAdminLogin.visibility = View.VISIBLE
+                        Log.d("myTag", role.message().toString())
                         //fancyToastFail("Login failed ! Check your credentials")
                     }
                 }else{
@@ -115,6 +117,7 @@ class DoctorLoginActivity : AppCompatActivity() {
                 adminSigninProgress.visibility = View.INVISIBLE
                 btnAdminLogin.visibility = View.VISIBLE
                 //toast(e.message.toString())
+                Log.d("myTag", e.message.toString())
             }
         }
     }
